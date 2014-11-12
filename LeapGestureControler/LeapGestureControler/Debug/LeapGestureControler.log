@@ -1,0 +1,29 @@
+﻿Build started 12/11/2014 1:52:37 AM.
+     1>Project "C:\Users\100428864\Documents\Visual Studio 2013\Projects\LeapGestureControler\LeapGestureControler\LeapGestureControler.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IC:\Users\100428864\Desktop\LeapDeveloperKit_2.1.3+21998_win\LeapSDK\include /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt LeapListener.cpp
+         LeapListener.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\100428864\Documents\Visual Studio 2013\Projects\LeapGestureControler\Debug\LeapGestureControler.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\100428864\Desktop\LeapDeveloperKit_2.1.3+21998_win\LeapSDK\lib\x86 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib Leapd.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\100428864\Documents\Visual Studio 2013\Projects\LeapGestureControler\Debug\LeapGestureControler.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\100428864\Documents\Visual Studio 2013\Projects\LeapGestureControler\Debug\LeapGestureControler.lib" /MACHINE:X86 Debug\ApplicationWindowController.obj
+         Debug\common.obj
+         Debug\LeapGestureControls.obj
+         Debug\LeapHandControls.obj
+         Debug\LeapListener.obj
+         Debug\VolumeControllers.obj
+         LeapGestureControler.vcxproj -> C:\Users\100428864\Documents\Visual Studio 2013\Projects\LeapGestureControler\Debug\LeapGestureControler.exe
+       PostBuildEvent:
+         xcopy /yr "C:\Users\100428864\Desktop\LeapDeveloperKit_2.1.3+21998_win\LeapSDK\lib\x86\Leapd.dll" "C:\Users\100428864\Documents\Visual Studio 2013\Projects\LeapGestureControler\Debug\"
+         xcopy /yr "C:\Users\100428864\Desktop\LeapDeveloperKit_2.1.3+21998_win\LeapSDK\lib\x86\msvcp120d.dll" "C:\Users\100428864\Documents\Visual Studio 2013\Projects\LeapGestureControler\Debug\"
+         xcopy /yr "C:\Users\100428864\Desktop\LeapDeveloperKit_2.1.3+21998_win\LeapSDK\lib\x86\msvcr120d.dll" "C:\Users\100428864\Documents\Visual Studio 2013\Projects\LeapGestureControler\Debug\"
+         :VCEnd
+         C:\Users\100428864\Desktop\LeapDeveloperKit_2.1.3+21998_win\LeapSDK\lib\x86\Leapd.dll
+         1 File(s) copied
+         C:\Users\100428864\Desktop\LeapDeveloperKit_2.1.3+21998_win\LeapSDK\lib\x86\msvcp120d.dll
+         1 File(s) copied
+         C:\Users\100428864\Desktop\LeapDeveloperKit_2.1.3+21998_win\LeapSDK\lib\x86\msvcr120d.dll
+         1 File(s) copied
+     1>Done Building Project "C:\Users\100428864\Documents\Visual Studio 2013\Projects\LeapGestureControler\LeapGestureControler\LeapGestureControler.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.48
