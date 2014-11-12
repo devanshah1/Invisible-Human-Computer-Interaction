@@ -125,7 +125,7 @@ void MotionListener::onConnect ( const Controller& controller )
     //controller.enableGesture ( Gesture::TYPE_CIRCLE );
     //controller.enableGesture ( Gesture::TYPE_KEY_TAP );
     //controller.enableGesture ( Gesture::TYPE_SCREEN_TAP );
-    controller.enableGesture ( Gesture::TYPE_SWIPE );
+    //controller.enableGesture ( Gesture::TYPE_SWIPE );
 }
 
 /**********************************************************************************

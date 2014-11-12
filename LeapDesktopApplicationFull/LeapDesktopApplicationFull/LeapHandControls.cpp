@@ -77,7 +77,6 @@ void determineHandAndPerformAction ( const Frame& frame, const Controller& contr
 
         determineFingerAndPerformAction ( controller, hand );
     }
-
 }
 
 /**********************************************************************************
@@ -246,7 +245,21 @@ void moveMouse ( const Controller& controller, std::string mouseAction )
     else if ( mouseAction == MOUSE_LEFT_CLICK )
     {
         // Perform a left click where the mouse is currently located at.
-        mouse_event ( MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, currentCorospondingMouseX, currentCorospondingMouseY, 0 );
+        mouse_event ( MOUSEEVENTF_LEFTDOWN, 0, currentCorospondingMouseX, currentCorospondingMouseY, 0 );
+
+        // Calculate the difference between previous mouse location and current mouse location.
+        int mouseXDifference = abs ( previousCorospondingMouseX - currentCorospondingMouseX );
+        int mouseYDifference = abs ( previousCorospondingMouseY - currentCorospondingMouseY );
+
+        // When a drag is detected while mouse is clicked then perform a draging action.
+        if ( mouseYDifference > 5 || mouseXDifference > 5 )
+        {
+            // Set the new corosponding cursor position for the mouse
+            SetCursorPos ( currentCorospondingMouseX, currentCorospondingMouseY );
+        }
+
+        mouse_event ( MOUSEEVENTF_LEFTUP, 0, currentCorospondingMouseX, currentCorospondingMouseY, 0 );
+
     }
     else if ( mouseAction == MOUSE_RIGHT_CLICK )
     {
