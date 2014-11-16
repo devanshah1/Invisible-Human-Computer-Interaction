@@ -126,6 +126,9 @@ void MotionListener::onConnect ( const Controller& controller )
     //controller.enableGesture ( Gesture::TYPE_KEY_TAP );
     //controller.enableGesture ( Gesture::TYPE_SCREEN_TAP );
     //controller.enableGesture ( Gesture::TYPE_SWIPE );
+
+    // Set the policy flag to make sure that the application is able to listen for background frames
+    controller.setPolicyFlags ( Leap::Controller::POLICY_BACKGROUND_FRAMES );
 }
 
 /**********************************************************************************
