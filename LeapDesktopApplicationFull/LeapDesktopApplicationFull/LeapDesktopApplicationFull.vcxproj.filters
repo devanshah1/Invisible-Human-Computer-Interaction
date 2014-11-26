@@ -33,6 +33,9 @@
     <ClCompile Include="VolumeControllers.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LeapGestureFeedBack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="commonUtils.h">

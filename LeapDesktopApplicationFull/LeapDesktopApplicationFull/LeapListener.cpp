@@ -45,7 +45,7 @@ class MotionListener : public Listener
 
 Function Name = volumeManipulation
 
-Descriptive Name = Increase/decrease/mute/unmute the volume
+Descriptive Name = Increase/decrease/mute/un-mute the volume
 
 Function =
 

@@ -1,3 +1,33 @@
+/*******************************************************************************************
+*
+*  Source File Name = LeapGestureControls.cpp
+*
+*  Descriptive Name = Functions used to control volume for workstations
+*
+*  List of Functions:
+*
+*     void volumeManipulation ( string controlOption )
+*
+*  Dependencies: See function dependencies
+*
+*  Restrictions: See function dependencies
+*
+*  Supported Platforms:
+*       Windows 32 bit
+*
+*  Project Developers:
+*      Devan Shah        (100428864)
+*      Ravikumar Patel   (100423830)
+*      Parth Patel       (100392782)
+*      Miguel Arindaeng  (100394094)
+*
+*  Change Log:
+*    DATE      DESCRIPTION                                           Name
+*  dd/mmm/yyyy
+*  ========================================================================================
+*  07/10/2014  Initial drop - File contains functions for volume     Devan Shah 100428864
+*                             control.
+*******************************************************************************************/
 #include "commonUtils.h"
 
 // Constants used to store environment variables for each gesture
@@ -40,13 +70,13 @@ None
 ******************************************************************************/
 void defaultEnvironmentSetup ()
 {
-    // Pushing environment variables for testing purpouses, The UI will do this in the future
+    // Pushing environment variables for testing purposes, The UI will do this in the future
 
     // Set actions for different types of circle gesture.
     SetEnvironmentVariable ( TEXT ( CIRCLE_COUNTERCLOKWISE ), TEXT ( VOLUME_STEP_DOWN ) );
     SetEnvironmentVariable ( TEXT ( CIRCLE_CLOCKWISE ), TEXT ( VOLUME_STEP_UP ) );
 
-    // Set actions for differnt types of swipe actions.
+    // Set actions for different types of swipe actions.
     //SetEnvironmentVariable ( TEXT ( SWIPE_LEFT ), TEXT ( LOCK_WORK_STATION ) );
     SetEnvironmentVariable ( TEXT ( SWIPE_RIGHT ), TEXT ( OPEN_CALCULATOR ) );
     SetEnvironmentVariable ( TEXT ( SWIPE_UP ), TEXT ( SHOW_KEYBOARD ) );
@@ -90,7 +120,7 @@ void getEnvironmentVariables ()
     // 
     DWORD  dwRet = NULL;
 
-    // Allocate memory for environment variable retrival
+    // Allocate memory for environment variable retrieval
     CIRCLE_CLOCKWISE_SET = ( LPTSTR ) malloc ( BUFSIZE*sizeof ( TCHAR ) );
     CIRCLE_COUNTERCLOKWISE_SET = ( LPTSTR ) malloc ( BUFSIZE*sizeof ( TCHAR ) );
     SWIPE_LEFT_SET = ( LPTSTR ) malloc ( BUFSIZE*sizeof ( TCHAR ) );
