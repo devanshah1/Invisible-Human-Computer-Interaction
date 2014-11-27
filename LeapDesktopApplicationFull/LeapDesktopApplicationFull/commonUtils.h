@@ -44,6 +44,9 @@
 #include <endpointvolume.h> 
 #include <mmdeviceapi.h>
 #include <stdlib.h>
+#include <GL/gl.h>
+#include <GL/glut.h>
+#include <GL/glu.h>
 
 /*
  * Define the programming directives for making sure that the linker knows the lib's
