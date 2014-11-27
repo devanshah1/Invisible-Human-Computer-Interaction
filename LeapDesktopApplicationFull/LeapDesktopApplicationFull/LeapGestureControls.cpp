@@ -141,11 +141,13 @@ void circleGestures ( const Gesture& gesture, const Controller& controller )
 
         // handle the action when clockwise circle action is detected from Leap Motion.
         runGestureAction ( CIRCLE_CLOCKWISE );
+        //createUserFeedBackWindow ( "C:\\Users\\100428864\\Dropbox\\Capstone\\FeedBackImages\\counterClockWise.png", 150, 131 );
     }
     else if ( stateNames [gesture.state ()] == "STATE_END" )
     {
         clockwiseness = "clockwise";
         runGestureAction ( CIRCLE_COUNTERCLOKWISE );
+        //createUserFeedBackWindow ( "C:\\Users\\100428864\\Dropbox\\Capstone\\FeedBackImages\\clockWise.png", 150, 131 );
     }
 
     // Calculate angle swept since last frame
@@ -228,6 +230,7 @@ void swipeGesture ( const Gesture& gesture, const Controller& controller )
         if ( swipe.direction ().x > 0 )
         {
             runGestureAction ( SWIPE_RIGHT );
+            //createUserFeedBackWindow ( "C:\\Users\\100428864\\Dropbox\\Capstone\\FeedBackImages\\swipeRight.png", 150, 131 );
         }
         /*
         * Handle Left Swipe:
@@ -242,6 +245,7 @@ void swipeGesture ( const Gesture& gesture, const Controller& controller )
         else
         {
             runGestureAction ( SWIPE_LEFT );
+            //createUserFeedBackWindow ( "C:\\Users\\100428864\\Dropbox\\Capstone\\FeedBackImages\\swipeLeft.png", 150, 131 );
         }
     }
     /*
@@ -251,20 +255,20 @@ void swipeGesture ( const Gesture& gesture, const Controller& controller )
     *        determine the x and y coordinates of the swipe.
     *      - Using the x and y coordinates we can determine the orientation of the swipe
     *      - When the y value of the swipe is greater then the x value of the swipe this
-    *        show that the swipe is vertical. This is true because when you perform a vertival
-    *        swipe you are increasing the y coordinate and the x should stay retively the same.
+    *        show that the swipe is vertical. This is true because when you perform a vertical
+    *        swipe you are increasing the y coordinate and the x should stay restively the same.
     */
     else
     {
         if ( swipe.direction ().y > 0 )
         {
-            //runGestureAction ( SWIPE_UP );
             runGestureAction ( SWIPE_DOWN );
+            //createUserFeedBackWindow ( "C:\\Users\\100428864\\Dropbox\\Capstone\\FeedBackImages\\swipeDown.png", 150, 131 );
         }
         else
         {
-            //runGestureAction ( SWIPE_DOWN );
             runGestureAction ( SWIPE_UP );
+            //createUserFeedBackWindow ( "C:\\Users\\100428864\\Dropbox\\Capstone\\FeedBackImages\\swipeUp.png", 150, 131 );
         }
     }
 }

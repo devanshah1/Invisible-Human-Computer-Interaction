@@ -1,36 +1,47 @@
-﻿Build started 26/11/2014 6:01:28 PM.
+﻿Build started 27/11/2014 9:14:45 AM.
      1>Project "C:\Users\100428864\Dropbox\Capstone\GitHub Repository\Motion-Computing-Application\LeapDesktopApplicationFull\LeapDesktopApplicationFull\LeapDesktopApplicationFull.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\..\..\freeglut\include /I..\..\..\cinder_0.8.6_vc2013\include /I..\..\..\cinder_0.8.6_vc2013\boost /I..\..\LeapSDK\include /ZI /nologo /W3 /WX- /MP /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D NOMINMAX /D _WIN32_WINNT=0x0502 /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt LeapGestureFeedBack.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\..\..\freeglut\include /I..\..\..\cinder_0.8.6_vc2013\include /I..\..\..\cinder_0.8.6_vc2013\boost /I..\..\LeapSDK\include /ZI /nologo /W3 /WX- /MP /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D NOMINMAX /D _WIN32_WINNT=0x0502 /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ApplicationWindowController.cpp LeapGestureControls.cpp LeapGestureFeedBack.cpp LeapHandControls.cpp LeapListener.cpp VolumeControllers.cpp common.cpp
+     1>cl : Command line warning D9030: '/Gm' is incompatible with multiprocessing; ignoring /MP switch
+         common.cpp
+     1>c:\users\100428864\dropbox\capstone\github repository\motion-computing-application\leapdesktopapplicationfull\leapdesktopapplicationfull\commonutils.h(138): error C2504: 'AppNative' : base class undefined
+         VolumeControllers.cpp
+     1>c:\users\100428864\dropbox\capstone\github repository\motion-computing-application\leapdesktopapplicationfull\leapdesktopapplicationfull\commonutils.h(138): error C2504: 'AppNative' : base class undefined
+         LeapListener.cpp
+     1>c:\users\100428864\dropbox\capstone\github repository\motion-computing-application\leapdesktopapplicationfull\leapdesktopapplicationfull\commonutils.h(138): error C2504: 'AppNative' : base class undefined
+     1>c:\users\100428864\dropbox\capstone\github repository\motion-computing-application\leapdesktopapplicationfull\leapdesktopapplicationfull\leaplistener.cpp(174): error C2440: 'initializing' : cannot convert from 'LeapGestureFeedBack *' to 'cinder::app::AppBasic *'
+                 Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+     1>c:\users\100428864\dropbox\capstone\github repository\motion-computing-application\leapdesktopapplicationfull\leapdesktopapplicationfull\leaplistener.cpp(174): error C2061: syntax error : identifier 'RendererGl'
+         LeapHandControls.cpp
+     1>c:\users\100428864\dropbox\capstone\github repository\motion-computing-application\leapdesktopapplicationfull\leapdesktopapplicationfull\commonutils.h(138): error C2504: 'AppNative' : base class undefined
          LeapGestureFeedBack.cpp
-     1>c:\users\100428864\dropbox\capstone\github repository\motion-computing-application\leapdesktopapplicationfull\leapdesktopapplicationfull\leapgesturefeedback.cpp(31): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\100428864\dropbox\capstone\github repository\motion-computing-application\leapdesktopapplicationfull\leapdesktopapplicationfull\leapgesturefeedback.cpp(61): warning C4305: 'argument' : truncation from 'double' to 'float'
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\100428864\Dropbox\Capstone\GitHub Repository\Motion-Computing-Application\LeapDesktopApplicationFull\Debug\LeapDesktopApplicationFull.exe" /INCREMENTAL /NOLOGO /LIBPATH:..\..\..\freeglut\lib /LIBPATH:..\..\..\cinder_0.8.6_vc2013\lib /LIBPATH:..\..\..\cinder_0.8.6_vc2013\lib\msw\x86 /LIBPATH:..\..\LeapSDK\lib\x86 Leapd.lib freeglut.lib "cinder-v120_d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /NODEFAULTLIB:LIBCMT /NODEFAULTLIB:LIBCPMT /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\100428864\Dropbox\Capstone\GitHub Repository\Motion-Computing-Application\LeapDesktopApplicationFull\Debug\LeapDesktopApplicationFull.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE:NO /IMPLIB:"C:\Users\100428864\Dropbox\Capstone\GitHub Repository\Motion-Computing-Application\LeapDesktopApplicationFull\Debug\LeapDesktopApplicationFull.lib" /MACHINE:X86 Debug\ApplicationWindowController.obj
-         Debug\common.obj
-         Debug\LeapGestureControls.obj
-         Debug\LeapGestureFeedBack.obj
-         Debug\LeapHandControls.obj
-         Debug\LeapListener.obj
-         Debug\VolumeControllers.obj
-         LeapDesktopApplicationFull.vcxproj -> C:\Users\100428864\Dropbox\Capstone\GitHub Repository\Motion-Computing-Application\LeapDesktopApplicationFull\Debug\LeapDesktopApplicationFull.exe
-       PostBuildEvent:
-         xcopy /yr "..\..\LeapSDK\lib\x86\Leapd.dll" "C:\Users\100428864\Dropbox\Capstone\GitHub Repository\Motion-Computing-Application\LeapDesktopApplicationFull\Debug\"
-         xcopy /yr "..\..\LeapSDK\lib\x86\msvcp120d.dll" "C:\Users\100428864\Dropbox\Capstone\GitHub Repository\Motion-Computing-Application\LeapDesktopApplicationFull\Debug\"
-         xcopy /yr "..\..\LeapSDK\lib\x86\msvcr120d.dll" "C:\Users\100428864\Dropbox\Capstone\GitHub Repository\Motion-Computing-Application\LeapDesktopApplicationFull\Debug\"
-         xcopy /yr "..\..\..\freeglut\bin\freeglut.dll" "C:\Users\100428864\Dropbox\Capstone\GitHub Repository\Motion-Computing-Application\LeapDesktopApplicationFull\Debug\"
-         
-         :VCEnd
-         ..\..\LeapSDK\lib\x86\Leapd.dll
-         1 File(s) copied
-         ..\..\LeapSDK\lib\x86\msvcp120d.dll
-         1 File(s) copied
-         ..\..\LeapSDK\lib\x86\msvcr120d.dll
-         1 File(s) copied
-         ..\..\..\freeglut\bin\freeglut.dll
-         1 File(s) copied
-     1>Done Building Project "C:\Users\100428864\Dropbox\Capstone\GitHub Repository\Motion-Computing-Application\LeapDesktopApplicationFull\LeapDesktopApplicationFull\LeapDesktopApplicationFull.vcxproj" (Build target(s)).
+     1>c:\users\100428864\dropbox\capstone\github repository\motion-computing-application\leapdesktopapplicationfull\leapdesktopapplicationfull\commonutils.h(138): error C2504: 'AppNative' : base class undefined
+     1>c:\users\100428864\dropbox\capstone\github repository\motion-computing-application\leapdesktopapplicationfull\leapdesktopapplicationfull\leapgesturefeedback.cpp(8): error C2011: 'LeapGestureFeedBack' : 'class' type redefinition
+                 c:\users\100428864\dropbox\capstone\github repository\motion-computing-application\leapdesktopapplicationfull\leapdesktopapplicationfull\commonutils.h(137) : see declaration of 'LeapGestureFeedBack'
+     1>c:\users\100428864\dropbox\capstone\github repository\motion-computing-application\leapdesktopapplicationfull\leapdesktopapplicationfull\leapgesturefeedback.cpp(38): error C2027: use of undefined type 'LeapGestureFeedBack'
+                 c:\users\100428864\dropbox\capstone\github repository\motion-computing-application\leapdesktopapplicationfull\leapdesktopapplicationfull\commonutils.h(137) : see declaration of 'LeapGestureFeedBack'
+     1>c:\users\100428864\dropbox\capstone\github repository\motion-computing-application\leapdesktopapplicationfull\leapdesktopapplicationfull\leapgesturefeedback.cpp(41): error C3861: 'createMainApplicationWindow': identifier not found
+     1>c:\users\100428864\dropbox\capstone\github repository\motion-computing-application\leapdesktopapplicationfull\leapdesktopapplicationfull\leapgesturefeedback.cpp(44): error C2027: use of undefined type 'LeapGestureFeedBack'
+                 c:\users\100428864\dropbox\capstone\github repository\motion-computing-application\leapdesktopapplicationfull\leapdesktopapplicationfull\commonutils.h(137) : see declaration of 'LeapGestureFeedBack'
+     1>c:\users\100428864\dropbox\capstone\github repository\motion-computing-application\leapdesktopapplicationfull\leapdesktopapplicationfull\leapgesturefeedback.cpp(49): error C2065: 'leap' : undeclared identifier
+     1>c:\users\100428864\dropbox\capstone\github repository\motion-computing-application\leapdesktopapplicationfull\leapdesktopapplicationfull\leapgesturefeedback.cpp(49): error C2228: left of '.frame' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\100428864\dropbox\capstone\github repository\motion-computing-application\leapdesktopapplicationfull\leapdesktopapplicationfull\leapgesturefeedback.cpp(52): error C2065: 'leap' : undeclared identifier
+     1>c:\users\100428864\dropbox\capstone\github repository\motion-computing-application\leapdesktopapplicationfull\leapdesktopapplicationfull\leapgesturefeedback.cpp(55): error C2065: 'leap' : undeclared identifier
+     1>c:\users\100428864\dropbox\capstone\github repository\motion-computing-application\leapdesktopapplicationfull\leapdesktopapplicationfull\leapgesturefeedback.cpp(67): error C2027: use of undefined type 'LeapGestureFeedBack'
+                 c:\users\100428864\dropbox\capstone\github repository\motion-computing-application\leapdesktopapplicationfull\leapdesktopapplicationfull\commonutils.h(137) : see declaration of 'LeapGestureFeedBack'
+     1>c:\users\100428864\dropbox\capstone\github repository\motion-computing-application\leapdesktopapplicationfull\leapdesktopapplicationfull\leapgesturefeedback.cpp(71): error C3861: 'createWindow': identifier not found
+     1>c:\users\100428864\dropbox\capstone\github repository\motion-computing-application\leapdesktopapplicationfull\leapdesktopapplicationfull\leapgesturefeedback.cpp(78): error C3482: 'this' can only be used as a lambda capture within a non-static member function
+     1>c:\users\100428864\dropbox\capstone\github repository\motion-computing-application\leapdesktopapplicationfull\leapdesktopapplicationfull\leapgesturefeedback.cpp(80): error C2355: 'this' : can only be referenced inside non-static member functions or non-static data member initializers
+     1>c:\users\100428864\dropbox\capstone\github repository\motion-computing-application\leapdesktopapplicationfull\leapdesktopapplicationfull\leapgesturefeedback.cpp(80): error C2227: left of '->console' must point to class/struct/union/generic type
+     1>c:\users\100428864\dropbox\capstone\github repository\motion-computing-application\leapdesktopapplicationfull\leapdesktopapplicationfull\leapgesturefeedback.cpp(81): fatal error C1903: unable to recover from previous error(s); stopping compilation
+         LeapGestureControls.cpp
+     1>c:\users\100428864\dropbox\capstone\github repository\motion-computing-application\leapdesktopapplicationfull\leapdesktopapplicationfull\commonutils.h(138): error C2504: 'AppNative' : base class undefined
+         ApplicationWindowController.cpp
+     1>c:\users\100428864\dropbox\capstone\github repository\motion-computing-application\leapdesktopapplicationfull\leapdesktopapplicationfull\commonutils.h(138): error C2504: 'AppNative' : base class undefined
+         Generating Code...
+     1>Done Building Project "C:\Users\100428864\Dropbox\Capstone\GitHub Repository\Motion-Computing-Application\LeapDesktopApplicationFull\LeapDesktopApplicationFull\LeapDesktopApplicationFull.vcxproj" (Build target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:21.87
+Time Elapsed 00:00:24.57

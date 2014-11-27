@@ -111,7 +111,7 @@ void determineFingerAndPerformAction ( const Controller& controller, const Hand&
 {
     // Get the list of fingers that are visiable for the hand on the frame
     const FingerList fingersExtended = hand.fingers ().extended ();
-
+    
     // Only move the mouse when one single finger is extended.
     if ( fingersExtended.count () == 1 )
     {

@@ -122,10 +122,10 @@ None
 void MotionListener::onConnect ( const Controller& controller )
 {
     std::cout << "Connected" << std::endl;
-    //controller.enableGesture ( Gesture::TYPE_CIRCLE );
-    //controller.enableGesture ( Gesture::TYPE_KEY_TAP );
-    //controller.enableGesture ( Gesture::TYPE_SCREEN_TAP );
-    //controller.enableGesture ( Gesture::TYPE_SWIPE );
+    controller.enableGesture ( Gesture::TYPE_CIRCLE );
+    controller.enableGesture ( Gesture::TYPE_KEY_TAP );
+    controller.enableGesture ( Gesture::TYPE_SCREEN_TAP );
+    controller.enableGesture ( Gesture::TYPE_SWIPE );
 
     // Set the policy flag to make sure that the application is able to listen for background frames
     controller.setPolicyFlags ( Leap::Controller::POLICY_BACKGROUND_FRAMES );
@@ -170,3 +170,5 @@ void MotionListener::onFrame ( const Controller& controller )
     // Sort through the gestures and perform the necessary actions that are associated to the gestures.
     determineGestureAndPerformAction ( frame, controller );
 }
+
+CINDER_APP_NATIVE ( LeapGestureFeedBack, RendererGl )

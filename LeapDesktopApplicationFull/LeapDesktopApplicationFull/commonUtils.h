@@ -44,9 +44,13 @@
 #include <endpointvolume.h> 
 #include <mmdeviceapi.h>
 #include <stdlib.h>
-#include <GL/gl.h>
-#include <GL/glut.h>
-#include <GL/glu.h>
+#include "cinder/app/AppNative.h"
+#include "cinder/app/AppBasic.h"
+#include "cinder/gl/Texture.h"
+#include <list>
+#include "cinder/Rand.h"
+#include "cinder/gl/gl.h"
+#include "cinder/ImageIo.h"
 
 /*
  * Define the programming directives for making sure that the linker knows the lib's
@@ -128,3 +132,20 @@ void determineFingerAndPerformAction ( const Controller& controller, const Hand&
 void defaultEnvironmentSetup ();
 void getEnvironmentVariables ();
 void freeEnvironmentBuffers ();
+
+// User FeedBack Functions Deceleration
+class LeapGestureFeedBack : public ci::app::AppNative
+{
+    public:
+        void setup ();
+        void draw ();
+        void createUserFeedBackWindow ( std::string imagePath, int windowWidth, int windowHeight );
+        void createMainApplicationWindow ();
+
+        // Stores the maximum screen size
+        int maxWindowWidth;
+        int maxWindowHeight;
+
+        // Setup the leap controller
+        Leap::Controller leap;
+};

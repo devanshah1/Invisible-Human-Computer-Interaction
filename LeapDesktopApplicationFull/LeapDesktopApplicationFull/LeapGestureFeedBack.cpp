@@ -1,50 +1,32 @@
-#include "cinder/app/AppNative.h"
-#include "cinder/gl/gl.h"
-#include "Leap.h"
-#include "LeapMath.h"
 #include "commonUtils.h"
 
 using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-class LeapGestureFeedBack : public AppNative
+// The window-specific data for each window
+class WindowData
 {
     public:
-        void setup ();
-        void draw ();
-        void prepareSettings ( Settings *settings );
-        
-        // Stores the maximum screen size
-        int maxWindowWidth;
-        int maxWindowHeight;
+        WindowData ( gl::Texture image )
+            : windowBackgroundColor ( Color ( 0, 0, 0 ) ) // Default to white background
+        {
+            windowImageToLoad = image;
+        }
 
-        // Setup the 
-        Leap::Controller leap;
+        Color			windowBackgroundColor;
+        gl::Texture     windowImageToLoad;
 };
-
-void LeapGestureFeedBack::prepareSettings ( Settings *settings )
-{
-    // Retrieve the maximum screen size for the computer that is running this application
-    maxWindowWidth = GetSystemMetrics ( SM_CXSCREEN );
-    maxWindowHeight = GetSystemMetrics ( SM_CYSCREEN );
-
-    // Setting the window size, frame rate for processing and making the window borderless.
-    settings->setWindowSize ( 150, 130 );
-    settings->setFrameRate ( 100.0f );
-    settings->setBorderless ( true );
-}
 
 void LeapGestureFeedBack::setup ()
 {
-    gl::enableAlphaBlending ();
+    // for the default window we need to provide an instance of WindowData
+    createMainApplicationWindow ();
 }
 
 void LeapGestureFeedBack::draw ()
 {
     gl::clear ( Color ( 255, 255, 255 ) );
-    Leap::PointableList pointables = leap.frame ().pointables ();
-    Leap::InteractionBox iBox = leap.frame ().interactionBox ();
 
     // Get the most recent frame and report some basic information
     const Leap::Frame frame = leap.frame ();
@@ -55,28 +37,45 @@ void LeapGestureFeedBack::draw ()
     // Sort through the gestures and perform the necessary actions that are associated to the gestures.
     determineGestureAndPerformAction ( frame, leap );
 
-    //for ( int p = 0; p < pointables.count (); p++ )
-    //{
-    //    Leap::Pointable pointable = pointables [p];
-    //    Leap::Vector normalizedPosition = iBox.normalizePoint ( pointable.stabilizedTipPosition () );
-    //    float x = normalizedPosition.x * maxWindowWidth;
-    //    float y = maxWindowHeight - normalizedPosition.y * maxWindowHeight;
+    WindowData *data = getWindow ()->getUserData<WindowData> ();
 
-    //    if ( pointable.touchDistance () > 0 && pointable.touchZone () != Leap::Pointable::Zone::ZONE_NONE )
-    //    {
-    //        gl::color ( 0, 1, 0, 1 - pointable.touchDistance () );
-    //    }
-    //    else if ( pointable.touchDistance () <= 0 )
-    //    {
-    //        gl::color ( 1, 0, 0, -pointable.touchDistance () );
-    //    }
-    //    else
-    //    {
-    //        gl::color ( 0, 0, 1, .05 );
-    //    }
-
-    //    gl::drawSolidCircle ( Vec2f ( x, y ), 40 );
-    //}
+    gl::color ( data->windowBackgroundColor );
+    gl::draw ( data->windowImageToLoad, Vec2f ( 0, 0 ) );
+    gl::enableAlphaBlending ();
+    glColor4f ( 1.0f, 1.0f, 1.0f, 0.5f );
+    glEnable ( GL_BLEND );
+    gl::end ();
 }
 
-CINDER_APP_NATIVE ( LeapGestureFeedBack, RendererGl )
+void LeapGestureFeedBack::createUserFeedBackWindow ( std::string userFeedBackImagePath, int windowWidth, int windowHeight )
+{
+    gl::Texture userFeedBackImage = gl::Texture ( loadImage ( userFeedBackImagePath ) );
+
+    app::WindowRef newWindow = createWindow ( Window::Format ().size ( windowWidth, windowHeight ) );
+    newWindow->setUserData ( new WindowData ( userFeedBackImage ) );
+    newWindow->setBorderless ( true );
+
+    // for demonstration purposes, we'll connect a lambda unique to this window which fires on close
+    int uniqueId = getNumWindows ();
+    newWindow->getSignalClose ().connect (
+        [uniqueId, this]
+    {
+        this->console () << "You closed window #" << uniqueId << std::endl;
+    }
+    );
+}
+
+void LeapGestureFeedBack::createMainApplicationWindow ()
+{
+    app::WindowRef newWindow = createWindow ( Window::Format ().size ( 10, 10 ) );
+    newWindow->setBorderless ( true );
+
+    // for demonstration purposes, we'll connect a lambda unique to this window which fires on close
+    int uniqueId = getNumWindows ();
+    newWindow->getSignalClose ().connect (
+        [uniqueId, this]
+    {
+        this->console () << "You closed window #" << uniqueId << std::endl;
+    }
+    );
+}
