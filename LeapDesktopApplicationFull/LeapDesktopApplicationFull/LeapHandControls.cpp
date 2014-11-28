@@ -60,7 +60,7 @@ Error Return =
 None
 
 ******************************************************************************/
-void determineHandAndPerformAction ( const Frame& frame, const Controller& controller )
+void LeapGestureFeedBack::determineHandAndPerformAction ( const Frame& frame, const Controller& controller )
 {
     // Get Hands
     const HandList hands = frame.hands ();
@@ -107,11 +107,11 @@ Error Return =
 None
 
 ******************************************************************************/
-void determineFingerAndPerformAction ( const Controller& controller, const Hand& hand )
+void LeapGestureFeedBack::determineFingerAndPerformAction ( const Controller& controller, const Hand& hand )
 {
-    // Get the list of fingers that are visiable for the hand on the frame
+    // Get the list of fingers that are visible for the hand on the frame
     const FingerList fingersExtended = hand.fingers ().extended ();
-    
+
     // Only move the mouse when one single finger is extended.
     if ( fingersExtended.count () == 1 )
     {
@@ -140,9 +140,9 @@ void determineFingerAndPerformAction ( const Controller& controller, const Hand&
 
 /**********************************************************************************
 
-Function Name = volumeManipulation
+Function Name = LeapGestureFeedBack::moveMouse
 
-Descriptive Name = Increase/decrease/mute/unmute the volume
+Descriptive Name = Increase/decrease/mute/un-mute the volume
 
 Function =
 
@@ -166,7 +166,7 @@ Error Return =
 None
 
 ******************************************************************************/
-void moveMouse ( const Controller& controller, std::string mouseAction )
+void LeapGestureFeedBack::moveMouse ( const Controller& controller, std::string mouseAction )
 {
     const Frame currentFrame = controller.frame ();
     const Frame previousFrame = controller.frame ( 10 );
@@ -194,7 +194,7 @@ void moveMouse ( const Controller& controller, std::string mouseAction )
     Pointable pointablePrevious = previousFrame.pointables ().frontmost ();
 
     /*
-    * Retrive the current stabilized leap point (2D orientation and smooth).
+    * Retrieve the current stabilized leap point (2D orientation and smooth).
     * Using the stabilized leap points determine the normalized points with the
     * use of the Leap's interaction box.
     */
@@ -202,18 +202,18 @@ void moveMouse ( const Controller& controller, std::string mouseAction )
     Vector normalizedPointCurrent = leapInteractionBoxCurrent.normalizePoint ( leapPointCurrent, false );
 
     /*
-    * Retrive the previous stabilized leap point (2D orientation and smooth).
+    * Retrieve the previous stabilized leap point (2D orientation and smooth).
     * Using the stabilized leap points determine the normalized points with the
     * use of the Leap's interaction box.
     */
     Vector leapPointPrevious = pointablePrevious.stabilizedTipPosition ();
     Vector normalizedPointPrevious = leapInteractionBoxPrevious.normalizePoint ( leapPointPrevious, false );
 
-    // Increase the sensitivity of the mouse movenment for current frame.
+    // Increase the sensitivity of the mouse movement for current frame.
     normalizedPointCurrent *= 1.5; //scale
     normalizedPointCurrent -= Leap::Vector ( .25, .25, .25 ); // re-center
 
-    // Increase the sensitivity of the mouse movenment for previous frame.
+    // Increase the sensitivity of the mouse movement for previous frame.
     normalizedPointPrevious *= 1.5; //scale
     normalizedPointPrevious -= Leap::Vector ( .25, .25, .25 ); // re-center
 
@@ -228,17 +228,17 @@ void moveMouse ( const Controller& controller, std::string mouseAction )
     int previousCorospondingMouseX = ( int ) ( normalizedPointPrevious.x * maxScreenWidth );
     int previousCorospondingMouseY = ( int ) ( ( 1 - normalizedPointPrevious.y ) * maxScreenHeight );
 
-    // Mose the mouse
+    // Move the mouse
     if ( mouseAction == MOVE_MOUSE )
     {
         // Calculate the difference between previous mouse location and current mouse location.
         int mouseXDifference = abs ( previousCorospondingMouseX - currentCorospondingMouseX );
         int mouseYDifference = abs ( previousCorospondingMouseY - currentCorospondingMouseY );
 
-        // Only move the mose to the current location if the difference is greated then 10 pixels
+        // Only move the mouse to the current location if the difference is greater then 10 pixels
         if ( mouseYDifference > 1 || mouseXDifference > 1 )
         {
-            // Set the new corosponding cursor position for the mouse
+            // Set the new corresponding cursor position for the mouse
             SetCursorPos ( currentCorospondingMouseX, currentCorospondingMouseY );
         }
     }
@@ -251,10 +251,10 @@ void moveMouse ( const Controller& controller, std::string mouseAction )
         int mouseXDifference = abs ( previousCorospondingMouseX - currentCorospondingMouseX );
         int mouseYDifference = abs ( previousCorospondingMouseY - currentCorospondingMouseY );
 
-        // When a drag is detected while mouse is clicked then perform a draging action.
+        // When a drag is detected while mouse is clicked then perform a dragging action.
         if ( mouseYDifference > 5 || mouseXDifference > 5 )
         {
-            // Set the new corosponding cursor position for the mouse
+            // Set the new corresponding cursor position for the mouse
             SetCursorPos ( currentCorospondingMouseX, currentCorospondingMouseY );
         }
 

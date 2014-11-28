@@ -1,32 +1,81 @@
 #include "commonUtils.h"
 
-using namespace ci;
-using namespace ci::app;
-using namespace std;
+/**********************************************************************************
 
-// The window-specific data for each window
-class WindowData
-{
-    public:
-        WindowData ( gl::Texture image )
-            : windowBackgroundColor ( Color ( 0, 0, 0 ) ) // Default to white background
-        {
-            windowImageToLoad = image;
-        }
+Function Name = volumeManipulation
 
-        Color			windowBackgroundColor;
-        gl::Texture     windowImageToLoad;
-};
+Descriptive Name = Increase/decrease/mute/unmute the volume
 
+Function =
+
+
+
+Dependencies =
+None
+
+Restrictions =
+None
+
+Input =
+
+Output =
+See function description.
+
+Normal Return =
+0 -
+
+Error Return =
+None
+
+******************************************************************************/
 void LeapGestureFeedBack::setup ()
-{
+{ 
+    defaultEnvironmentSetup ();
+    getEnvironmentVariables ();
+
     // for the default window we need to provide an instance of WindowData
     createMainApplicationWindow ();
 }
 
+/**********************************************************************************
+
+Function Name = volumeManipulation
+
+Descriptive Name = Increase/decrease/mute/unmute the volume
+
+Function =
+
+
+
+Dependencies =
+None
+
+Restrictions =
+None
+
+Input =
+
+Output =
+See function description.
+
+Normal Return =
+0 -
+
+Error Return =
+None
+
+******************************************************************************/
 void LeapGestureFeedBack::draw ()
 {
     gl::clear ( Color ( 255, 255, 255 ) );
+
+    //leap.enableGesture ( Gesture::TYPE_CIRCLE );
+    //leap.enableGesture ( Gesture::TYPE_KEY_TAP );
+    //leap.enableGesture ( Gesture::TYPE_SCREEN_TAP );
+    //leap.enableGesture ( Gesture::TYPE_SWIPE );
+
+    // Set the policy flag to make sure that the application is able to listen for background frames
+    leap.setPolicyFlags ( Leap::Controller::POLICY_BACKGROUND_FRAMES );
 
     // Get the most recent frame and report some basic information
     const Leap::Frame frame = leap.frame ();
@@ -35,7 +84,7 @@ void LeapGestureFeedBack::draw ()
     determineHandAndPerformAction ( frame, leap );
 
     // Sort through the gestures and perform the necessary actions that are associated to the gestures.
-    determineGestureAndPerformAction ( frame, leap );
+    //determineGestureAndPerformAction ( frame, leap );
 
     WindowData *data = getWindow ()->getUserData<WindowData> ();
 
@@ -47,6 +96,34 @@ void LeapGestureFeedBack::draw ()
     gl::end ();
 }
 
+/**********************************************************************************
+
+Function Name = volumeManipulation
+
+Descriptive Name = Increase/decrease/mute/unmute the volume
+
+Function =
+
+
+
+Dependencies =
+None
+
+Restrictions =
+None
+
+Input =
+
+Output =
+See function description.
+
+Normal Return =
+0 -
+
+Error Return =
+None
+
+******************************************************************************/
 void LeapGestureFeedBack::createUserFeedBackWindow ( std::string userFeedBackImagePath, int windowWidth, int windowHeight )
 {
     gl::Texture userFeedBackImage = gl::Texture ( loadImage ( userFeedBackImagePath ) );
@@ -65,6 +142,34 @@ void LeapGestureFeedBack::createUserFeedBackWindow ( std::string userFeedBackIma
     );
 }
 
+/**********************************************************************************
+
+Function Name = volumeManipulation
+
+Descriptive Name = Increase/decrease/mute/unmute the volume
+
+Function =
+
+
+
+Dependencies =
+None
+
+Restrictions =
+None
+
+Input =
+
+Output =
+See function description.
+
+Normal Return =
+0 -
+
+Error Return =
+None
+
+******************************************************************************/
 void LeapGestureFeedBack::createMainApplicationWindow ()
 {
     app::WindowRef newWindow = createWindow ( Window::Format ().size ( 10, 10 ) );
@@ -79,3 +184,5 @@ void LeapGestureFeedBack::createMainApplicationWindow ()
     }
     );
 }
+
+CINDER_APP_NATIVE ( LeapGestureFeedBack, RendererGl )

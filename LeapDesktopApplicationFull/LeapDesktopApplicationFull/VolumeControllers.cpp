@@ -61,9 +61,9 @@ Error Return =
 None
 
 ******************************************************************************/
-void volumeManipulation ( string controlOption )
+void LeapGestureFeedBack::volumeManipulation ( string controlOption )
 {
-    // Variable Decleration
+    // Variable Declaration
     HRESULT              volumeManipulationResults = NULL;  // Stores detailed information for the volume communication interface
     IMMDeviceEnumerator  *deviceEnumerator = NULL;  // Stores 
     IMMDevice            *defaultDevice = NULL;  //
@@ -90,12 +90,12 @@ void volumeManipulation ( string controlOption )
     if ( ( pbMute && controlOption == VOLUME_MUTE_UNMUTE ) )
     {
         volumeManipulationResults = endpointVolume->SetMute ( 0, NULL );
-        //createUserFeedBackWindow ( "C:\\Users\\100428864\\Dropbox\\Capstone\\FeedBackImages\\keyTap1.png", 150, 131 );
+        createUserFeedBackWindow ( "C:\\Users\\100428864\\Desktop\\FeedBackImages\\keyTap1.png", 150, 131 );
     }
     else if ( !pbMute && controlOption == VOLUME_MUTE_UNMUTE )
     {
         volumeManipulationResults = endpointVolume->SetMute ( 1, NULL );
-        //createUserFeedBackWindow ( "C:\\Users\\100428864\\Dropbox\\Capstone\\FeedBackImages\\keyTap2.png", 150, 131 );
+        createUserFeedBackWindow ( "C:\\Users\\100428864\\Desktop\\FeedBackImages\\keyTap2.png", 150, 131 );
     }
 
     if ( controlOption == VOLUME_STEP_UP )

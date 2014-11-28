@@ -60,7 +60,7 @@ Error Return =
 None
 
 ******************************************************************************/
-void determineGestureAndPerformAction ( const Frame& frame, const Controller& controller )
+void LeapGestureFeedBack::determineGestureAndPerformAction ( const Frame& frame, const Controller& controller )
 {
     // Get gestures
     const GestureList gestures = frame.gestures ();
@@ -129,7 +129,7 @@ Error Return =
 None
 
 ******************************************************************************/
-void circleGestures ( const Gesture& gesture, const Controller& controller )
+void LeapGestureFeedBack::circleGestures ( const Gesture& gesture, const Controller& controller )
 {
     CircleGesture circle = gesture;
     std::string clockwiseness;
@@ -141,13 +141,13 @@ void circleGestures ( const Gesture& gesture, const Controller& controller )
 
         // handle the action when clockwise circle action is detected from Leap Motion.
         runGestureAction ( CIRCLE_CLOCKWISE );
-        //createUserFeedBackWindow ( "C:\\Users\\100428864\\Dropbox\\Capstone\\FeedBackImages\\counterClockWise.png", 150, 131 );
+        createUserFeedBackWindow ( "C:\\Users\\100428864\\Desktop\\FeedBackImages\\clockWise.png", 150, 131 );
     }
     else if ( stateNames [gesture.state ()] == "STATE_END" )
     {
         clockwiseness = "clockwise";
         runGestureAction ( CIRCLE_COUNTERCLOKWISE );
-        //createUserFeedBackWindow ( "C:\\Users\\100428864\\Dropbox\\Capstone\\FeedBackImages\\clockWise.png", 150, 131 );
+        createUserFeedBackWindow ( "C:\\Users\\100428864\\Desktop\\FeedBackImages\\counterClockWise.png", 150, 131 );
     }
 
     // Calculate angle swept since last frame
@@ -195,7 +195,7 @@ Error Return =
 None
 
 ******************************************************************************/
-void swipeGesture ( const Gesture& gesture, const Controller& controller )
+void LeapGestureFeedBack::swipeGesture ( const Gesture& gesture, const Controller& controller )
 {
     SwipeGesture swipe = gesture;
 
@@ -230,7 +230,7 @@ void swipeGesture ( const Gesture& gesture, const Controller& controller )
         if ( swipe.direction ().x > 0 )
         {
             runGestureAction ( SWIPE_RIGHT );
-            //createUserFeedBackWindow ( "C:\\Users\\100428864\\Dropbox\\Capstone\\FeedBackImages\\swipeRight.png", 150, 131 );
+            createUserFeedBackWindow ( "C:\\Users\\100428864\\Desktop\\FeedBackImages\\swipeRight.png", 150, 131 );
         }
         /*
         * Handle Left Swipe:
@@ -245,7 +245,7 @@ void swipeGesture ( const Gesture& gesture, const Controller& controller )
         else
         {
             runGestureAction ( SWIPE_LEFT );
-            //createUserFeedBackWindow ( "C:\\Users\\100428864\\Dropbox\\Capstone\\FeedBackImages\\swipeLeft.png", 150, 131 );
+            createUserFeedBackWindow ( "C:\\Users\\100428864\\Desktop\\FeedBackImages\\swipeLeft.png", 150, 131 );
         }
     }
     /*
@@ -263,12 +263,12 @@ void swipeGesture ( const Gesture& gesture, const Controller& controller )
         if ( swipe.direction ().y > 0 )
         {
             runGestureAction ( SWIPE_DOWN );
-            //createUserFeedBackWindow ( "C:\\Users\\100428864\\Dropbox\\Capstone\\FeedBackImages\\swipeDown.png", 150, 131 );
+            createUserFeedBackWindow ( "C:\\Users\\100428864\\Desktop\\FeedBackImages\\swipeUp.png", 150, 131 );
         }
         else
         {
             runGestureAction ( SWIPE_UP );
-            //createUserFeedBackWindow ( "C:\\Users\\100428864\\Dropbox\\Capstone\\FeedBackImages\\swipeUp.png", 150, 131 );
+            createUserFeedBackWindow ( "C:\\Users\\100428864\\Desktop\\FeedBackImages\\swipeDown.png", 150, 131 );
         }
     }
 }
@@ -301,7 +301,7 @@ Error Return =
 None
 
 ******************************************************************************/
-void keyTapGesture ( const Gesture& gesture, const Controller& controller )
+void LeapGestureFeedBack::keyTapGesture ( const Gesture& gesture, const Controller& controller )
 {
     KeyTapGesture tap = gesture;
     std::cout << std::string ( 2, ' ' )
@@ -341,7 +341,7 @@ Error Return =
 None
 
 ******************************************************************************/
-void screenTapGesture ( const Gesture& gesture, const Controller& controller )
+void LeapGestureFeedBack::screenTapGesture ( const Gesture& gesture, const Controller& controller )
 {
     ScreenTapGesture screentap = gesture;
     std::cout << std::string ( 2, ' ' )
@@ -351,4 +351,5 @@ void screenTapGesture ( const Gesture& gesture, const Controller& controller )
         << ", direction: " << screentap.direction ();
 
     runGestureAction ( SCREEP_TAP );
+    createUserFeedBackWindow ( "C:\\Users\\100428864\\Desktop\\FeedBackImages\\supportedGestures.png", 729, 335 );
 }

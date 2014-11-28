@@ -60,7 +60,7 @@ Error Return =
 None
 
 ******************************************************************************/
-void applicationWindowManipulation ( std::string windowOption )
+void LeapGestureFeedBack::applicationWindowManipulation ( std::string windowOption )
 {
 
     HWND currentActiveWindow = GetForegroundWindow ();
@@ -86,7 +86,35 @@ void applicationWindowManipulation ( std::string windowOption )
     }
 }
 
-void keyboardManipulation ( std::string keyboardOption )
+/**********************************************************************************
+
+Function Name = volumeManipulation
+
+Descriptive Name = Increase/decrease/mute/unmute the volume
+
+Function =
+
+
+
+Dependencies =
+None
+
+Restrictions =
+None
+
+Input =
+
+Output =
+See function description.
+
+Normal Return =
+0 -
+
+Error Return =
+None
+
+******************************************************************************/
+void LeapGestureFeedBack::keyboardManipulation ( std::string keyboardOption )
 {
     // Find the window that that contains the windows on screen keyboard
     HWND onScreenKeyboard = FindWindow ( TEXT ( "OSKMainClass" ), NULL );

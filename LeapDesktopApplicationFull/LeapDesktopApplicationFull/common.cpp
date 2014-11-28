@@ -30,16 +30,6 @@
 *******************************************************************************************/
 #include "commonUtils.h"
 
-// Constants used to store environment variables for each gesture
-LPTSTR SWIPE_LEFT_SET;
-LPTSTR SWIPE_RIGHT_SET;
-LPTSTR SWIPE_UP_SET;
-LPTSTR SWIPE_DOWN_SET;
-LPTSTR CIRCLE_CLOCKWISE_SET;
-LPTSTR CIRCLE_COUNTERCLOKWISE_SET;
-LPTSTR KEY_TAP_SET;
-LPTSTR SCREEP_TAP_SET;
-
 /**********************************************************************************
 
 Function Name = volumeManipulation
@@ -68,7 +58,7 @@ Error Return =
 None
 
 ******************************************************************************/
-void defaultEnvironmentSetup ()
+void LeapGestureFeedBack::defaultEnvironmentSetup ()
 {
     // Pushing environment variables for testing purposes, The UI will do this in the future
 
@@ -77,8 +67,8 @@ void defaultEnvironmentSetup ()
     SetEnvironmentVariable ( TEXT ( CIRCLE_CLOCKWISE ), TEXT ( VOLUME_STEP_UP ) );
 
     // Set actions for different types of swipe actions.
-    //SetEnvironmentVariable ( TEXT ( SWIPE_LEFT ), TEXT ( LOCK_WORK_STATION ) );
-    SetEnvironmentVariable ( TEXT ( SWIPE_RIGHT ), TEXT ( OPEN_CALCULATOR ) );
+    SetEnvironmentVariable ( TEXT ( SWIPE_LEFT ), TEXT ( APP_WINDOW_NEXT ) );
+    SetEnvironmentVariable ( TEXT ( SWIPE_RIGHT ), TEXT ( APP_WINDOW_PREVIOUS ) );
     SetEnvironmentVariable ( TEXT ( SWIPE_UP ), TEXT ( SHOW_KEYBOARD ) );
     SetEnvironmentVariable ( TEXT ( SWIPE_DOWN ), TEXT ( HIDE_KEYBOARD ) );
 
@@ -115,7 +105,7 @@ Error Return =
 None
 
 ******************************************************************************/
-void getEnvironmentVariables ()
+void LeapGestureFeedBack::getEnvironmentVariables ()
 {
     // 
     DWORD  dwRet = NULL;
@@ -199,7 +189,7 @@ Error Return =
 None
 
 ******************************************************************************/
-void runGestureAction ( std::string gestureAction )
+void LeapGestureFeedBack::runGestureAction ( std::string gestureAction )
 {
     if ( gestureAction == CIRCLE_CLOCKWISE )
     {
@@ -263,7 +253,7 @@ Error Return =
 None
 
 ******************************************************************************/
-void executeAction ( LPTSTR executionAction )
+void LeapGestureFeedBack::executeAction ( LPTSTR executionAction )
 {
     if ( ( lstrcmpi ( TEXT ( VOLUME_STEP_UP ), executionAction ) ) == 0 && executionAction != NULL )
     {
@@ -331,7 +321,7 @@ Error Return =
 None
 
 ******************************************************************************/
-void freeEnvironmentBuffers ()
+void LeapGestureFeedBack::freeEnvironmentBuffers ()
 {
     free ( CIRCLE_CLOCKWISE_SET );
     free ( CIRCLE_COUNTERCLOKWISE_SET );
