@@ -149,9 +149,9 @@ class LeapGestureFeedBack : public ci::app::AppNative
         void draw ();
         void createUserFeedBackWindow ( std::string imagePath, int windowWidth, int windowHeight );
         void createMainApplicationWindow ();
-        void preperSettings ( Settings *settings );
-
-        // Global Function Deceleration for actions supported by the application
+        void prepareSettings ( Settings *settings );
+        
+            // Global Function Deceleration for actions supported by the application
         void volumeManipulation ( std::string controlOption );
         void applicationWindowManipulation ( std::string windowOption );
         void keyboardManipulation ( std::string keyboardOption );
@@ -191,6 +191,8 @@ class LeapGestureFeedBack : public ci::app::AppNative
 
         // Setup the leap controller
         Leap::Controller leap;
+
+        Settings         *settings;
 };
 
 /**********************************************************************************

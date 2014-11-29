@@ -228,6 +228,20 @@ void LeapGestureFeedBack::moveMouse ( const Controller& controller, std::string 
     int previousCorospondingMouseX = ( int ) ( normalizedPointPrevious.x * maxScreenWidth );
     int previousCorospondingMouseY = ( int ) ( ( 1 - normalizedPointPrevious.y ) * maxScreenHeight );
 
+    //// Get Hands
+    //const HandList previousHands = controller.frame ( 1 ).hands ();
+    //FingerList fingersExtended;
+    //bool leftClicked = false;
+
+    //// Detect all the hands that are present in the frame
+    //for ( HandList::const_iterator singleHand = previousHands.begin (); singleHand != previousHands.end (); ++singleHand )
+    //{
+    //    // Get the hand
+    //    const Hand hand = *singleHand;
+
+    //    fingersExtended = hand.fingers ().extended ();
+    //}
+
     // Move the mouse
     if ( mouseAction == MOVE_MOUSE )
     {
@@ -259,7 +273,6 @@ void LeapGestureFeedBack::moveMouse ( const Controller& controller, std::string 
         }
 
         mouse_event ( MOUSEEVENTF_LEFTUP, 0, currentCorospondingMouseX, currentCorospondingMouseY, 0 );
-
     }
     else if ( mouseAction == MOUSE_RIGHT_CLICK )
     {
