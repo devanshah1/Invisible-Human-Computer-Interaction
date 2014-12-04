@@ -9,38 +9,6 @@
 *  List of Functions/Classes:
 *
 *     LeapGestureFeedBack - Class used to construct the feed back window
-*       // General Cinder functions
-*       setup ();
-*       draw ();
-*       prepareSettings ( Settings *settings );
-*
-*       // General Cinder window creation functions
-*       createUserFeedBackWindow ( std::string imagePath, int windowWidth, int windowHeight );
-*       createMainApplicationWindow ();
-*
-*       // Global Function Deceleration for actions supported by the application
-*       volumeManipulation ( std::string controlOption );
-*       applicationWindowManipulation ( std::string windowOption );
-*       keyboardManipulation ( std::string keyboardOption );
-*       moveMouse ( const Controller& controller, std::string mouseAction );
-*
-*       // Supported Gestures Function Deceleration
-*       circleGestures ( const Gesture& gesture, const Controller& controller );
-*       swipeGesture ( const Gesture& gesture, const Controller& controller );
-*       keyTapGesture ( const Gesture& gesture, const Controller& controller );
-*       screenTapGesture ( const Gesture& gesture, const Controller& controller );
-*
-*       // General Function Deceleration
-*       runGestureAction ( std::string gestureAction );
-*       executeAction ( LPTSTR executionAction );
-*       determineGestureAndPerformAction ( const Frame& frame, const Controller& controller );
-*       determineHandAndPerformAction ( const Frame& frame, const Controller& controller );
-*       determineFingerAndPerformAction ( const Controller& controller, const Hand& hand );
-*
-*       // Setup Function Deceleration
-*       defaultEnvironmentSetup ();
-*       getEnvironmentVariables ();
-*       freeEnvironmentBuffers ();
 *
 *     WindowData - Class is used to construct the custom windows for the gestures
 *
@@ -135,6 +103,7 @@
 using namespace ci;
 using namespace ci::app;
 using namespace std;
+using namespace gl;
 using namespace Leap;
 
 // Make use of the name-space Leap to avoid having to use Leap::
@@ -196,30 +165,53 @@ const std::string boneNames []   = {"Metacarpal", "Proximal", "Middle", "Distal"
 
 /**********************************************************************************
 
-Function Name = volumeManipulation
+Class Name = LeapGestureFeedBack
 
-Descriptive Name = Increase/decrease/mute/unmute the volume
+Descriptive Name = This class is used to draw the necessary objects while also 
+                   acting as a leap motion listener.
 
-Function =
+Functions:
 
+    // General Cinder functions
+    setup ();
+    draw ();
+    prepareSettings ( Settings *settings );
 
+    // General Cinder window creation functions
+    createUserFeedBackWindow ( std::string imagePath, int windowWidth, int windowHeight );
+    createMainApplicationWindow ();
 
+    // Global Function Deceleration for actions supported by the application
+    volumeManipulation ( std::string controlOption );
+    applicationWindowManipulation ( std::string windowOption );
+    keyboardManipulation ( std::string keyboardOption );
+    moveMouse ( const Controller& controller, std::string mouseAction );
+
+    // Supported Gestures Function Deceleration
+    circleGestures ( const Gesture& gesture, const Controller& controller );
+    swipeGesture ( const Gesture& gesture, const Controller& controller );
+    keyTapGesture ( const Gesture& gesture, const Controller& controller );
+    screenTapGesture ( const Gesture& gesture, const Controller& controller );
+
+    // General Function Deceleration
+    runGestureAction ( std::string gestureAction );
+    executeAction ( LPTSTR executionAction );
+    determineGestureAndPerformAction ( const Frame& frame, const Controller& controller );
+    determineHandAndPerformAction ( const Frame& frame, const Controller& controller );
+    determineFingerAndPerformAction ( const Controller& controller, const Hand& hand );
+
+    // Setup Function Deceleration
+    defaultEnvironmentSetup ();
+    getEnvironmentVariables ();
+    freeEnvironmentBuffers ();
+    
 Dependencies =
-None
+    
+    None
 
 Restrictions =
-None
 
-Input =
-
-Output =
-See function description.
-
-Normal Return =
-0 -
-
-Error Return =
-None
+    Must have the cinder lib's available in the linker and c/c++ configurations. 
 
 ******************************************************************************/
 class LeapGestureFeedBack : public ci::app::AppNative
@@ -231,7 +223,7 @@ class LeapGestureFeedBack : public ci::app::AppNative
     void draw ();
     void prepareSettings ( Settings *settings );
 
-    // General Cinder window creation functions
+    // Custom Cinder window creation functions
     void createUserFeedBackWindow ( std::string imagePath, int windowWidth, int windowHeight );
     void createMainApplicationWindow ();
 
@@ -274,48 +266,44 @@ class LeapGestureFeedBack : public ci::app::AppNative
     LPTSTR SCREEP_TAP_SET;
 
     // Setup the leap controller
-    Leap::Controller leap;
+    Controller leap;
 
+    // Stores the default windows settings
     Settings         *settings;
 };
 
 /**********************************************************************************
 
-Function Name = volumeManipulation
+Class Name = WindowData
 
-Descriptive Name = Increase/decrease/mute/unmute the volume
+Descriptive Name = This class is used to define the window to be created and stores
+                   the color and the texture (image) that the window is to display.
 
 Function =
 
-
+    Only has a public constructor and some object declarations (Color and Texture).
 
 Dependencies =
-None
+    
+    None
 
 Restrictions =
-None
 
-Input =
-
-Output =
-See function description.
-
-Normal Return =
-0 -
-
-Error Return =
-None
+    Must have the cinder lib's available in the linker and c/c++ configurations. 
 
 ******************************************************************************/
 class WindowData
 {
     public:
-    WindowData ( gl::Texture image )
-        : windowBackgroundColor ( Color ( 255, 255, 255 ) ) // Default to white background
-    {
-        windowImageToLoad = image;
-    }
+        // Constructor of the class that is used to store the color of the window and the image to display
+        WindowData ( Texture image )
+            : windowBackgroundColor ( Color ( 255, 255, 255 ) ) // Default to white background
+        {
+            // Store the image in the global variable to access when needed
+            windowImageToLoad = image;
+        }
 
-    Color			windowBackgroundColor;
-    gl::Texture     windowImageToLoad;
+        // Variables to store the object in the class
+        Color	    windowBackgroundColor;
+        Texture     windowImageToLoad;
 };
