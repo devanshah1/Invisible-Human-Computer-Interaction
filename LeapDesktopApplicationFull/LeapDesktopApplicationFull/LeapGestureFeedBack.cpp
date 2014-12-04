@@ -1,12 +1,19 @@
 /*******************************************************************************************
 *
-*  Source File Name = LeapHandControls.cpp
+*  Source File Name = LeapGestureFeedBack.cpp
 *
-*  Descriptive Name = Functions used to control volume for workstations
+*  Descriptive Name = Used to start the application and create the main rendering of the application
+*                     sets up all the required functions also that are needed for the rendering.
+*                     This is the main file that handles all of the listening from leap and 
+*                     displaying the user feedback information to the user.
 *
 *  List of Functions/Classes:
 *
-*     void volumeManipulation ( string controlOption )
+*     LeapGestureFeedBack::prepareSettings ( Settings *settings )
+*     LeapGestureFeedBack::setup ()
+*     LeapGestureFeedBack::draw ()
+*     LeapGestureFeedBack::createUserFeedBackWindow ( std::string userFeedBackImagePath, int windowWidth, int windowHeight )
+*     LeapGestureFeedBack::createMainApplicationWindow ()
 *
 *  Dependencies: See function dependencies
 *
@@ -25,37 +32,57 @@
 *    DATE      DESCRIPTION                                           Name
 *  dd/mmm/yyyy
 *  ========================================================================================
-*  29/10/2014  Initial drop - File contains functions for hands     Devan Shah 100428864
-*                             control.
+*  29/10/2014  Initial drop - File contains functions for main     Devan Shah 100428864
+*                             user feedback creation and also 
+*                             starting of the Leap motion 
+*                             listeners.
+*
+*  25/11/2014  Adding Functions - Added functions to create custom Devan Shah 100428864
+*                                 windows for the user feedback.
+*
+*  02/12/2014  Commenting - Adding commenting for all the functions  Devan Shah 100428864
+*                           and updating the change log to
+*                           represent the change made to the file
+*                           over the months
+*
 *******************************************************************************************/
 #include "commonUtils.h"
 
 /**********************************************************************************
 
-Function Name = volumeManipulation
+Function Name = LeapGestureFeedBack::prepareSettings
 
-Descriptive Name = Increase/decrease/mute/unmute the volume
+Descriptive Name = Used to setup the settings for the main application window
 
 Function =
 
-
+    This function is used to prepare the main settings for the window
 
 Dependencies =
-None
+
+    N/A
 
 Restrictions =
-None
+
+    N/A
 
 Input =
+    
+    Settings *settings - The settings variable that is created on class creation.
 
 Output =
-See function description.
+   
+   Currently there are no outputs from this functions as it only performs the action. 
+   Future TODO is to make sure errors are handled and appropriate response is returned.
 
 Normal Return =
-0 -
+    
+    N/A
 
 Error Return =
-None
+
+    N/A
+
 
 ******************************************************************************/
 void LeapGestureFeedBack::prepareSettings ( Settings *settings )
@@ -68,30 +95,40 @@ void LeapGestureFeedBack::prepareSettings ( Settings *settings )
 
 /**********************************************************************************
 
-Function Name = volumeManipulation
+Function Name = LeapGestureFeedBack::setup
 
-Descriptive Name = Increase/decrease/mute/unmute the volume
+Descriptive Name = Setup function for environment settings and also for creating the
+                   main screen objects.
 
 Function =
 
-
+    This function is responsible for performing the setup that is required for the
+    environment settings and also construction of the windows.
 
 Dependencies =
-None
+
+    N/A
 
 Restrictions =
-None
+
+    N/A
 
 Input =
+    
+    N/A
 
 Output =
-See function description.
+   
+   Currently there are no outputs from this functions as it only performs the action. 
+   Future TODO is to make sure errors are handled and appropriate response is returned.
 
 Normal Return =
-0 -
+    
+    N/A
 
 Error Return =
-None
+
+    N/A
 
 ******************************************************************************/
 void LeapGestureFeedBack::setup ()
@@ -105,39 +142,53 @@ void LeapGestureFeedBack::setup ()
 
 /**********************************************************************************
 
-Function Name = volumeManipulation
+Function Name = LeapGestureFeedBack::draw
 
-Descriptive Name = Increase/decrease/mute/unmute the volume
+Descriptive Name = Draw the windows that have been created, by default it will create the
+                   the main application window
 
 Function =
 
-
+    This function is responsible for drawing the major windows with all the data that is
+    present in the windowData objects. This function also sets up the leap motion listener 
+    and enables all the options for gestures and enables background policy so leap can
+    listening in the background.
 
 Dependencies =
-None
+
+    N/A
 
 Restrictions =
-None
+
+    N/A
 
 Input =
+    
+    N/A
 
 Output =
-See function description.
+   
+   Currently there are no outputs from this functions as it only performs the action. 
+   Future TODO is to make sure errors are handled and appropriate response is returned.
 
 Normal Return =
-0 -
+    
+    N/A
 
 Error Return =
-None
+
+    N/A
 
 ******************************************************************************/
 void LeapGestureFeedBack::draw ()
 {
+    // Set the color to white for the background
     gl::clear ( Color ( 255, 255, 255 ) );
 
-    //leap.enableGesture ( Gesture::TYPE_CIRCLE );
-    //leap.enableGesture ( Gesture::TYPE_KEY_TAP );
-    //leap.enableGesture ( Gesture::TYPE_SCREEN_TAP );
+    // Enable the required Gestures
+    leap.enableGesture ( Gesture::TYPE_CIRCLE );
+    leap.enableGesture ( Gesture::TYPE_KEY_TAP );
+    leap.enableGesture ( Gesture::TYPE_SCREEN_TAP );
     leap.enableGesture ( Gesture::TYPE_SWIPE );
 
     // Set the policy flag to make sure that the application is able to listen for background frames
@@ -152,10 +203,16 @@ void LeapGestureFeedBack::draw ()
     // Sort through the gestures and perform the necessary actions that are associated to the gestures.
     determineGestureAndPerformAction ( frame, leap );
 
+    // Get the data for the window 
     WindowData *data = getWindow ()->getUserData<WindowData> ();
 
+    // Set the color based of the data in the window object
     gl::color ( data->windowBackgroundColor );
+
+    // Load the image that is available in the window data object
     gl::draw ( data->windowImageToLoad, Vec2f ( 0, 0 ) );
+
+    // Enable alpha bending, and set some color conversion settings
     gl::enableAlphaBlending ();
     glColor4f ( 1.0f, 1.0f, 1.0f, 0.5f );
     glEnable ( GL_BLEND );
@@ -164,91 +221,119 @@ void LeapGestureFeedBack::draw ()
 
 /**********************************************************************************
 
-Function Name = volumeManipulation
+Function Name = LeapGestureFeedBack::createUserFeedBackWindow
 
-Descriptive Name = Increase/decrease/mute/unmute the volume
+Descriptive Name = Create custom image with data inside.
 
 Function =
 
-
+    This function is used to create windows based on the configuration that is passed in
+    to the function. Also supports adding images into the windows while creating the image.
 
 Dependencies =
-None
+
+    N/A
 
 Restrictions =
-None
+
+    N/A
 
 Input =
+    
+    std::string userFeedBackImagePath  - The location of the image that needs to be displayed
+    int windowWidth                    - The width of the window
+    int windowHeight                   - The height of the window
 
 Output =
-See function description.
+   
+   Currently there are no outputs from this functions as it only performs the action. 
+   Future TODO is to make sure errors are handled and appropriate response is returned.
 
 Normal Return =
-0 -
+    
+    N/A
 
 Error Return =
-None
+
+    N/A
+
 
 ******************************************************************************/
 void LeapGestureFeedBack::createUserFeedBackWindow ( std::string userFeedBackImagePath, int windowWidth, int windowHeight )
 {
+    // Load the image that was passed in into a proper format
     gl::Texture userFeedBackImage = gl::Texture ( loadImage ( userFeedBackImagePath ) );
-
+    
+    // Create the window of size passed in, set the image into the windowData object and set it as borderless and
     app::WindowRef newWindow = createWindow ( Window::Format ().size ( windowWidth, windowHeight ) );
     newWindow->setUserData ( new WindowData ( userFeedBackImage ) );
     newWindow->setBorderless ( true );
 
-    // for demonstration purposes, we'll connect a lambda unique to this window which fires on close
+    // Get a unique id for the window that is used to identify the window
     int uniqueId = getNumWindows ();
+    
+    // Set the unique number for the new window that was created
     newWindow->getSignalClose ().connect (
         [uniqueId, this]
-    {
-        this->console () << "You closed window #" << uniqueId << std::endl;
-    }
+        {
+            this->console () << "You closed window #" << uniqueId << std::endl; // Action performed when the window is closed
+        }
     );
 }
 
 /**********************************************************************************
 
-Function Name = volumeManipulation
+Function Name = LeapGestureFeedBack::createMainApplicationWindow
 
-Descriptive Name = Increase/decrease/mute/unmute the volume
+Descriptive Name = Creates the main window of the application
 
 Function =
 
-
+    This function is used to create the main application window
 
 Dependencies =
-None
+
+    N/A
 
 Restrictions =
-None
+
+    N/A
 
 Input =
+    
+    N/A
 
 Output =
-See function description.
+   
+   Currently there are no outputs from this functions as it only performs the action. 
+   Future TODO is to make sure errors are handled and appropriate response is returned.
 
 Normal Return =
-0 -
+    
+    N/A
 
 Error Return =
-None
+
+    N/A
 
 ******************************************************************************/
 void LeapGestureFeedBack::createMainApplicationWindow ()
 {
+    // Create the window of size 10X10 and set it as borderless
     app::WindowRef newWindow = createWindow ( Window::Format ().size ( 10, 10 ) );
     newWindow->setBorderless ( true );
 
-    // for demonstration purposes, we'll connect a lambda unique to this window which fires on close
+    // Get a unique id for the window that is used to identify the window
     int uniqueId = getNumWindows ();
+    
+    // Set the unique number for the new window that was created
     newWindow->getSignalClose ().connect (
         [uniqueId, this]
-    {
-        this->console () << "You closed window #" << uniqueId << std::endl;
-    }
+        {
+            this->console () << "You closed window #" << uniqueId << std::endl; // Action performed when the window is closed
+        }
     );
 }
 
+// Start the rendering of the application
 CINDER_APP_NATIVE ( LeapGestureFeedBack, RendererGl )

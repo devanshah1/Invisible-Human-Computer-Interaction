@@ -8,6 +8,7 @@
 *
 *     LeapGestureFeedBack::determineHandAndPerformAction ( const Frame& frame, const Controller& controller )
 *     LeapGestureFeedBack::determineFingerAndPerformAction ( const Controller& controller, const Hand& hand )
+*     LeapGestureFeedBack::moveMouse ( const Controller& controller, std::string mouseAction )
 *
 *  Dependencies: See function dependencies
 *
