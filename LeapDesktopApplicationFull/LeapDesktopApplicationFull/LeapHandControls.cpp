@@ -6,7 +6,8 @@
 *
 *  List of Functions/Classes:
 *
-*     void volumeManipulation ( string controlOption )
+*     LeapGestureFeedBack::determineHandAndPerformAction ( const Frame& frame, const Controller& controller )
+*     LeapGestureFeedBack::determineFingerAndPerformAction ( const Controller& controller, const Hand& hand )
 *
 *  Dependencies: See function dependencies
 *
@@ -25,8 +26,24 @@
 *    DATE      DESCRIPTION                                           Name
 *  dd/mmm/yyyy
 *  ========================================================================================
-*  29/10/2014  Initial drop - File contains functions for hands     Devan Shah 100428864
+*  13/11/2014  Initial drop - File contains functions for hands      Devan Shah 100428864
 *                             control.
+*
+*  11/11/2014  Adding functions - Added functions                    Devan Shah 100428864
+*                                 determineHandAndPerformAction and
+*                                 determineFingerAndPerformAction
+*                                 for hand and finger detection.
+*
+*  11/11/2014  Adding Functions - Adding mouse function              Devan Shah 100428864
+*
+*  17/11/2014  Fixing Functions - Improving the detection for the    Devan Shah 100428864
+*                                 mouse and fixing some bug fixes.
+*
+*  02/12/2014  Commenting - Adding commenting for all the functions  Devan Shah 100428864
+*                           and updating the change log to
+*                           represent the change made to the file
+*                           over the months
+*
 *******************************************************************************************/
 #include "commonUtils.h"
 
@@ -34,30 +51,43 @@ using namespace Leap;
 
 /**********************************************************************************
 
-Function Name = determineGestureAndPerformAction
+Function Name = LeapGestureFeedBack::determineHandAndPerformAction
 
-Descriptive Name = Increase/decrease/mute/unmute the volume
+Descriptive Name = Detects hands that are found in the leap motion frames.
 
 Function =
 
-
+    This function is responsible for performing the actions that are outlined for
+    for each of the hands. When a hand is detected it move towards the action of
+    performing an action based on each of the fingers also. Note: Checks all hands
+    that are found in the frame.
 
 Dependencies =
-None
+    
+    Depends on if a hand was detected in the leap motion listener.
 
 Restrictions =
-None
+
+    N/A
 
 Input =
 
+    const Frame& frame            - The frame object that is detected by leap
+    const Controller& controller  - The leap controller object that stores all the information
+                                    about the leap motions.
+
 Output =
-See function description.
+   
+   Currently there are no outputs from this functions as it only performs the action. 
+   Future TODO is to make sure errors are handled and appropriate response is returned.
 
 Normal Return =
-0 -
+    
+    N/A
 
 Error Return =
-None
+
+    N/A
 
 ******************************************************************************/
 void LeapGestureFeedBack::determineHandAndPerformAction ( const Frame& frame, const Controller& controller )
@@ -65,51 +95,81 @@ void LeapGestureFeedBack::determineHandAndPerformAction ( const Frame& frame, co
     // Get Hands
     const HandList hands = frame.hands ();
 
-    // Detect all the hands that are present in the frame
+    // Detect all the hands that are present in the frame and perform the necessary actions
     for ( HandList::const_iterator singleHand = hands.begin (); singleHand != hands.end (); ++singleHand )
     {
         // Get the hand
         const Hand hand = *singleHand;
 
+        /******************************************** DEBUG INFORMATION START ******************************************
+        
         std::string handOrientation = hand.isLeft () ? "Left hand" : "Right hand";
         std::cout << std::string ( 2, ' ' ) << handOrientation << ", id: " << hand.id ()
             << ", palm position: " << hand.palmPosition () << std::endl;
+        
+        ********************************************* DEBUG INFORMATION STOP *******************************************/
 
+        // Based on the hand that was detected figure out which fingers are active and perform the necessary actions
         determineFingerAndPerformAction ( controller, hand );
     }
 }
 
 /**********************************************************************************
 
-Function Name = determineGestureAndPerformAction
+Function Name = LeapGestureFeedBack::determineFingerAndPerformAction
 
-Descriptive Name = Increase/decrease/mute/unmute the volume
+Descriptive Name = Determine the orientation of the fingers and performs the actions
+                   based of this.
 
 Function =
 
-
+    This function is responsible for determine the finger orientation and performing
+    the action that is outlined. Following is the supported action that can be performed
+    based on the finger orientation:
+        One finger extended    - Move the mouse based on the location of the finger in the leap
+                                 orientation.
+        Two fingers extended   - Perform a left click at the location where the 2 fingers are extended
+                                 in the leap orientation.
+        Three fingers extended - Perform a right click at the location where the 3 fingers are extended
+                                 in the leap orientation.
 
 Dependencies =
-None
+
+    Depends on if a hand was detected in the leap motion listener.
 
 Restrictions =
-None
+
+    Can only perform 3 actions when fingers are detected on the leap motion listener.
+        MOVE_MOUSE         - Performs the action of moving the mouse
+        MOUSE_LEFT_CLICK   - Performs the action of doing a left click with the mouse
+                             when the left click is continuously click and a dragging 
+                             action is performed, this will simulate a dragging action
+                             with the mouse. (i.e. moving folders, drawing in paint)
+        MOUSE_RIGHT_CLICK  - Performs the action of doing a right click with the mouse
 
 Input =
 
+    const Controller& controller  - The leap controller object that stores all the information
+                                    about the leap motions.
+    const Hand& hand - The Hand object that was detected from Leap motions listeners
+
 Output =
-See function description.
+   
+   Currently there are no outputs from this functions as it only performs the action. 
+   Future TODO is to make sure errors are handled and appropriate response is returned.
 
 Normal Return =
-0 -
+    
+    N/A
 
 Error Return =
-None
+
+    N/A
 
 ******************************************************************************/
 void LeapGestureFeedBack::determineFingerAndPerformAction ( const Controller& controller, const Hand& hand )
 {
-    // Get the list of fingers that are visible for the hand on the frame
+    // Get the list of extended fingers that are visible for the hand on the frame
     const FingerList fingersExtended = hand.fingers ().extended ();
 
     // Only move the mouse when one single finger is extended.
@@ -128,6 +188,7 @@ void LeapGestureFeedBack::determineFingerAndPerformAction ( const Controller& co
         moveMouse ( controller, MOUSE_RIGHT_CLICK );
     }
 
+    /******************************************** DEBUG INFORMATION START ******************************************
     for ( FingerList::const_iterator fl = fingersExtended.begin (); fl != fingersExtended.end (); ++fl )
     {
         const Finger finger = *fl;
@@ -136,6 +197,7 @@ void LeapGestureFeedBack::determineFingerAndPerformAction ( const Controller& co
             << ", length: " << finger.length ()
             << "mm, width: " << finger.width () << std::endl;
     }
+    ********************************************* DEBUG INFORMATION STOP *******************************************/
 }
 
 /**********************************************************************************
@@ -162,22 +224,43 @@ Dependencies =
 
 Restrictions =
 
-    Must have a mouse pointer available
+    Must have a mouse pointer available to use this function
 
 Input =
+    
+    const Controller& controller  - The leap controller object that stores all the information
+                                    about the leap motions.
+    std::string mouseAction - This specifies the mouse action to perform, following are the supported 
+                              actions: 
+                                MOVE_MOUSE         - Performs the action of moving the mouse
+                                MOUSE_LEFT_CLICK   - Performs the action of doing a left click with the mouse
+                                                     when the left click is continuously click and a dragging 
+                                                     action is performed, this will simulate a dragging action
+                                                     with the mouse. (i.e. moving folders, drawing in paint)
+                                MOUSE_RIGHT_CLICK  - Performs the action of doing a right click with the mouse
 
 Output =
-See function description.
+
+    Currently there are no outputs from this functions as it only performs the action.
+    Future TODO is to make sure errors are handled and appropriate response is returned.
 
 Normal Return =
-0 -
+
+    N/A
 
 Error Return =
-None
+
+    N/A
+
+Future Work
+    
+    Enhance the mouse detection and clicking algorithm to make sure that it does not 
+    perform multiple clicks and move to fast.
 
 ******************************************************************************/
 void LeapGestureFeedBack::moveMouse ( const Controller& controller, std::string mouseAction )
 {
+    // Get the current and previous 10th frame from the leap controller
     const Frame currentFrame = controller.frame ();
     const Frame previousFrame = controller.frame ( 10 );
 
@@ -289,6 +372,7 @@ void LeapGestureFeedBack::moveMouse ( const Controller& controller, std::string 
             SetCursorPos ( currentCorospondingMouseX, currentCorospondingMouseY );
         }
 
+        // Release the left click
         mouse_event ( MOUSEEVENTF_LEFTUP, 0, currentCorospondingMouseX, currentCorospondingMouseY, 0 );
     }
     else if ( mouseAction == MOUSE_RIGHT_CLICK )
