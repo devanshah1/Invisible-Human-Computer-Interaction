@@ -4,7 +4,7 @@
 *
 *  Descriptive Name = Functions used to control volume for workstations
 *
-*  List of Functions:
+*  List of Functions/Classes:
 *
 *     void volumeManipulation ( string controlOption )
 *

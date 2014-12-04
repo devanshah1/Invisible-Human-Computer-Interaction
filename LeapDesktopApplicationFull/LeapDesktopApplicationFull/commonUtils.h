@@ -2,9 +2,11 @@
 *
 *  Source File Name = commonUtils.h
 *
-*  Descriptive Name = Functions used to control volume for workstations
+*  Descriptive Name = Contains the global definitions, common includes, common required
+*                     linker configuration, global classes and also any globally
+*                     accessible functions.
 *
-*  List of Functions:
+*  List of Functions/Classes:
 *
 *     N/A
 *

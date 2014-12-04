@@ -1,3 +1,33 @@
+/*******************************************************************************************
+*
+*  Source File Name = LeapHandControls.cpp
+*
+*  Descriptive Name = Functions used to control volume for workstations
+*
+*  List of Functions/Classes:
+*
+*     void volumeManipulation ( string controlOption )
+*
+*  Dependencies: See function dependencies
+*
+*  Restrictions: See function dependencies
+*
+*  Supported Platforms:
+*       Windows 32 bit
+*
+*  Project Developers:
+*      Devan Shah        (100428864)
+*      Ravikumar Patel   (100423830)
+*      Parth Patel       (100392782)
+*      Miguel Arindaeng  (100394094)
+*
+*  Change Log:
+*    DATE      DESCRIPTION                                           Name
+*  dd/mmm/yyyy
+*  ========================================================================================
+*  29/10/2014  Initial drop - File contains functions for hands     Devan Shah 100428864
+*                             control.
+*******************************************************************************************/
 #include "commonUtils.h"
 
 /**********************************************************************************
