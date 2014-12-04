@@ -1,12 +1,13 @@
 /*******************************************************************************************
 *
-*  Source File Name = volumeController.cpp
+*  Source File Name = ApplicationWindowController.cpp
 *
 *  Descriptive Name = Functions used to control volume for workstations
 *
 *  List of Functions:
 *
-*     void applicationWindowManipulation ( string controlOption )
+*     LeapGestureFeedBack::applicationWindowManipulation ( std::string windowOption )
+*     LeapGestureFeedBack::keyboardManipulation ( std::string keyboardOption )
 *
 *  Dependencies: See function dependencies
 *
@@ -25,8 +26,18 @@
 *    DATE      DESCRIPTION                                           Name
 *  dd/mmm/yyyy
 *  ========================================================================================
-*  07/10/2014  Initial drop - File contains functions for volume     Devan Shah 100428864
-*                             control.
+*  07/10/2014  Initial drop - File contains application switching    Devan Shah 100428864
+*                             functions.
+*
+*  12/10/2014  Adding functions - Added functions switch application Devan Shah 100428864
+*
+*  14/11/2014  Adding functions - Added functions enable keyboard    Devan Shah 100428864
+*
+*  02/12/2014  Commenting - Adding commenting for all the functions  Devan Shah 100428864
+*                           and updating the change log to
+*                           represent the change made to the file
+*                           over the months
+*
 *******************************************************************************************/
 #include "commonUtils.h"
 
@@ -34,9 +45,9 @@ using namespace std;
 
 /**********************************************************************************
 
-Function Name = volumeManipulation
+Function Name = LeapGestureFeedBack::applicationWindowManipulation
 
-Descriptive Name = Increase/decrease/mute/unmute the volume
+Descriptive Name = 
 
 Function =
 
@@ -88,9 +99,9 @@ void LeapGestureFeedBack::applicationWindowManipulation ( std::string windowOpti
 
 /**********************************************************************************
 
-Function Name = volumeManipulation
+Function Name = LeapGestureFeedBack::keyboardManipulation
 
-Descriptive Name = Increase/decrease/mute/unmute the volume
+Descriptive Name = 
 
 Function =
 

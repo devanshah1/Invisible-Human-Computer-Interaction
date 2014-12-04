@@ -1,13 +1,17 @@
 /*******************************************************************************************
 *
-*  Source File Name = LeapGestureControls.cpp
+*  Source File Name = common.cpp
 *
-*  Descriptive Name = Functions used to control volume for workstations
+*  Descriptive Name = Common functions
 *
 *  List of Functions:
 *
-*     void volumeManipulation ( string controlOption )
-*
+*     LeapGestureFeedBack::defaultEnvironmentSetup ()
+*     LeapGestureFeedBack::getEnvironmentVariables ()
+*     LeapGestureFeedBack::runGestureAction ( std::string gestureAction )
+*     LeapGestureFeedBack::executeAction ( LPTSTR executionAction )
+*     LeapGestureFeedBack::freeEnvironmentBuffers ()
+*     
 *  Dependencies: See function dependencies
 *
 *  Restrictions: See function dependencies
@@ -25,37 +29,58 @@
 *    DATE      DESCRIPTION                                           Name
 *  dd/mmm/yyyy
 *  ========================================================================================
-*  07/10/2014  Initial drop - File contains functions for volume     Devan Shah 100428864
-*                             control.
+*  07/10/2014  Initial drop - File contains common functions          Devan Shah 100428864
+*
+*  12/10/2014  Adding functions - Added functions to read environment Devan Shah 100428864
+*                                 variables
+*
+*  05/11/2014  Adding functions - Added functions to free up memory   Devan Shah 100428864
+*                                 after reading the environment 
+*                                 variable.
+*
+*  02/12/2014  Commenting - Adding commenting for all the functions  Devan Shah 100428864
+*                           and updating the change log to
+*                           represent the change made to the file
+*                           over the months
+*
 *******************************************************************************************/
 #include "commonUtils.h"
 
 /**********************************************************************************
 
-Function Name = volumeManipulation
+Function Name = LeapGestureFeedBack::defaultEnvironmentSetup
 
-Descriptive Name = Increase/decrease/mute/unmute the volume
+Descriptive Name =
 
 Function =
 
 
 
 Dependencies =
-None
+
+    N/A
 
 Restrictions =
-None
+
+    N/A
 
 Input =
+    
+    N/A
 
 Output =
-See function description.
+   
+   Currently there are no outputs from this functions as it only performs the action. 
+   Future TODO is to make sure errors are handled and appropriate response is returned.
 
 Normal Return =
-0 -
+    
+    N/A
 
 Error Return =
-None
+
+    N/A
+
 
 ******************************************************************************/
 void LeapGestureFeedBack::defaultEnvironmentSetup ()
@@ -79,30 +104,39 @@ void LeapGestureFeedBack::defaultEnvironmentSetup ()
 
 /**********************************************************************************
 
-Function Name = volumeManipulation
+Function Name = LeapGestureFeedBack::getEnvironmentVariables
 
-Descriptive Name = Increase/decrease/mute/unmute the volume
+Descriptive Name =
 
 Function =
 
 
 
 Dependencies =
-None
+
+    N/A
 
 Restrictions =
-None
+
+    N/A
 
 Input =
+    
+    N/A
 
 Output =
-See function description.
+   
+   Currently there are no outputs from this functions as it only performs the action. 
+   Future TODO is to make sure errors are handled and appropriate response is returned.
 
 Normal Return =
-0 -
+    
+    N/A
 
 Error Return =
-None
+
+    N/A
+
 
 ******************************************************************************/
 void LeapGestureFeedBack::getEnvironmentVariables ()
@@ -163,30 +197,39 @@ void LeapGestureFeedBack::getEnvironmentVariables ()
 
 /**********************************************************************************
 
-Function Name = volumeManipulation
+Function Name = void LeapGestureFeedBack::runGestureAction
 
-Descriptive Name = Increase/decrease/mute/unmute the volume
+Descriptive Name = 
 
 Function =
 
 
 
 Dependencies =
-None
+
+    N/A
 
 Restrictions =
-None
+
+    N/A
 
 Input =
+    
+    N/A
 
 Output =
-See function description.
+   
+   Currently there are no outputs from this functions as it only performs the action. 
+   Future TODO is to make sure errors are handled and appropriate response is returned.
 
 Normal Return =
-0 -
+    
+    N/A
 
 Error Return =
-None
+
+    N/A
+
 
 ******************************************************************************/
 void LeapGestureFeedBack::runGestureAction ( std::string gestureAction )
@@ -227,30 +270,39 @@ void LeapGestureFeedBack::runGestureAction ( std::string gestureAction )
 
 /**********************************************************************************
 
-Function Name = volumeManipulation
+Function Name = LeapGestureFeedBack::executeAction
 
-Descriptive Name = Increase/decrease/mute/unmute the volume
+Descriptive Name = 
 
 Function =
 
 
 
 Dependencies =
-None
+
+    N/A
 
 Restrictions =
-None
+
+    N/A
 
 Input =
+    
+    N/A
 
 Output =
-See function description.
+   
+   Currently there are no outputs from this functions as it only performs the action. 
+   Future TODO is to make sure errors are handled and appropriate response is returned.
 
 Normal Return =
-0 -
+    
+    N/A
 
 Error Return =
-None
+
+    N/A
+
 
 ******************************************************************************/
 void LeapGestureFeedBack::executeAction ( LPTSTR executionAction )
@@ -295,9 +347,9 @@ void LeapGestureFeedBack::executeAction ( LPTSTR executionAction )
 
 /**********************************************************************************
 
-Function Name = volumeManipulation
+Function Name = LeapGestureFeedBack::freeEnvironmentBuffers
 
-Descriptive Name = Increase/decrease/mute/unmute the volume
+Descriptive Name = 
 
 Function =
 

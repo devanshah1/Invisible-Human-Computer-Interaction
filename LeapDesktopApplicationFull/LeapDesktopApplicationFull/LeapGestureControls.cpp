@@ -2,12 +2,16 @@
 *
 *  Source File Name = LeapGestureControls.cpp
 *
-*  Descriptive Name = Functions used to control volume for workstations
+*  Descriptive Name = Functions used to control and detect the gestures.
 *
 *  List of Functions:
 *
-*     void volumeManipulation ( string controlOption )
-*
+*     LeapGestureFeedBack::determineGestureAndPerformAction ( const Frame& frame, const Controller& controller )
+*     LeapGestureFeedBack::circleGestures ( const Gesture& gesture, const Controller& controller )
+*     LeapGestureFeedBack::swipeGesture ( const Gesture& gesture, const Controller& controller )
+*     LeapGestureFeedBack::keyTapGesture ( const Gesture& gesture, const Controller& controller )
+*     LeapGestureFeedBack::screenTapGesture ( const Gesture& gesture, const Controller& controller )
+*     
 *  Dependencies: See function dependencies
 *
 *  Restrictions: See function dependencies
@@ -25,8 +29,16 @@
 *    DATE      DESCRIPTION                                           Name
 *  dd/mmm/yyyy
 *  ========================================================================================
-*  07/10/2014  Initial drop - File contains functions for volume     Devan Shah 100428864
-*                             control.
+*  29/10/2014  Initial drop - File contains functions for controlling Devan Shah 100428864
+*                             the gestures that are performed 
+*                             and also performs the actions that are 
+*                             needed to be performed.
+*
+*  02/12/2014  Commenting - Adding commenting for all the functions  Devan Shah 100428864
+*                           and updating the change log to
+*                           represent the change made to the file
+*                           over the months
+*
 *******************************************************************************************/
 #include "commonUtils.h"
 
@@ -34,30 +46,42 @@ using namespace Leap;
 
 /**********************************************************************************
 
-Function Name = determineGestureAndPerformAction
+Function Name = LeapGestureFeedBack::determineGestureAndPerformAction
 
-Descriptive Name = Increase/decrease/mute/unmute the volume
+Descriptive Name = Used to detect the gesture and perform the action
 
 Function =
 
-
+    This function is used to detect the gesture and then perform the action 
+    for the gesture that was detected in the frame.
 
 Dependencies =
-None
+
+    N/A
 
 Restrictions =
-None
+
+    N/A
 
 Input =
 
+    const Frame& frame - The frame object
+    const Controller& controller  - The leap controller object that stores all the information
+                                    about the leap motions.
+
 Output =
-See function description.
+   
+   Currently there are no outputs from this functions as it only performs the action. 
+   Future TODO is to make sure errors are handled and appropriate response is returned.
 
 Normal Return =
-0 -
+    
+    N/A
 
 Error Return =
-None
+
+    N/A
+
 
 ******************************************************************************/
 void LeapGestureFeedBack::determineGestureAndPerformAction ( const Frame& frame, const Controller& controller )
@@ -103,30 +127,43 @@ void LeapGestureFeedBack::determineGestureAndPerformAction ( const Frame& frame,
 
 /**********************************************************************************
 
-Function Name = volumeManipulation
+Function Name = LeapGestureFeedBack::circleGestures
 
-Descriptive Name = Increase/decrease/mute/unmute the volume
+Descriptive Name = Handles performing the action for the circle gesture
 
 Function =
 
-
+    This function is responsible for performing the action of the circle
+    gesture, this supports counter clockwise and also clockwise circle 
+    actions.
 
 Dependencies =
-None
+
+    N/A
 
 Restrictions =
-None
+
+    N/A
 
 Input =
+    
+    const Gesture& gesture - The leap object for gestures
+    const Controller& controller  - The leap controller object that stores all the information
+                                    about the leap motions.
 
 Output =
-See function description.
+   
+   Currently there are no outputs from this functions as it only performs the action. 
+   Future TODO is to make sure errors are handled and appropriate response is returned.
 
 Normal Return =
-0 -
+    
+    N/A
 
 Error Return =
-None
+
+    N/A
+
 
 ******************************************************************************/
 void LeapGestureFeedBack::circleGestures ( const Gesture& gesture, const Controller& controller )
@@ -134,7 +171,7 @@ void LeapGestureFeedBack::circleGestures ( const Gesture& gesture, const Control
     CircleGesture circle = gesture;
     std::string clockwiseness;
 
-    // Detect if the single fingure motion was in the clock wise direction 
+    // Detect if the single finger motion was in the clock wise direction 
     if ( circle.pointable ().direction ().angleTo ( circle.normal () ) <= PI / 2 && stateNames [gesture.state ()] == "STATE_END" )
     {
         clockwiseness = "counterclockwise";
@@ -169,34 +206,48 @@ void LeapGestureFeedBack::circleGestures ( const Gesture& gesture, const Control
 
 /**********************************************************************************
 
-Function Name = volumeManipulation
+Function Name = LeapGestureFeedBack::swipeGesture
 
-Descriptive Name = Increase/decrease/mute/unmute the volume
+Descriptive Name = This function is used to perform the actions for the swipe gesture,
+                   supports multiple direction of the swipe. There is a detection setup
+                   for each of the directions.
 
 Function =
 
-
+    This function is used to perform the action swipe gestures, the supported gestures
+    are up/down/right/left. 
 
 Dependencies =
-None
+
+    N/A
 
 Restrictions =
-None
+
+    N/A
 
 Input =
+    
+    const Gesture& gesture - The leap object for gestures
+    const Controller& controller  - The leap controller object that stores all the information
+                                    about the leap motions.
 
 Output =
-See function description.
+   
+   Currently there are no outputs from this functions as it only performs the action. 
+   Future TODO is to make sure errors are handled and appropriate response is returned.
 
 Normal Return =
-0 -
+    
+    N/A
 
 Error Return =
-None
+
+    N/A
 
 ******************************************************************************/
 void LeapGestureFeedBack::swipeGesture ( const Gesture& gesture, const Controller& controller )
 {
+    // Switch the gesture input to swipe gesture object
     SwipeGesture swipe = gesture;
 
     std::cout << std::string ( 2, ' ' )
@@ -213,7 +264,7 @@ void LeapGestureFeedBack::swipeGesture ( const Gesture& gesture, const Controlle
     *      - Using the x and y coordinates we can determine the orientation of the swipe
     *      - When the x value of the swipe is greater then the y value of the swipe this
     *        show that the swipe is horizontal. This is true because when you perform a horizontal
-    *        swipe you are increasing the x coordinate and the y should stay retively the same.
+    *        swipe you are increasing the x coordinate and the y should stay restively the same.
     */
     if ( abs ( swipe.direction ().x ) > abs ( swipe.direction ().y ) )
     {
@@ -237,10 +288,10 @@ void LeapGestureFeedBack::swipeGesture ( const Gesture& gesture, const Controlle
         *	   - Perform an action when user has performed a left swipe on leap.
         *      - The left swipe from the user is detected based on the x coordinates
         *        that are detected during the action, this is pulled from the SwipeGestures API
-        *        using the direction function wich provides data of the x, y, and z coordinates
+        *        using the direction function which provides data of the x, y, and z coordinates
         *        of a swipe direction.
         *      - Left swipe is performed in a horizontal manner therefore only the x coordinate
-        *        would decrease in a negitive direction. (less then 0)
+        *        would decrease in a negative direction. (less then 0)
         */
         else
         {
@@ -275,30 +326,40 @@ void LeapGestureFeedBack::swipeGesture ( const Gesture& gesture, const Controlle
 
 /**********************************************************************************
 
-Function Name = volumeManipulation
+Function Name = LeapGestureFeedBack::keyTapGesture
 
-Descriptive Name = Increase/decrease/mute/unmute the volume
+Descriptive Name = Used to perform the key tap action
 
 Function =
 
-
+    This function is used to perform the key tap actions.
 
 Dependencies =
-None
+
+    N/A
 
 Restrictions =
-None
+
+    N/A
 
 Input =
+    
+    const Controller& controller  - The leap controller object that stores all the information
+                                    about the leap motions.
+    const Gesture& gesture - The leap object for gestures
 
 Output =
-See function description.
+   
+   Currently there are no outputs from this functions as it only performs the action. 
+   Future TODO is to make sure errors are handled and appropriate response is returned.
 
 Normal Return =
-0 -
+    
+    N/A
 
 Error Return =
-None
+
+    N/A
 
 ******************************************************************************/
 void LeapGestureFeedBack::keyTapGesture ( const Gesture& gesture, const Controller& controller )
@@ -315,41 +376,54 @@ void LeapGestureFeedBack::keyTapGesture ( const Gesture& gesture, const Controll
 
 /**********************************************************************************
 
-Function Name = volumeManipulation
+Function Name = LeapGestureFeedBack::screenTapGesture
 
-Descriptive Name = Increase/decrease/mute/unmute the volume
+Descriptive Name = performs action when screen Tap gesture is detected
 
 Function =
 
-
+    This function is responsible of perform the action when the screen tap
+    gesture is performed. The action is performed based on the 
 
 Dependencies =
-None
+
+    N/A
 
 Restrictions =
-None
+
+    N/A
 
 Input =
+    
+    const Gesture& gesture - The leap object for gestures
+    const Controller& controller  - The leap controller object that stores all the information
+                                    about the leap motions.
 
 Output =
-See function description.
+   
+   Currently there are no outputs from this functions as it only performs the action. 
+   Future TODO is to make sure errors are handled and appropriate response is returned.
 
 Normal Return =
-0 -
+    
+    N/A
 
 Error Return =
-None
+
+    N/A
 
 ******************************************************************************/
 void LeapGestureFeedBack::screenTapGesture ( const Gesture& gesture, const Controller& controller )
 {
     ScreenTapGesture screentap = gesture;
+
     std::cout << std::string ( 2, ' ' )
         << "Screen Tap id: " << gesture.id ()
         << ", state: " << stateNames [gesture.state ()]
         << ", position: " << screentap.position ()
         << ", direction: " << screentap.direction ();
 
+    // Perform the action for screen tap
     runGestureAction ( SCREEP_TAP );
     createUserFeedBackWindow ( "C:\\Users\\100428864\\Desktop\\FeedBackImages\\supportedGestures.png", 729, 335 );
 }
