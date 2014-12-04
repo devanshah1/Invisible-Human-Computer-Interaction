@@ -1,16 +1,19 @@
 /*******************************************************************************************
 *
-*  Source File Name = VolumeController.cpp
+*  Source File Name = VolumeControllers.cpp
 *
-*  Descriptive Name = Functions used to control volume for workstations
+*  Descriptive Name = Functions used to control volume for windows workstations. 
 *
 *  List of Functions/Classes:
 *
-*     void volumeManipulation ( string controlOption )
+*     LeapGestureFeedBack::volumeManipulation ( string controlOption )
 *
 *  Dependencies: See function dependencies
 *
-*  Restrictions: See function dependencies
+*  Restrictions: 
+*
+*    Makes use of windows calls to increase/decrease volume and to mute/unmute 
+*    the volume. 
 *
 *  Supported Platforms:
 *       Windows 32 bit
@@ -25,13 +28,19 @@
 *    DATE      DESCRIPTION                                           Name
 *  dd/mmm/yyyy
 *  ========================================================================================
-*  07/10/2014  Initial drop - File contains functions for volume     Devan Shah 100428864
+*  10/10/2014  Initial drop - File contains functions for volume     Devan Shah 100428864
 *                             control.
+*
+*  10/10/2014  Initial drop - File contains functions for volume     Devan Shah 100428864
+*                             control.
+*
+*  10/10/2014  Initial drop - File contains functions for volume     Devan Shah 100428864
+*                             control.
+*
 *******************************************************************************************/
 #include "commonUtils.h"
 
 using namespace std;
-
 
 /**********************************************************************************
 
@@ -65,10 +74,10 @@ void LeapGestureFeedBack::volumeManipulation ( string controlOption )
 {
     // Variable Declaration
     HRESULT              volumeManipulationResults = NULL;  // Stores detailed information for the volume communication interface
-    IMMDeviceEnumerator  *deviceEnumerator = NULL;  // Stores 
-    IMMDevice            *defaultDevice = NULL;  //
-    IAudioEndpointVolume *endpointVolume = NULL;  //
-    BOOL                 pbMute = FALSE; //
+    IMMDeviceEnumerator  *deviceEnumerator         = NULL;  // Stores 
+    IMMDevice            *defaultDevice            = NULL;  //
+    IAudioEndpointVolume *endpointVolume           = NULL;  //
+    BOOL                 pbMute                    = FALSE; //
 
     CoInitialize ( NULL );
     volumeManipulationResults = CoCreateInstance ( __uuidof( MMDeviceEnumerator ),
