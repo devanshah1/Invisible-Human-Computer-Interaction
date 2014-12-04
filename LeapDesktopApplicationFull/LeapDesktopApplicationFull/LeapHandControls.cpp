@@ -142,17 +142,27 @@ void LeapGestureFeedBack::determineFingerAndPerformAction ( const Controller& co
 
 Function Name = LeapGestureFeedBack::moveMouse
 
-Descriptive Name = Increase/decrease/mute/un-mute the volume
+Descriptive Name = Moves the pointer from one position to another based on the leap
+                   input points and calculated 2D rendering of the point on the 
+                   screen.
 
 Function =
 
-
+    This function is responsible for perform the action of moving the pointer from 
+    one point to another based on the leap data. The leap data is converted from 3D
+    to 2D and the tip of the finger is used to identify the point where the pointer
+    should be on the screen. Also supports perform an Left and Right click using the 
+    pointer. Furthermore also supports dragging from one point to another using the left 
+    click.
 
 Dependencies =
-None
+
+    This function depends on the windows aspect of moving the mouse pointer. Makes use of
+    windows function calls to achieve the task of moving and clicking of the pointer.
 
 Restrictions =
-None
+
+    Must have a mouse pointer available
 
 Input =
 
@@ -228,19 +238,26 @@ void LeapGestureFeedBack::moveMouse ( const Controller& controller, std::string 
     int previousCorospondingMouseX = ( int ) ( normalizedPointPrevious.x * maxScreenWidth );
     int previousCorospondingMouseY = ( int ) ( ( 1 - normalizedPointPrevious.y ) * maxScreenHeight );
 
-    //// Get Hands
-    //const HandList previousHands = controller.frame ( 1 ).hands ();
-    //FingerList fingersExtended;
-    //bool leftClicked = false;
+    /********************************* TODO START *******************************
+    
+    Avoid too fast clicking and movement by checking the previous frames for specific
+    actions.
 
-    //// Detect all the hands that are present in the frame
-    //for ( HandList::const_iterator singleHand = previousHands.begin (); singleHand != previousHands.end (); ++singleHand )
-    //{
-    //    // Get the hand
-    //    const Hand hand = *singleHand;
+    // Get Hands
+    const HandList previousHands = controller.frame ( 1 ).hands ();
+    FingerList fingersExtended;
+    bool leftClicked = false;
 
-    //    fingersExtended = hand.fingers ().extended ();
-    //}
+    // Detect all the hands that are present in the frame
+    for ( HandList::const_iterator singleHand = previousHands.begin (); singleHand != previousHands.end (); ++singleHand )
+    {
+        // Get the hand
+        const Hand hand = *singleHand;
+
+        fingersExtended = hand.fingers ().extended ();
+    }
+   
+    *********************************** TODO END ********************************/
 
     // Move the mouse
     if ( mouseAction == MOVE_MOUSE )
