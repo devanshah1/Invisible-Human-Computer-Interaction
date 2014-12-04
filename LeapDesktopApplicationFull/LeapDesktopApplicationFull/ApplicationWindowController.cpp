@@ -116,7 +116,7 @@ None
 ******************************************************************************/
 void LeapGestureFeedBack::keyboardManipulation ( std::string keyboardOption )
 {
-    // Find the window that that contains the windows on screen keyboard
+    // Find the window that contains the windows on screen keyboard
     HWND onScreenKeyboard = FindWindow ( TEXT ( "OSKMainClass" ), NULL );
 
     if ( keyboardOption.compare ( SHOW_KEYBOARD ) )

@@ -42,14 +42,18 @@
 *       getEnvironmentVariables ();
 *       freeEnvironmentBuffers ();
 *
-*     WindowData
+*     WindowData - Class is used to construct the custom windows for the gestures
 *
 *  Dependencies:
 *
 *     Make sure that all the used header files and default c++ headers are available.
 *     This includes Leap libraries and OpenGL libraries.
 *
-*  Restrictions: N/A
+*  Restrictions: 
+*
+*     Make sure that all linker options are set correctly to avoid failures. Compiling supported 
+*     only on windows 32 bit.
+*     
 *
 *  Supported Platforms:
 *       Windows 32 bit
@@ -69,28 +73,71 @@
 *                             linker configurations and global
 *                             functions.
 *
+*  21/10/2014  Adding Constants - Added some constants arrays        Devan Shah 100428864
+*                                 used through out the project
+*                                 
+*
+*  04/11/2014  Adding Definitions - Added some definitions for       Devan Shah 100428864
+*                                   gestures SWIPE_LEFT, 
+*                                   SWIPE_RIGHT, SWIPE_UP, 
+*                                   SWIPE_DOWN also the
+*                                   equivalent action definition
+*
+*  11/11/2014  Adding Definitions - Added some definitions for       Devan Shah 100428864
+*                                   mouse movements and actions
+*                                   MOVE_MOUSE, MOUSE_LEFT_CLICK
+*                                   and MOUSE_RIGHT_CLICK
+*
+*  18/11/2014  Adding Definitions - Added some definitions for       Devan Shah 100428864
+*                                   gesture actions 
+*                                   LOCK_WORK_STATION_ACTION and
+*                                   OPEN_CALCULATOR_ACTION as 
+*                                   sample actions to perform
+*                                   when gesture is performed
+*
+*  25/11/2014  Adding Definitions - Added some definitions for       Devan Shah 100428864
+*                                   gestures CIRCLE_CLOCKWISE,
+*                                   CIRCLE_COUNTERCLOKWISE,
+*                                   KEY_TAP and SCREEP_TAP also
+*                                   the equivalent action definition
+*
+*  02/12/2014  Commenting - Adding commenting for all the definitions Devan Shah 100428864
+*                           and the classes that are present in this 
+*                           file.
+*
 *******************************************************************************************/
 
 // Include the necessary files to be used in the entire project
+
+// General C++/windows header files that are needed
 #include <iostream>
 #include <string.h>
-#include "Leap.h"
-#include "LeapMath.h"
 #include <windows.h>
 #include <endpointvolume.h> 
 #include <mmdeviceapi.h>
 #include <stdlib.h>
+#include <list>
+
+// General Leap header files that are needed
+#include "Leap.h"
+#include "LeapMath.h"
+
+// General cinder header files that are needed
 #include "cinder/app/AppNative.h"
 #include "cinder/app/AppBasic.h"
 #include "cinder/gl/Texture.h"
-#include <list>
 #include "cinder/Rand.h"
 #include "cinder/gl/gl.h"
 #include "cinder/ImageIo.h"
 
+// Define global namespace used through out the project to use specific variable/functions
+// without specifying the full namespace for each call/variable declaration.
 using namespace ci;
 using namespace ci::app;
 using namespace std;
+using namespace Leap;
+
+// Make use of the name-space Leap to avoid having to use Leap::
 using namespace Leap;
 
 /*
@@ -104,16 +151,13 @@ using namespace Leap;
 #pragma comment(lib, "gdi32.lib")
 #pragma comment(lib, "comdlg32.lib")
 
-// Make use of the name-space Leap to avoid having to use Leap::
-using namespace Leap;
-
 // Buffer for environment variable retrieval
 #define BUFSIZE 4096
 
 // Constant for states available, fingers available and finger bones available.
-const std::string stateNames [] = {"STATE_INVALID", "STATE_START", "STATE_UPDATE", "STATE_END"};
+const std::string stateNames []  = {"STATE_INVALID", "STATE_START", "STATE_UPDATE", "STATE_END"};
 const std::string fingerNames [] = {"Thumb", "Index", "Middle", "Ring", "Pinky"};
-const std::string boneNames [] = {"Metacarpal", "Proximal", "Middle", "Distal"};
+const std::string boneNames []   = {"Metacarpal", "Proximal", "Middle", "Distal"};
 
 // Definitions for available gestures in the application currently
 #define SWIPE_LEFT             "S_LEFT"
