@@ -108,9 +108,28 @@ xcopy /yr "..\..\..\freeglut\bin\freeglut.dll" "$(TargetDir)"
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="commonUtils.h" />
+    <ClInclude Include="resources.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\resources\clockWise.png" />
+    <Image Include="..\resources\counterClockWise.png" />
+    <Image Include="..\resources\down.png" />
+    <Image Include="..\resources\keyTap1.png" />
+    <Image Include="..\resources\keyTap2.png" />
+    <Image Include="..\resources\left.png" />
+    <Image Include="..\resources\mute.png" />
+    <Image Include="..\resources\right.png" />
+    <Image Include="..\resources\supportedGestures.png" />
+    <Image Include="..\resources\swipeDown.png" />
+    <Image Include="..\resources\swipeLeft.png" />
+    <Image Include="..\resources\swipeRight.png" />
+    <Image Include="..\resources\swipeUp.png" />
+    <Image Include="..\resources\up.png" />
+    <Image Include="..\resources\vdwn.png" />
+    <Image Include="..\resources\vup.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

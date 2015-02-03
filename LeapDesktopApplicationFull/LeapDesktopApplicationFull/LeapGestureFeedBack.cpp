@@ -87,7 +87,7 @@ Error Return =
 ******************************************************************************/
 void LeapGestureFeedBack::prepareSettings ( Settings *settings )
 {
-    settings->setWindowSize ( 0, 0 );
+    settings->setWindowSize ( 200, 200 );
     settings->setFrameRate ( 60.0f );
     settings->setBorderless ( true );
     settings->setWindowPos ( 0, 0 );
@@ -201,7 +201,7 @@ void LeapGestureFeedBack::draw ()
     determineHandAndPerformAction ( frame, leap );
 
     // Sort through the gestures and perform the necessary actions that are associated to the gestures.
-    determineGestureAndPerformAction ( frame, leap );
+    //determineGestureAndPerformAction ( frame, leap );
 
     // Get the data for the window 
     WindowData *data = getWindow ()->getUserData<WindowData> ();
@@ -322,7 +322,7 @@ void LeapGestureFeedBack::createMainApplicationWindow ()
     // Create the window of size 10X10 and set it as borderless
     app::WindowRef newWindow = createWindow ( Window::Format ().size ( 10, 10 ) );
     newWindow->setBorderless ( true );
-
+        
     // Get a unique id for the window that is used to identify the window
     int uniqueId = getNumWindows ();
     

@@ -73,6 +73,9 @@
 *                           and the classes that are present in this 
 *                           file.
 *
+*  02/02/2015  Resource header - Adding the resource header file to   Devan Shah 100428864
+*                                the master header file for all cpp
+*                                files to use.
 *******************************************************************************************/
 
 // Include the necessary files to be used in the entire project
@@ -97,6 +100,9 @@
 #include "cinder/Rand.h"
 #include "cinder/gl/gl.h"
 #include "cinder/ImageIo.h"
+
+// Include internal resource file for leap application
+#include "resources.h"
 
 // Define global namespace used through out the project to use specific variable/functions
 // without specifying the full namespace for each call/variable declaration.
