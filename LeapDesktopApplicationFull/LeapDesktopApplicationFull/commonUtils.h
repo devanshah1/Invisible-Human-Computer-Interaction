@@ -102,7 +102,7 @@
 #include "cinder/ImageIo.h"
 
 // Include internal resource file for leap application
-#include "resources.h"
+#include "resource.h"
 
 // Define global namespace used through out the project to use specific variable/functions
 // without specifying the full namespace for each call/variable declaration.

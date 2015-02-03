@@ -38,7 +38,7 @@
     <ClInclude Include="commonUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resources.h">
+    <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -46,53 +46,8 @@
     <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\resources\clockWise.png">
+    <ResourceCompile Include="LeapDesktopApplicationFull.rc">
       <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\resources\counterClockWise.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\resources\down.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\resources\keyTap1.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\resources\keyTap2.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\resources\left.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\resources\mute.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\resources\right.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\resources\supportedGestures.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\resources\swipeDown.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\resources\swipeLeft.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\resources\swipeRight.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\resources\swipeUp.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\resources\up.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\resources\vdwn.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\resources\vup.png">
-      <Filter>Resource Files</Filter>
-    </Image>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
