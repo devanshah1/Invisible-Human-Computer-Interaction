@@ -76,6 +76,12 @@
 *  02/02/2015  Resource header - Adding the resource header file to   Devan Shah 100428864
 *                                the master header file for all cpp
 *                                files to use.
+
+*  02/03/2015  Updating - Changing parameter of function              Devan Shah 100428864
+*                         createUserFeedBackWindow from string path
+*                         to a cinder DataSourceRef to load the 
+*                         image resources correctly.
+*
 *******************************************************************************************/
 
 // Include the necessary files to be used in the entire project
@@ -184,7 +190,7 @@ Functions:
     prepareSettings ( Settings *settings );
 
     // General Cinder window creation functions
-    createUserFeedBackWindow ( std::string imagePath, int windowWidth, int windowHeight );
+    createUserFeedBackWindow ( cinder::DataSourceRef userFeedBackImageRef, int windowWidth, int windowHeight );
     createMainApplicationWindow ();
 
     // Global Function Deceleration for actions supported by the application
@@ -230,7 +236,7 @@ class LeapGestureFeedBack : public ci::app::AppNative
     void prepareSettings ( Settings *settings );
 
     // Custom Cinder window creation functions
-    void createUserFeedBackWindow ( std::string imagePath, int windowWidth, int windowHeight );
+    void createUserFeedBackWindow ( cinder::DataSourceRef userFeedBackImageRef, int windowWidth, int windowHeight );
     void createMainApplicationWindow ();
 
     // Global Function Deceleration for actions supported by the application

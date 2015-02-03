@@ -45,6 +45,9 @@
 *                           represent the change made to the file
 *                           over the months
 *
+*  02/03/2015  Updating - Changing how the image are loaded, making  Devan Shah 100428864 
+*                         use of the defined resources.
+*
 *******************************************************************************************/
 #include "commonUtils.h"
 
@@ -142,7 +145,7 @@ void LeapGestureFeedBack::volumeManipulation ( string controlOption )
         volumeManipulationResults = endpointVolume->SetMute ( 0, NULL );
 
         // Display user feed back image based on the action performed
-        createUserFeedBackWindow ( "C:\\Users\\100428864\\Desktop\\FeedBackImages\\keyTap1.png", 150, 131 );
+        createUserFeedBackWindow ( loadResource ( RES_KEYTAP_IMAGE ), 150, 131 );
     }
     else if ( !pbMute && controlOption == VOLUME_MUTE_UNMUTE )
     {
@@ -150,7 +153,7 @@ void LeapGestureFeedBack::volumeManipulation ( string controlOption )
         volumeManipulationResults = endpointVolume->SetMute ( 1, NULL );
 
         // Display user feed back image based on the action performed
-        createUserFeedBackWindow ( "C:\\Users\\100428864\\Desktop\\FeedBackImages\\keyTap2.png", 150, 131 );
+        createUserFeedBackWindow ( loadResource ( RES_KEYTAPRELEASE_IMAGE ), 150, 131 );
     }
 
     // Based on the volume increase/decrease option, perform the appropriate action

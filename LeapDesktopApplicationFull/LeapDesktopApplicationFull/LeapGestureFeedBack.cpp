@@ -12,7 +12,7 @@
 *     LeapGestureFeedBack::prepareSettings ( Settings *settings )
 *     LeapGestureFeedBack::setup ()
 *     LeapGestureFeedBack::draw ()
-*     LeapGestureFeedBack::createUserFeedBackWindow ( std::string userFeedBackImagePath, int windowWidth, int windowHeight )
+*     LeapGestureFeedBack::createUserFeedBackWindow ( cinder::DataSourceRef userFeedBackImage, int windowWidth, int windowHeight )
 *     LeapGestureFeedBack::createMainApplicationWindow ()
 *
 *  Dependencies: See function dependencies
@@ -201,7 +201,7 @@ void LeapGestureFeedBack::draw ()
     determineHandAndPerformAction ( frame, leap );
 
     // Sort through the gestures and perform the necessary actions that are associated to the gestures.
-    //determineGestureAndPerformAction ( frame, leap );
+    determineGestureAndPerformAction ( frame, leap );
 
     // Get the data for the window 
     WindowData *data = getWindow ()->getUserData<WindowData> ();
@@ -259,10 +259,10 @@ Error Return =
 
 
 ******************************************************************************/
-void LeapGestureFeedBack::createUserFeedBackWindow ( std::string userFeedBackImagePath, int windowWidth, int windowHeight )
+void LeapGestureFeedBack::createUserFeedBackWindow ( cinder::DataSourceRef userFeedBackImageRef, int windowWidth, int windowHeight )
 {
     // Load the image that was passed in into a proper format
-    gl::Texture userFeedBackImage = gl::Texture ( loadImage ( userFeedBackImagePath ) );
+    gl::Texture userFeedBackImage = gl::Texture ( loadImage ( userFeedBackImageRef ) );
     
     // Create the window of size passed in, set the image into the windowData object and set it as borderless and
     app::WindowRef newWindow = createWindow ( Window::Format ().size ( windowWidth, windowHeight ) );

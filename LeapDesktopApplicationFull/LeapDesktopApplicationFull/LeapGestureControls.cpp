@@ -39,6 +39,9 @@
 *                           represent the change made to the file
 *                           over the months
 *
+*  02/03/2015   Updating - Changing how the image are loaded, making  Devan Shah 100428864
+*                          use of the defined resources.
+*
 *******************************************************************************************/
 #include "commonUtils.h"
 
@@ -178,13 +181,13 @@ void LeapGestureFeedBack::circleGestures ( const Gesture& gesture, const Control
 
         // handle the action when clockwise circle action is detected from Leap Motion.
         runGestureAction ( CIRCLE_CLOCKWISE );
-        createUserFeedBackWindow ( "C:\\Users\\100428864\\Desktop\\FeedBackImages\\clockWise.png", 150, 131 );
+        createUserFeedBackWindow ( loadResource ( RES_CLOCKWISE_IMAGE ), 150, 131 );
     }
     else if ( stateNames [gesture.state ()] == "STATE_END" )
     {
         clockwiseness = "clockwise";
         runGestureAction ( CIRCLE_COUNTERCLOKWISE );
-        createUserFeedBackWindow ( "C:\\Users\\100428864\\Desktop\\FeedBackImages\\counterClockWise.png", 150, 131 );
+        createUserFeedBackWindow ( loadResource ( RES_COUNTERCLOCKWISE_IMAGE ), 150, 131 );
     }
 
     // Calculate angle swept since last frame
@@ -281,7 +284,7 @@ void LeapGestureFeedBack::swipeGesture ( const Gesture& gesture, const Controlle
         if ( swipe.direction ().x > 0 )
         {
             runGestureAction ( SWIPE_RIGHT );
-            createUserFeedBackWindow ( "C:\\Users\\100428864\\Desktop\\FeedBackImages\\swipeRight.png", 150, 131 );
+            createUserFeedBackWindow ( loadResource ( RES_SWIPERIGHT_IMAGE ), 150, 131 );
         }
         /*
         * Handle Left Swipe:
@@ -296,7 +299,7 @@ void LeapGestureFeedBack::swipeGesture ( const Gesture& gesture, const Controlle
         else
         {
             runGestureAction ( SWIPE_LEFT );
-            createUserFeedBackWindow ( "C:\\Users\\100428864\\Desktop\\FeedBackImages\\swipeLeft.png", 150, 131 );
+            createUserFeedBackWindow ( loadResource ( RES_SWIPELEFT_IMAGE ), 150, 131 );
         }
     }
     /*
@@ -314,12 +317,12 @@ void LeapGestureFeedBack::swipeGesture ( const Gesture& gesture, const Controlle
         if ( swipe.direction ().y > 0 )
         {
             runGestureAction ( SWIPE_DOWN );
-            createUserFeedBackWindow ( "C:\\Users\\100428864\\Desktop\\FeedBackImages\\swipeUp.png", 150, 131 );
+            createUserFeedBackWindow ( loadResource ( RES_SWIPEDOWN_IMAGE ), 150, 131 );
         }
         else
         {
             runGestureAction ( SWIPE_UP );
-            createUserFeedBackWindow ( "C:\\Users\\100428864\\Desktop\\FeedBackImages\\swipeDown.png", 150, 131 );
+            createUserFeedBackWindow ( loadResource ( RES_SWIPEUP_IMAGE ), 150, 131 );
         }
     }
 }
@@ -425,5 +428,5 @@ void LeapGestureFeedBack::screenTapGesture ( const Gesture& gesture, const Contr
 
     // Perform the action for screen tap
     runGestureAction ( SCREEP_TAP );
-    createUserFeedBackWindow ( "C:\\Users\\100428864\\Desktop\\FeedBackImages\\supportedGestures.png", 729, 335 );
+    createUserFeedBackWindow ( loadResource ( RES_SUPPORTEDGESTURES_IMAGE ), 729, 335 );
 }
