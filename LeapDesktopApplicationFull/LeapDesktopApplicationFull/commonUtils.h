@@ -94,6 +94,7 @@
 #include <mmdeviceapi.h>
 #include <stdlib.h>
 #include <list>
+#include <algorithm>
 
 // General Leap header files that are needed
 #include "Leap.h"
@@ -106,6 +107,11 @@
 #include "cinder/Rand.h"
 #include "cinder/gl/gl.h"
 #include "cinder/ImageIo.h"
+#include "cinder/Cinder.h"
+#include "cinder/Timeline.h"
+#include "cinder/Vector.h"
+#include "cinder/Color.h"
+#include "cinder/gl/TextureFont.h"
 
 // Include internal resource file for leap application
 #include "resource.h"
