@@ -206,11 +206,15 @@ void LeapGestureFeedBack::draw ()
     // Get the data for the window 
     WindowData *data = getWindow ()->getUserData<WindowData> ();
 
-    // Set the color based of the data in the window object
-    gl::color ( data->windowBackgroundColor );
+    // Only try to extract and draw the window if there is window data available
+    if ( data != NULL )
+    {
+        // Set the color based of the data in the window object
+        gl::color ( data->windowBackgroundColor );
 
-    // Load the image that is available in the window data object
-    gl::draw ( data->windowImageToLoad, Vec2f ( 0, 0 ) );
+        // Load the image that is available in the window data object
+        gl::draw ( data->windowImageToLoad, Vec2f ( 0, 0 ) );
+    }
 
     // Enable alpha bending, and set some color conversion settings
     gl::enableAlphaBlending ();
