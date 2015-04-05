@@ -85,6 +85,9 @@
 *  04/01/2015  Fixing - Minor indentation issues in the public        Devan Shah 100428864
 *                       LeapGestureFeedBack class.
 *
+*  04/04/2015  Adding - New function to the LeapGestureFeedBack       Devan Shah 100428864
+*                       class to display supported gestures.
+*
 *******************************************************************************************/
 
 // Include the necessary files to be used in the entire project

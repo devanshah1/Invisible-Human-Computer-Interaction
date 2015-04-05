@@ -32,18 +32,21 @@
 *    DATE      DESCRIPTION                                           Name
 *  dd/mmm/yyyy
 *  ========================================================================================
-*  29/10/2014  Initial drop - File contains functions for main     Devan Shah 100428864
+*  29/10/2014  Initial drop - File contains functions for main      Devan Shah 100428864
 *                             user feedback creation and also 
 *                             starting of the Leap motion 
 *                             listeners.
 *
-*  25/11/2014  Adding Functions - Added functions to create custom Devan Shah 100428864
+*  25/11/2014  Adding Functions - Added functions to create custom  Devan Shah 100428864
 *                                 windows for the user feedback.
 *
-*  02/12/2014  Commenting - Adding commenting for all the functions  Devan Shah 100428864
+*  02/12/2014  Commenting - Adding commenting for all the functions Devan Shah 100428864
 *                           and updating the change log to
 *                           represent the change made to the file
 *                           over the months
+*
+*  04/04/2015  Adding - Added functionality to close the user       Devan Shah 100428864
+*                       feedback window after 5 seconds.
 *
 *******************************************************************************************/
 #include "commonUtils.h"
@@ -87,10 +90,10 @@ Error Return =
 ******************************************************************************/
 void LeapGestureFeedBack::prepareSettings ( Settings *settings )
 {
-    settings->setWindowSize ( 200, 200 );
-    settings->setFrameRate ( 60.0f );
-    settings->setBorderless ( true );
-    settings->setWindowPos ( 0, 0 );
+    settings->setWindowSize ( 0, 0 ) ;
+    settings->setFrameRate ( 60.0f ) ;
+    settings->setBorderless ( true ) ;
+    settings->setWindowPos ( 0, 0 ) ;
 }
 
 /**********************************************************************************
@@ -133,11 +136,11 @@ Error Return =
 ******************************************************************************/
 void LeapGestureFeedBack::setup ()
 { 
-    defaultEnvironmentSetup ();
-    getEnvironmentVariables ();
+    defaultEnvironmentSetup () ;
+    getEnvironmentVariables () ;
 
     // for the default window we need to provide an instance of WindowData
-    createMainApplicationWindow ();
+    createMainApplicationWindow () ;
 }
 
 /**********************************************************************************
@@ -186,10 +189,10 @@ void LeapGestureFeedBack::draw ()
     gl::clear ( Color ( 255, 255, 255 ) );
 
     // Enable the required Gestures
-    //leap.enableGesture ( Gesture::TYPE_CIRCLE );
-    //leap.enableGesture ( Gesture::TYPE_KEY_TAP );
+    leap.enableGesture ( Gesture::TYPE_CIRCLE );
+    leap.enableGesture ( Gesture::TYPE_KEY_TAP );
     leap.enableGesture ( Gesture::TYPE_SCREEN_TAP );
-    //leap.enableGesture ( Gesture::TYPE_SWIPE );
+    leap.enableGesture ( Gesture::TYPE_SWIPE );
 
     // Set the policy flag to make sure that the application is able to listen for background frames
     leap.setPolicyFlags ( Leap::Controller::POLICY_BACKGROUND_FRAMES );
@@ -198,7 +201,7 @@ void LeapGestureFeedBack::draw ()
     const Leap::Frame frame = leap.frame ();
 
     // Sort through the hands and perform the necessary actions that are associated to the hand actions.
-    //determineHandAndPerformAction ( frame, leap );
+    determineHandAndPerformAction ( frame, leap );
 
     // Sort through the gestures and perform the necessary actions that are associated to the gestures.
     determineGestureAndPerformAction ( frame, leap );
@@ -272,15 +275,33 @@ void LeapGestureFeedBack::createUserFeedBackWindow ( cinder::DataSourceRef userF
     app::WindowRef newWindow = createWindow ( Window::Format ().size ( windowWidth, windowHeight ) );
     newWindow->setUserData ( new WindowData ( userFeedBackImage ) );
     newWindow->setBorderless ( true );
+    newWindow->setTitle ( "UserFeedbackWindow" );
 
     // Get a unique id for the window that is used to identify the window
-    int uniqueId = getNumWindows ();
+    int uniqueId = getNumWindows () ;
     
     // Set the unique number for the new window that was created
     newWindow->getSignalClose ().connect (
         [uniqueId, this]
         {
             this->console () << "You closed window #" << uniqueId << std::endl; // Action performed when the window is closed
+        }
+    );
+
+    // Set the trigger to close the window after 5 seconds using windows DestroyWindow function
+    newWindow->getSignalPostDraw ().connect (
+        [uniqueId, this]
+        {  
+           // Find the user feed back window and assign it to window handler
+           HWND userFeedbackWindow = FindWindow ( NULL, L"UserFeedbackWindow" ) ;
+           
+           // Sleep for 5 seconds before calling the destroy window function
+           Sleep ( 5000 ) ;
+
+           // Destroy the window that was opened for the user feedback
+           DestroyWindow ( userFeedbackWindow ) ;
+
+           this->console () << "Destroyed Window: #" << uniqueId << " With title: UserFeedbackWindow" << endl;
         }
     );
 }
@@ -326,7 +347,8 @@ void LeapGestureFeedBack::createMainApplicationWindow ()
     // Create the window of size 10X10 and set it as borderless
     app::WindowRef newWindow = createWindow ( Window::Format ().size ( 10, 10 ) );
     newWindow->setBorderless ( true );
-        
+    newWindow->setPos ( 0, 0 );
+
     // Get a unique id for the window that is used to identify the window
     int uniqueId = getNumWindows ();
     

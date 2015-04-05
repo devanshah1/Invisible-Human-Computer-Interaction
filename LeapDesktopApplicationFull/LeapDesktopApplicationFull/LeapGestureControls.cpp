@@ -88,7 +88,6 @@ Error Return =
 
     N/A
 
-
 ******************************************************************************/
 void LeapGestureFeedBack::determineGestureAndPerformAction ( const Frame& frame, const Controller& controller )
 {
@@ -168,7 +167,6 @@ Normal Return =
 Error Return =
 
     N/A
-
 
 ******************************************************************************/
 void LeapGestureFeedBack::circleGestures ( const Gesture& gesture, const Controller& controller )
