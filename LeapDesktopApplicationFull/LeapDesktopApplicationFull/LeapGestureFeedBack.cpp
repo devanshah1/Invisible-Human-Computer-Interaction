@@ -190,9 +190,9 @@ void LeapGestureFeedBack::draw ()
 
     // Enable the required Gestures
     leap.enableGesture ( Gesture::TYPE_CIRCLE );
-    leap.enableGesture ( Gesture::TYPE_KEY_TAP );
-    leap.enableGesture ( Gesture::TYPE_SCREEN_TAP );
-    leap.enableGesture ( Gesture::TYPE_SWIPE );
+    //leap.enableGesture ( Gesture::TYPE_KEY_TAP );
+    //leap.enableGesture ( Gesture::TYPE_SCREEN_TAP );
+    //leap.enableGesture ( Gesture::TYPE_SWIPE );
 
     // Set the policy flag to make sure that the application is able to listen for background frames
     leap.setPolicyFlags ( Leap::Controller::POLICY_BACKGROUND_FRAMES );
@@ -201,7 +201,7 @@ void LeapGestureFeedBack::draw ()
     const Leap::Frame frame = leap.frame ();
 
     // Sort through the hands and perform the necessary actions that are associated to the hand actions.
-    determineHandAndPerformAction ( frame, leap );
+    //determineHandAndPerformAction ( frame, leap );
 
     // Sort through the gestures and perform the necessary actions that are associated to the gestures.
     determineGestureAndPerformAction ( frame, leap );

@@ -47,6 +47,9 @@
 *                         default action that is perform when 
 *                         SCREEP_TAP is detected
 *
+*  04/05/2015 Commenting - Adding addition comments and fixing the   Devan Shah 100428864
+*                          function descriptions
+*
 *******************************************************************************************/
 #include "commonUtils.h"
 
@@ -58,15 +61,8 @@ Descriptive Name = Used to Set up the environment variables
 
 Function =
 
-
-
-Dependencies =
-
-    N/A
-
-Restrictions =
-
-    N/A
+    This function is used to set up the default environment variables that are used
+    to pick up the actions that gesture are suppose to do.
 
 Input =
     
@@ -77,14 +73,9 @@ Output =
    Currently there are no outputs from this functions as it only performs the action. 
    Future TODO is to make sure errors are handled and appropriate response is returned.
 
-Normal Return =
+Return =
     
     N/A
-
-Error Return =
-
-    N/A
-
 
 ******************************************************************************/
 void LeapGestureFeedBack::defaultEnvironmentSetup ()
@@ -110,19 +101,12 @@ void LeapGestureFeedBack::defaultEnvironmentSetup ()
 
 Function Name = LeapGestureFeedBack::getEnvironmentVariables
 
-Descriptive Name =
+Descriptive Name = Fetch all the require environment variables
 
 Function =
 
-
-
-Dependencies =
-
-    N/A
-
-Restrictions =
-
-    N/A
+    This function is used to fetch all the environment variables for the different 
+    gestures actions that are to be performed.
 
 Input =
     
@@ -133,20 +117,11 @@ Output =
    Currently there are no outputs from this functions as it only performs the action. 
    Future TODO is to make sure errors are handled and appropriate response is returned.
 
-Normal Return =
-    
-    N/A
-
-Error Return =
-
-    N/A
-
-
 ******************************************************************************/
 void LeapGestureFeedBack::getEnvironmentVariables ()
 {
-    // 
-    DWORD  dwRet = NULL;
+    // variable Declaration
+    DWORD  dwRet = NULL ;
 
     // Allocate memory for environment variable retrieval
     CIRCLE_CLOCKWISE_SET = ( LPTSTR ) malloc ( BUFSIZE*sizeof ( TCHAR ) );
@@ -203,41 +178,27 @@ void LeapGestureFeedBack::getEnvironmentVariables ()
 
 Function Name = void LeapGestureFeedBack::runGestureAction
 
-Descriptive Name = 
+Descriptive Name = Execute an action based on the gesture 
 
 Function =
 
-
-
-Dependencies =
-
-    N/A
-
-Restrictions =
-
-    N/A
+    This function is used to execute an action based on the environment variable 
+    that is set for that gesture.
 
 Input =
     
-    N/A
+    std::string gestureAction - The gesture option that needs to execute the specific
+                                action for.
 
 Output =
    
    Currently there are no outputs from this functions as it only performs the action. 
    Future TODO is to make sure errors are handled and appropriate response is returned.
 
-Normal Return =
-    
-    N/A
-
-Error Return =
-
-    N/A
-
-
 ******************************************************************************/
 void LeapGestureFeedBack::runGestureAction ( std::string gestureAction )
 {
+    // Execute the action for a gesture based on the environment variable that was set
     if ( gestureAction == CIRCLE_CLOCKWISE )
     {
         executeAction ( CIRCLE_CLOCKWISE_SET );
@@ -276,41 +237,27 @@ void LeapGestureFeedBack::runGestureAction ( std::string gestureAction )
 
 Function Name = LeapGestureFeedBack::executeAction
 
-Descriptive Name = 
+Descriptive Name = Executes the action for gesture that was detected
 
 Function =
 
-
-
-Dependencies =
-
-    N/A
-
-Restrictions =
-
-    N/A
+    This function is used to execute the action based on which action was
+    set for a specific gesture. Execute different action based on the action
+    that is passed in.
 
 Input =
     
-    N/A
+    LPTSTR executionAction - Used to identify which action to perform
 
 Output =
    
    Currently there are no outputs from this functions as it only performs the action. 
    Future TODO is to make sure errors are handled and appropriate response is returned.
 
-Normal Return =
-    
-    N/A
-
-Error Return =
-
-    N/A
-
-
 ******************************************************************************/
 void LeapGestureFeedBack::executeAction ( LPTSTR executionAction )
 {
+    // Perform the actions based on the execution Action that is passed in to the function
     if ( ( lstrcmpi ( TEXT ( VOLUME_STEP_UP ), executionAction ) ) == 0 && executionAction != NULL )
     {
         VOLUME_STEP_UP_ACTION;
@@ -357,32 +304,17 @@ void LeapGestureFeedBack::executeAction ( LPTSTR executionAction )
 
 Function Name = LeapGestureFeedBack::freeEnvironmentBuffers
 
-Descriptive Name = 
+Descriptive Name = Used to free the environment variable storage buffers
 
 Function =
 
-
-
-Dependencies =
-None
-
-Restrictions =
-None
-
-Input =
-
-Output =
-See function description.
-
-Normal Return =
-0 -
-
-Error Return =
-None
+    This function is used to free up the memory allocation buffers for the environment
+    variables that were used to get the environment variable for the gesture actions.
 
 ******************************************************************************/
 void LeapGestureFeedBack::freeEnvironmentBuffers ()
 {
+    // Free the memory buffer for each of the variables where memory was allocated
     free ( CIRCLE_CLOCKWISE_SET );
     free ( CIRCLE_COUNTERCLOKWISE_SET );
     free ( SWIPE_LEFT_SET );
