@@ -48,6 +48,8 @@
 *  02/03/2015  Updating - Changing how the image are loaded, making  Devan Shah 100428864 
 *                         use of the defined resources.
 *
+*  04/04/2015  Updating - Minor changes to formatting and comments   Devan Shah 100428864 
+*
 *******************************************************************************************/
 #include "commonUtils.h"
 
@@ -99,14 +101,14 @@ Error Return =
 void LeapGestureFeedBack::volumeManipulation ( string controlOption )
 {
     // Variable Declaration
-    HRESULT              volumeManipulationResults = NULL;  // Stores detailed information for the volume communication interface
-    IMMDeviceEnumerator  *deviceEnumerator         = NULL;  // Stores the interface pointer of enumerating audio devices
-    IMMDevice            *defaultDevice            = NULL;  // Stores all the default audio devices resources
-    IAudioEndpointVolume *endpointVolume           = NULL;  // Stores the volume controls on the audio streams 
-    BOOL                 pbMute                    = FALSE; //
+    HRESULT              volumeManipulationResults = NULL ;  // Stores detailed information for the volume communication interface
+    IMMDeviceEnumerator  *deviceEnumerator         = NULL ;  // Stores the interface pointer of enumerating audio devices
+    IMMDevice            *defaultDevice            = NULL ;  // Stores all the default audio devices resources
+    IAudioEndpointVolume *endpointVolume           = NULL ;  // Stores the volume controls on the audio streams 
+    BOOL                 pbMute                    = FALSE ; //
 
     // Initialize the COM library on the current thread
-    CoInitialize ( NULL );
+    CoInitialize ( NULL ) ;
 
     // Create an instance of a single uninitialized object of audio devices, a success instance creation will return "S_OK"
     volumeManipulationResults = CoCreateInstance ( __uuidof( MMDeviceEnumerator ),    // The CLSID associated with the data and code that is used to create the object
@@ -114,46 +116,49 @@ void LeapGestureFeedBack::volumeManipulation ( string controlOption )
                                                    CLSCTX_INPROC_SERVER,              // Identifies how the new object will run, in this case it is a DLL that runs in the same process
                                                    __uuidof( IMMDeviceEnumerator ),   // The identifier of the interface that will be used to communicate with the object
                                                    ( LPVOID * ) &deviceEnumerator     // Pointer that will store the interface pointer that was requested
-                                                 );
+                                                 ) ;
 
     // Using the device enumerator interface get the default audio endpoint for the provided data-flow direction
     volumeManipulationResults = deviceEnumerator->GetDefaultAudioEndpoint ( eRender,          // Set to eRender to represent an audio rendering stream
                                                                             eConsole,         // Set to eConsole to represent the role that is assigned to the endpoint device
-                                                                            &defaultDevice ); // Pointer to which the device address is stored of the endpoint object
+                                                                            &defaultDevice    // Pointer to which the device address is stored of the endpoint object
+                                                                          ) ;
 
     // No longer need the pointer for the device enumerator interface so release it to free up memory
-    deviceEnumerator->Release ();
-    deviceEnumerator = NULL;  // Force un-initialization
+    deviceEnumerator->Release () ;
+    deviceEnumerator = NULL ;  // Force un-initialization
 
     // Activate the device that was retrieved above, a success activation will return "S_OK"
     volumeManipulationResults = defaultDevice->Activate ( __uuidof( IAudioEndpointVolume ), // The interface identifier, in this case this is an audio endpoint device
                                                           CLSCTX_INPROC_SERVER,             // Identifies how the new object will run, in this case it is a DLL that runs in the same process
                                                           NULL,                             // Set to NULL to activate an IAudioEndpointVolume interface on an audio endpoint device
-                                                          ( LPVOID * ) &endpointVolume );   // Pointer which stores the address of the IAudioEndpointVolume interface
+                                                          ( LPVOID * ) &endpointVolume      // Pointer which stores the address of the IAudioEndpointVolume interface
+                                                        ) ;
+
     // No longer need the pointer for the device interface so release it to free up memory
-    defaultDevice->Release ();
-    defaultDevice = NULL; // Force un-initialization
+    defaultDevice->Release () ;
+    defaultDevice = NULL ; // Force un-initialization
 
     // From the endpointVolume interface get the mute status
-    //     GetMute returns TRUE for muted and FALSE for the stream not muted
-    endpointVolume->GetMute ( &pbMute );
+    // GetMute returns TRUE for muted and FALSE for the stream not muted
+    endpointVolume->GetMute ( &pbMute ) ;
 
     // Based on the mute status perform the action of muting or unmuting the stream
     if ( ( pbMute && controlOption == VOLUME_MUTE_UNMUTE ) )
     {
         // Found that the stream is already currently muted so un-mute the stream
-        volumeManipulationResults = endpointVolume->SetMute ( 0, NULL );
+        volumeManipulationResults = endpointVolume->SetMute ( 0, NULL ) ;
 
         // Display user feed back image based on the action performed
-        createUserFeedBackWindow ( loadResource ( RES_KEYTAP_IMAGE ), 150, 131 );
+        createUserFeedBackWindow ( loadResource ( RES_KEYTAP_IMAGE ), 150, 131 ) ;
     }
     else if ( !pbMute && controlOption == VOLUME_MUTE_UNMUTE )
     {
         // Found that the stream is not mute so mute the stream
-        volumeManipulationResults = endpointVolume->SetMute ( 1, NULL );
+        volumeManipulationResults = endpointVolume->SetMute ( 1, NULL ) ;
 
         // Display user feed back image based on the action performed
-        createUserFeedBackWindow ( loadResource ( RES_KEYTAPRELEASE_IMAGE ), 150, 131 );
+        createUserFeedBackWindow ( loadResource ( RES_KEYTAPRELEASE_IMAGE ), 150, 131 ) ;
     }
 
     // Based on the volume increase/decrease option, perform the appropriate action

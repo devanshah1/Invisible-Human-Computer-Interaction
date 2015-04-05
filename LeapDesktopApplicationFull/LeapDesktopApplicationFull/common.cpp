@@ -43,6 +43,10 @@
 *                           represent the change made to the file
 *                           over the months
 *
+*  04/04/2015  Changing - The action that SCREEP_TAP does and the    Devan Shah 100428864
+*                         default action that is perform when 
+*                         SCREEP_TAP is detected
+*
 *******************************************************************************************/
 #include "commonUtils.h"
 
@@ -50,7 +54,7 @@
 
 Function Name = LeapGestureFeedBack::defaultEnvironmentSetup
 
-Descriptive Name =
+Descriptive Name = Used to Set up the environment variables
 
 Function =
 
@@ -99,7 +103,7 @@ void LeapGestureFeedBack::defaultEnvironmentSetup ()
 
     // Set actions for different types of tap actions.
     SetEnvironmentVariable ( TEXT ( KEY_TAP ), TEXT ( VOLUME_MUTE_UNMUTE ) );
-    SetEnvironmentVariable ( TEXT ( SCREEP_TAP ), TEXT ( VOLUME_MUTE_UNMUTE ) );
+    SetEnvironmentVariable ( TEXT ( SCREEP_TAP ), TEXT ( SUPPORTED_GESTURES ) );
 }
 
 /**********************************************************************************
@@ -342,6 +346,10 @@ void LeapGestureFeedBack::executeAction ( LPTSTR executionAction )
     else if ( ( lstrcmpi ( TEXT ( HIDE_KEYBOARD ), executionAction ) ) == 0 && executionAction != NULL )
     {
         HIDE_KEYBOARD_ACTION;
+    }
+    else if ( ( lstrcmpi ( TEXT ( SUPPORTED_GESTURES ), executionAction ) ) == 0 && executionAction != NULL )
+    {
+        SUPPORTED_GESTURE_ACTION;
     }
 }
 

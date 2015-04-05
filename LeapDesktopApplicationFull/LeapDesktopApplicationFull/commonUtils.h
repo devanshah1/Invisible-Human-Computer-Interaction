@@ -82,6 +82,9 @@
 *                         to a cinder DataSourceRef to load the 
 *                         image resources correctly.
 *
+*  04/01/2015  Fixing - Minor indentation issues in the public        Devan Shah 100428864
+*                       LeapGestureFeedBack class.
+*
 *******************************************************************************************/
 
 // Include the necessary files to be used in the entire project
@@ -169,6 +172,7 @@ const std::string boneNames []   = {"Metacarpal", "Proximal", "Middle", "Distal"
 #define MOVE_MOUSE          "MOVE_MOUSE"
 #define MOUSE_LEFT_CLICK    "MOUSE_LEFT_CLICK"
 #define MOUSE_RIGHT_CLICK   "MOUSE_RIGHT_CLICK"
+#define SUPPORTED_GESTURES  "SUPPORTED_GESTURES"
 
 // Definitions for action to be performed when specific action is called by the application currently
 #define VOLUME_STEP_UP_ACTION      volumeManipulation( VOLUME_STEP_UP );
@@ -180,6 +184,7 @@ const std::string boneNames []   = {"Metacarpal", "Proximal", "Middle", "Distal"
 #define HIDE_KEYBOARD_ACTION       keyboardManipulation ( HIDE_KEYBOARD );
 #define APP_WINDOW_NEXT_ACTION     applicationWindowManipulation ( APP_WINDOW_NEXT );
 #define APP_WINDOW_PREVIOUS_ACTION applicationWindowManipulation ( APP_WINDOW_PREVIOUS );
+#define SUPPORTED_GESTURE_ACTION   supportedGestures() ;
 
 /**********************************************************************************
 
@@ -217,6 +222,7 @@ Functions:
     determineGestureAndPerformAction ( const Frame& frame, const Controller& controller );
     determineHandAndPerformAction ( const Frame& frame, const Controller& controller );
     determineFingerAndPerformAction ( const Controller& controller, const Hand& hand );
+    supportedGestures ();
 
     // Setup Function Deceleration
     defaultEnvironmentSetup ();
@@ -236,58 +242,59 @@ class LeapGestureFeedBack : public ci::app::AppNative
 {
     public:
 
-    // General Cinder functions
-    void setup ();
-    void draw ();
-    void prepareSettings ( Settings *settings );
+       // General Cinder functions
+       void setup () ;
+       void draw () ;
+       void prepareSettings ( Settings *settings ) ;
 
-    // Custom Cinder window creation functions
-    void createUserFeedBackWindow ( cinder::DataSourceRef userFeedBackImageRef, int windowWidth, int windowHeight );
-    void createMainApplicationWindow ();
+       // Custom Cinder window creation functions
+       void createUserFeedBackWindow ( cinder::DataSourceRef userFeedBackImageRef, int windowWidth, int windowHeight ) ;
+       void createMainApplicationWindow () ;
 
-    // Global Function Deceleration for actions supported by the application
-    void volumeManipulation ( std::string controlOption );
-    void applicationWindowManipulation ( std::string windowOption );
-    void keyboardManipulation ( std::string keyboardOption );
-    void moveMouse ( const Controller& controller, std::string mouseAction );
+       // Global Function Deceleration for actions supported by the application
+       void volumeManipulation ( std::string controlOption ) ;
+       void applicationWindowManipulation ( std::string windowOption ) ;
+       void keyboardManipulation ( std::string keyboardOption ) ;
+       void moveMouse ( const Controller& controller, std::string mouseAction ) ;
 
-    // Supported Gestures Function Deceleration
-    void circleGestures ( const Gesture& gesture, const Controller& controller );
-    void swipeGesture ( const Gesture& gesture, const Controller& controller );
-    void keyTapGesture ( const Gesture& gesture, const Controller& controller );
-    void screenTapGesture ( const Gesture& gesture, const Controller& controller );
+       // Supported Gestures Function Deceleration
+       void circleGestures ( const Gesture& gesture, const Controller& controller ) ;
+       void swipeGesture ( const Gesture& gesture, const Controller& controller ) ;
+       void keyTapGesture ( const Gesture& gesture, const Controller& controller ) ;
+       void screenTapGesture ( const Gesture& gesture, const Controller& controller ) ;
 
-    // General Function Deceleration
-    void runGestureAction ( std::string gestureAction );
-    void executeAction ( LPTSTR executionAction );
-    void determineGestureAndPerformAction ( const Frame& frame, const Controller& controller );
-    void determineHandAndPerformAction ( const Frame& frame, const Controller& controller );
-    void determineFingerAndPerformAction ( const Controller& controller, const Hand& hand );
+       // General Function Deceleration
+       void runGestureAction ( std::string gestureAction ) ;
+       void executeAction ( LPTSTR executionAction ) ;
+       void determineGestureAndPerformAction ( const Frame& frame, const Controller& controller ) ;
+       void determineHandAndPerformAction ( const Frame& frame, const Controller& controller ) ;
+       void determineFingerAndPerformAction ( const Controller& controller, const Hand& hand ) ;
+       void supportedGestures () ;
 
-    // Setup Function Deceleration 
-    void defaultEnvironmentSetup ();
-    void getEnvironmentVariables ();
-    void freeEnvironmentBuffers ();
+       // Setup Function Deceleration 
+       void defaultEnvironmentSetup () ;
+       void getEnvironmentVariables () ;
+       void freeEnvironmentBuffers () ;
 
-    // Stores the maximum screen size
-    int maxWindowWidth;
-    int maxWindowHeight;
+       // Stores the maximum screen size
+       int maxWindowWidth ;
+       int maxWindowHeight ;
 
-    // Constants used to store environment variables for each gesture
-    LPTSTR SWIPE_LEFT_SET;
-    LPTSTR SWIPE_RIGHT_SET;
-    LPTSTR SWIPE_UP_SET;
-    LPTSTR SWIPE_DOWN_SET;
-    LPTSTR CIRCLE_CLOCKWISE_SET;
-    LPTSTR CIRCLE_COUNTERCLOKWISE_SET;
-    LPTSTR KEY_TAP_SET;
-    LPTSTR SCREEP_TAP_SET;
+       // Constants used to store environment variables for each gesture
+       LPTSTR SWIPE_LEFT_SET ;
+       LPTSTR SWIPE_RIGHT_SET ;
+       LPTSTR SWIPE_UP_SET ;
+       LPTSTR SWIPE_DOWN_SET ;
+       LPTSTR CIRCLE_CLOCKWISE_SET ;
+       LPTSTR CIRCLE_COUNTERCLOKWISE_SET ;
+       LPTSTR KEY_TAP_SET ;
+       LPTSTR SCREEP_TAP_SET ;
 
-    // Setup the leap controller
-    Controller leap;
+       // Setup the leap controller
+       Controller leap ;
 
-    // Stores the default windows settings
-    Settings         *settings;
+       // Stores the default windows settings
+       Settings *settings ;
 };
 
 /**********************************************************************************
@@ -318,10 +325,10 @@ class WindowData
             : windowBackgroundColor ( Color ( 255, 255, 255 ) ) // Default to white background
         {
             // Store the image in the global variable to access when needed
-            windowImageToLoad = image;
+            windowImageToLoad = image ;
         }
 
         // Variables to store the object in the class
-        Color	    windowBackgroundColor;
-        Texture     windowImageToLoad;
+        Color   windowBackgroundColor ; 
+        Texture windowImageToLoad ;
 };

@@ -114,6 +114,7 @@ xcopy /yr "..\..\..\freeglut\bin\freeglut.dll" "$(TargetDir)"
   <ItemGroup>
     <ClCompile Include="ApplicationWindowController.cpp" />
     <ClCompile Include="common.cpp" />
+    <ClCompile Include="HelpControls.cpp" />
     <ClCompile Include="LeapGestureControls.cpp" />
     <ClCompile Include="LeapGestureFeedBack.cpp" />
     <ClCompile Include="LeapHandControls.cpp" />

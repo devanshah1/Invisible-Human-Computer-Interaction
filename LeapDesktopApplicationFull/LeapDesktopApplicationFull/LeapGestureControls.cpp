@@ -39,8 +39,11 @@
 *                           represent the change made to the file
 *                           over the months
 *
-*  02/03/2015   Updating - Changing how the image are loaded, making  Devan Shah 100428864
+*  02/03/2015   Updating - Changing how the image are loaded, making Devan Shah 100428864
 *                          use of the defined resources.
+*
+*  04/04/2015   Updating - Changing how the image for                Devan Shah 100428864
+*                          screenTapGesture is opened. 
 *
 *******************************************************************************************/
 #include "commonUtils.h"
@@ -97,17 +100,16 @@ void LeapGestureFeedBack::determineGestureAndPerformAction ( const Frame& frame,
     {
         Gesture gesture = gestures [g];
 
+        // Switch block to perform the action based on the gesture type that is detected.
         switch ( gesture.type () )
         {
             case Gesture::TYPE_CIRCLE:
             {
                 circleGestures ( gesture, controller );
-
                 break;
             }
             case Gesture::TYPE_SWIPE:
             {
-
                 swipeGesture ( gesture, controller );
                 break;
             }
@@ -171,6 +173,7 @@ Error Return =
 ******************************************************************************/
 void LeapGestureFeedBack::circleGestures ( const Gesture& gesture, const Controller& controller )
 {
+    // Variable Declaration
     CircleGesture circle = gesture;
     std::string clockwiseness;
 
@@ -179,7 +182,7 @@ void LeapGestureFeedBack::circleGestures ( const Gesture& gesture, const Control
     {
         clockwiseness = "counterclockwise";
 
-        // handle the action when clockwise circle action is detected from Leap Motion.
+        // Handle the action when clockwise circle action is detected from Leap Motion.
         runGestureAction ( CIRCLE_CLOCKWISE );
         createUserFeedBackWindow ( loadResource ( RES_CLOCKWISE_IMAGE ), 150, 131 );
     }
@@ -198,6 +201,7 @@ void LeapGestureFeedBack::circleGestures ( const Gesture& gesture, const Control
         sweptAngle = ( circle.progress () - previousUpdate.progress () ) * 2 * PI;
     }
 
+    // Debug info
     std::cout << std::string ( 2, ' ' )
         << "Circle id: " << gesture.id ()
         << ", state: " << stateNames [gesture.state ()]
@@ -253,6 +257,7 @@ void LeapGestureFeedBack::swipeGesture ( const Gesture& gesture, const Controlle
     // Switch the gesture input to swipe gesture object
     SwipeGesture swipe = gesture;
 
+    // Debug info
     std::cout << std::string ( 2, ' ' )
         << "Swipe id: " << gesture.id ()
         << ", state: " << stateNames [gesture.state ()]
@@ -276,7 +281,7 @@ void LeapGestureFeedBack::swipeGesture ( const Gesture& gesture, const Controlle
         *	   - Perform an action when user has performed a right swipe on leap.
         *      - The right swipe from the user is detected based on the x coordinates
         *        that are detected during the action, this is pulled from the SwipeGestures API
-        *        using the direction function wich provides data of the x, y, and z coordinates
+        *        using the direction function which provides data of the x, y, and z coordinates
         *        of a swipe direction.
         *      - Right swipe is performed in a horizontal manner therefore only the x coordinate
         *        would increase in a positive direction. (greater then 0)
@@ -367,13 +372,17 @@ Error Return =
 ******************************************************************************/
 void LeapGestureFeedBack::keyTapGesture ( const Gesture& gesture, const Controller& controller )
 {
-    KeyTapGesture tap = gesture;
+    // Variable Declaration
+    KeyTapGesture tap = gesture ;
+
+    // Debug info
     std::cout << std::string ( 2, ' ' )
         << "Key Tap id: " << gesture.id ()
         << ", state: " << stateNames [gesture.state ()]
         << ", position: " << tap.position ()
         << ", direction: " << tap.direction ();
 
+    // Perform key tap action
     runGestureAction ( KEY_TAP );
 }
 
@@ -418,8 +427,10 @@ Error Return =
 ******************************************************************************/
 void LeapGestureFeedBack::screenTapGesture ( const Gesture& gesture, const Controller& controller )
 {
+    // Variable Declaration
     ScreenTapGesture screentap = gesture;
 
+    // Debug info
     std::cout << std::string ( 2, ' ' )
         << "Screen Tap id: " << gesture.id ()
         << ", state: " << stateNames [gesture.state ()]
@@ -428,5 +439,4 @@ void LeapGestureFeedBack::screenTapGesture ( const Gesture& gesture, const Contr
 
     // Perform the action for screen tap
     runGestureAction ( SCREEP_TAP );
-    createUserFeedBackWindow ( loadResource ( RES_SUPPORTEDGESTURES_IMAGE ), 729, 335 );
 }
