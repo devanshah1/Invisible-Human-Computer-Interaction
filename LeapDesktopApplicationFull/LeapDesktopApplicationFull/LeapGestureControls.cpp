@@ -262,6 +262,9 @@ void LeapGestureFeedBack::swipeGesture ( const Gesture& gesture, const Controlle
     // Switch the gesture input to swipe gesture object
     SwipeGesture swipe = gesture;
 
+    // Get the number of fingers that where 
+    int numFingers = gesture.hands () [0].fingers ().count () ;
+    
     // Debug info
     std::cout << std::string ( 2, ' ' )
         << "Swipe id: " << gesture.id ()
@@ -274,16 +277,20 @@ void LeapGestureFeedBack::swipeGesture ( const Gesture& gesture, const Controlle
     //        a. Check x point is greater then the z point or
     //        b. Check y point is greater then the z point
     //     2. Current gesture Object ID is greater then the previous swipe gesture ID that was executed
-    //     3. Make sure that the current gesture ID matches the gesture ID in the controller frame 
-    if ( ( ( abs ( swipe.direction ().x ) > abs ( swipe.direction ().z ) ) ||        // 1(a)
-           ( abs ( swipe.direction ().y ) > abs ( swipe.direction ().z ) )           // 1(b)
+    //     3. Make sure that the current gesture ID matches the gesture ID in the controller frame previously
+    //     4. There has to be more then 3 fingers to classify this as a swipe
+    if ( ( ( abs ( swipe.direction ().x ) > abs ( swipe.direction ().z ) ) ||           // 1(a)
+           ( abs ( swipe.direction ().y ) > abs ( swipe.direction ().z ) )              // 1(b)
          ) &&
-         ( gesture.id () > prevSwipeGestureExecutedId ) &&                           // 2.
-         ( gesture.id () == controller.frame ( 1 ).gesture ( gesture.id () ).id () ) // 3.
+         ( gesture.id () > prevSwipeGestureExecutedId ) &&                              // 2.
+         ( gesture.id () == controller.frame ( 1 ).gesture ( gesture.id () ).id () ) && // 3.
+         numFingers > 3                                                                 // 4.
        )
     {
         // Set this current gesture ID to previous for later to check when executing this same block again
         prevSwipeGestureExecutedId = gesture.id () ;
+
+        this->console () << "Previous Swipe Gesture ID: " << prevSwipeGestureExecutedId << endl ;
 
         /*
         * Handle Horizontal Swipe detection:

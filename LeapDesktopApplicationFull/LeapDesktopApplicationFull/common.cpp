@@ -89,8 +89,8 @@ void LeapGestureFeedBack::defaultEnvironmentSetup ()
     // Set actions for different types of swipe actions.
     SetEnvironmentVariable ( TEXT ( SWIPE_LEFT ), TEXT ( APP_WINDOW_NEXT ) );
     SetEnvironmentVariable ( TEXT ( SWIPE_RIGHT ), TEXT ( APP_WINDOW_PREVIOUS ) );
-    SetEnvironmentVariable ( TEXT ( SWIPE_UP ), TEXT ( SHOW_KEYBOARD ) );
-    SetEnvironmentVariable ( TEXT ( SWIPE_DOWN ), TEXT ( HIDE_KEYBOARD ) );
+    SetEnvironmentVariable ( TEXT ( SWIPE_UP ), TEXT ( HIDE_KEYBOARD ) );
+    SetEnvironmentVariable ( TEXT ( SWIPE_DOWN ), TEXT ( SHOW_KEYBOARD ) );
 
     // Set actions for different types of tap actions.
     SetEnvironmentVariable ( TEXT ( KEY_TAP ), TEXT ( VOLUME_MUTE_UNMUTE ) );
