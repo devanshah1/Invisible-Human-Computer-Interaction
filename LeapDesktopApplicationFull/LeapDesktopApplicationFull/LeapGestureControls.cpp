@@ -45,6 +45,13 @@
 *  04/04/2015   Updating - Changing how the image for                Devan Shah 100428864
 *                          screenTapGesture is opened. 
 *
+*  04/05/2015  Fixing - Fix all the bugs in the swipe detection      Devan Shah 100428864
+*                       - Incorrect up and down detection
+*                       - Detecting Swipe too many times in the
+*                         same gesture ID object (frame)
+*                       - Flaw of detecting even a small move of in
+*                         the direction of left,right,up or down.
+*
 *******************************************************************************************/
 #include "commonUtils.h"
 
@@ -262,70 +269,113 @@ void LeapGestureFeedBack::swipeGesture ( const Gesture& gesture, const Controlle
         << ", direction: " << swipe.direction ()
         << ", speed: " << swipe.speed ();
 
-    /*
-    * Handle Horizontal Swipe detection:
-    *	   - Horizontal swipe is detected based on the x and y coordinate that are detected
-    *        during the action. The direction function from SwipeGestures API is used to
-    *        determine the x and y coordinates of the swipe.
-    *      - Using the x and y coordinates we can determine the orientation of the swipe
-    *      - When the x value of the swipe is greater then the y value of the swipe this
-    *        show that the swipe is horizontal. This is true because when you perform a horizontal
-    *        swipe you are increasing the x coordinate and the y should stay restively the same.
-    */
-    if ( abs ( swipe.direction ().x ) > abs ( swipe.direction ().y ) )
+    // This advance check is to make sure the following is true before performing another swipe gesture
+    //     1. Make sure that the swipe is not in the Z direction
+    //        a. Check x point is greater then the z point or
+    //        b. Check y point is greater then the z point
+    //     2. Current gesture Object ID is greater then the previous swipe gesture ID that was executed
+    //     3. Make sure that the current gesture ID matches the gesture ID in the controller frame 
+    if ( ( ( abs ( swipe.direction ().x ) > abs ( swipe.direction ().z ) ) ||        // 1(a)
+           ( abs ( swipe.direction ().y ) > abs ( swipe.direction ().z ) )           // 1(b)
+         ) &&
+         ( gesture.id () > prevSwipeGestureExecutedId ) &&                           // 2.
+         ( gesture.id () == controller.frame ( 1 ).gesture ( gesture.id () ).id () ) // 3.
+       )
     {
+        // Set this current gesture ID to previous for later to check when executing this same block again
+        prevSwipeGestureExecutedId = gesture.id () ;
+
         /*
-        * Handle Right Swipe:
-        *	   - Perform an action when user has performed a right swipe on leap.
-        *      - The right swipe from the user is detected based on the x coordinates
-        *        that are detected during the action, this is pulled from the SwipeGestures API
-        *        using the direction function which provides data of the x, y, and z coordinates
-        *        of a swipe direction.
-        *      - Right swipe is performed in a horizontal manner therefore only the x coordinate
-        *        would increase in a positive direction. (greater then 0)
+        * Handle Horizontal Swipe detection:
+        *	   - Horizontal swipe is detected based on the x and y coordinate that are detected
+        *        during the action. The direction function from SwipeGestures API is used to
+        *        determine the x and y coordinates of the swipe.
+        *      - Using the x and y coordinates we can determine the orientation of the swipe
+        *      - When the x value of the swipe is greater then the y value of the swipe this
+        *        show that the swipe is horizontal. This is true because when you perform a horizontal
+        *        swipe you are increasing the x coordinate and the y should stay restively the same.
+        *      - In the case of just checking x > y would cause the functions to be called many times with in 
+        *        one single swipe. Therefore we make use of ratios where x/y > 1, this will make sure that the
+        *        swipe has reached all the way to the end of the x axis.
         */
-        if ( swipe.direction ().x > 0 )
+        if ( abs ( swipe.direction ().x / swipe.direction ().y ) > 1 )
         {
-            runGestureAction ( SWIPE_RIGHT );
-            createUserFeedBackWindow ( loadResource ( RES_SWIPERIGHT_IMAGE ), 150, 131 );
+            /*
+            * Handle Right Swipe:
+            *	   - Perform an action when user has performed a right swipe on leap.
+            *      - The right swipe from the user is detected based on the x coordinates
+            *        that are detected during the action, this is pulled from the SwipeGestures API
+            *        using the direction function which provides data of the x, y, and z coordinates
+            *        of a swipe direction.
+            *      - Right swipe is performed in a horizontal manner therefore only the x coordinate
+            *        would increase in a positive direction. (greater then 0)
+            */
+            if ( swipe.direction ().x > 0 )
+            {
+                runGestureAction ( SWIPE_RIGHT ) ;
+                createUserFeedBackWindow ( loadResource ( RES_SWIPERIGHT_IMAGE ), 150, 131 ) ;
+            }
+            /*
+            * Handle Left Swipe:
+            *	   - Perform an action when user has performed a left swipe on leap.
+            *      - The left swipe from the user is detected based on the x coordinates
+            *        that are detected during the action, this is pulled from the SwipeGestures API
+            *        using the direction function which provides data of the x, y, and z coordinates
+            *        of a swipe direction.
+            *      - Left swipe is performed in a horizontal manner therefore only the x coordinate
+            *        would decrease in a negative direction. (less then 0)
+            */
+            else
+            {
+                runGestureAction ( SWIPE_LEFT ) ;
+                createUserFeedBackWindow ( loadResource ( RES_SWIPELEFT_IMAGE ), 150, 131 ) ;
+            }
         }
         /*
-        * Handle Left Swipe:
-        *	   - Perform an action when user has performed a left swipe on leap.
-        *      - The left swipe from the user is detected based on the x coordinates
-        *        that are detected during the action, this is pulled from the SwipeGestures API
-        *        using the direction function which provides data of the x, y, and z coordinates
-        *        of a swipe direction.
-        *      - Left swipe is performed in a horizontal manner therefore only the x coordinate
-        *        would decrease in a negative direction. (less then 0)
+        * Handle Vertical Swipe detection:
+        *	   - Vertical swipe is detected based on the x and y coordinate that are detected
+        *        during the action. The direction function from SwipeGestures API is used to
+        *        determine the x and y coordinates of the swipe.
+        *      - Using the x and y coordinates we can determine the orientation of the swipe
+        *      - When the y value of the swipe is greater then the x value of the swipe this
+        *        show that the swipe is vertical. This is true because when you perform a vertical
+        *        swipe you are increasing the y coordinate and the x should stay restively the same.
+        *      - In the case of just checking y > x would cause the functions to be called many times with in
+        *        one single swipe. Therefore we make use of ratios where y/x > 1, this will make sure that the
+        *        swipe has reached all the way to the end of the y axis.
         */
         else
         {
-            runGestureAction ( SWIPE_LEFT );
-            createUserFeedBackWindow ( loadResource ( RES_SWIPELEFT_IMAGE ), 150, 131 );
-        }
-    }
-    /*
-    * Handle Vertical Swipe detection:
-    *	   - Vertical swipe is detected based on the x and y coordinate that are detected
-    *        during the action. The direction function from SwipeGestures API is used to
-    *        determine the x and y coordinates of the swipe.
-    *      - Using the x and y coordinates we can determine the orientation of the swipe
-    *      - When the y value of the swipe is greater then the x value of the swipe this
-    *        show that the swipe is vertical. This is true because when you perform a vertical
-    *        swipe you are increasing the y coordinate and the x should stay restively the same.
-    */
-    else
-    {
-        if ( swipe.direction ().y > 0 )
-        {
-            runGestureAction ( SWIPE_DOWN );
-            createUserFeedBackWindow ( loadResource ( RES_SWIPEDOWN_IMAGE ), 150, 131 );
-        }
-        else
-        {
-            runGestureAction ( SWIPE_UP );
-            createUserFeedBackWindow ( loadResource ( RES_SWIPEUP_IMAGE ), 150, 131 );
+            /*
+            * Handle Down Swipe:
+            *	   - Perform an action when user has performed a down swipe on leap.
+            *      - The down swipe from the user is detected based on the y coordinates
+            *        that are detected during the action, this is pulled from the SwipeGestures API
+            *        using the direction function which provides data of the x, y, and z coordinates
+            *        of a swipe direction.
+            *      - Down swipe is performed in a vertical manner therefore only the y coordinate
+            *        would increase in the negative direction. (less then 0)
+            */
+            if ( swipe.direction ().y < 0 )
+            {
+                runGestureAction ( SWIPE_DOWN );
+                createUserFeedBackWindow ( loadResource ( RES_SWIPEDOWN_IMAGE ), 150, 131 );
+            }
+            /*
+            * Handle Up Swipe:
+            *	   - Perform an action when user has performed a up swipe on leap.
+            *      - The up swipe from the user is detected based on the y coordinates
+            *        that are detected during the action, this is pulled from the SwipeGestures API
+            *        using the direction function which provides data of the x, y, and z coordinates
+            *        of a swipe direction.
+            *      - Up swipe is performed in a vertical manner therefore only the y coordinate
+            *        would increase in the positive direction. (greater then 0)
+            */
+            else
+            {
+                runGestureAction ( SWIPE_UP ) ;
+                createUserFeedBackWindow ( loadResource ( RES_SWIPEUP_IMAGE ), 150, 131 ) ;
+            }
         }
     }
 }

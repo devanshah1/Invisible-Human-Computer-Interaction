@@ -33,37 +33,37 @@
 *      Miguel Arindaeng  (100394094)
 *
 *  Change Log:
-*    DATE      DESCRIPTION                                           Name
+*    DATE      DESCRIPTION                                            Name
 *  dd/mmm/yyyy
 *  ========================================================================================
-*  07/10/2014  Initial drop - File contains global definitions,      Devan Shah 100428864
+*  07/10/2014  Initial drop - File contains global definitions,       Devan Shah 100428864
 *                             common includes, common required
 *                             linker configurations and global
 *                             functions.
 *
-*  21/10/2014  Adding Constants - Added some constants arrays        Devan Shah 100428864
+*  21/10/2014  Adding Constants - Added some constants arrays         Devan Shah 100428864
 *                                 used through out the project
 *                                 
 *
-*  04/11/2014  Adding Definitions - Added some definitions for       Devan Shah 100428864
+*  04/11/2014  Adding Definitions - Added some definitions for        Devan Shah 100428864
 *                                   gestures SWIPE_LEFT, 
 *                                   SWIPE_RIGHT, SWIPE_UP, 
 *                                   SWIPE_DOWN also the
 *                                   equivalent action definition
 *
-*  11/11/2014  Adding Definitions - Added some definitions for       Devan Shah 100428864
+*  11/11/2014  Adding Definitions - Added some definitions for        Devan Shah 100428864
 *                                   mouse movements and actions
 *                                   MOVE_MOUSE, MOUSE_LEFT_CLICK
 *                                   and MOUSE_RIGHT_CLICK
 *
-*  18/11/2014  Adding Definitions - Added some definitions for       Devan Shah 100428864
+*  18/11/2014  Adding Definitions - Added some definitions for        Devan Shah 100428864
 *                                   gesture actions 
 *                                   LOCK_WORK_STATION_ACTION and
 *                                   OPEN_CALCULATOR_ACTION as 
 *                                   sample actions to perform
 *                                   when gesture is performed
 *
-*  25/11/2014  Adding Definitions - Added some definitions for       Devan Shah 100428864
+*  25/11/2014  Adding Definitions - Added some definitions for        Devan Shah 100428864
 *                                   gestures CIRCLE_CLOCKWISE,
 *                                   CIRCLE_COUNTERCLOKWISE,
 *                                   KEY_TAP and SCREEP_TAP also
@@ -87,6 +87,9 @@
 *
 *  04/04/2015  Adding - New function to the LeapGestureFeedBack       Devan Shah 100428864
 *                       class to display supported gestures.
+*
+*  04/05/2015  Adding - New global variable for better swipe          Devan Shah 100428864
+*                       detection.
 *
 *******************************************************************************************/
 
@@ -298,6 +301,9 @@ class LeapGestureFeedBack : public ci::app::AppNative
 
        // Stores the default windows settings
        Settings *settings ;
+
+       // Previous Executed SwipeGesture
+       int prevSwipeGestureExecutedId = 0 ;
 };
 
 /**********************************************************************************
