@@ -291,19 +291,19 @@ void LeapGestureFeedBack::createUserFeedBackWindow ( cinder::DataSourceRef userF
     // Set the trigger to close the window after 1 second using windows DestroyWindow function
     newWindow->getSignalPostDraw ().connect (
         [uniqueId, this]
-    {
-        // Find the user feed back window and assign it to window handler
-        HWND userFeedbackWindow = FindWindow ( NULL, L"UserFeedbackWindow" );
+        {
+           // Find the user feed back window and assign it to window handler
+           HWND userFeedbackWindow = FindWindow ( NULL, L"UserFeedbackWindow" );
 
-        // Sleep for 1 second before calling the destroy window function
-        Sleep ( 1000 ) ;
+           // Sleep for 1 second before calling the destroy window function
+           Sleep ( 1000 ) ;
 
-        // Destroy the window that was opened for the user feedback
-        DestroyWindow ( userFeedbackWindow ) ;
+           // Destroy the window that was opened for the user feedback
+           DestroyWindow ( userFeedbackWindow ) ;
 
-        this->console () << "Destroyed Window: #" << uniqueId << " With title: UserFeedbackWindow" << endl;
-    }
-    );
+           this->console () << "Destroyed Window: #" << uniqueId << " With title: UserFeedbackWindow" << endl;
+       }
+    ) ;
 }
 
 /**********************************************************************************
