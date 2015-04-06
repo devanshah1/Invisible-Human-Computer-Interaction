@@ -189,10 +189,10 @@ void LeapGestureFeedBack::draw ()
     gl::clear ( Color ( 255, 255, 255 ) );
 
     // Enable the required Gestures
-    leap.enableGesture ( Gesture::TYPE_CIRCLE );
+    //leap.enableGesture ( Gesture::TYPE_CIRCLE );
     //leap.enableGesture ( Gesture::TYPE_KEY_TAP );
     //leap.enableGesture ( Gesture::TYPE_SCREEN_TAP );
-    //leap.enableGesture ( Gesture::TYPE_SWIPE );
+    leap.enableGesture ( Gesture::TYPE_SWIPE );
 
     // Set the policy flag to make sure that the application is able to listen for background frames
     leap.setPolicyFlags ( Leap::Controller::POLICY_BACKGROUND_FRAMES );
@@ -207,7 +207,7 @@ void LeapGestureFeedBack::draw ()
     determineGestureAndPerformAction ( frame, leap );
 
     // Get the data for the window 
-    WindowData *data = getWindow ()->getUserData<WindowData> ();
+    WindowData *data = getWindow ()->getUserData<WindowData> () ;
 
     // Only try to extract and draw the window if there is window data available
     if ( data != NULL )
@@ -288,21 +288,21 @@ void LeapGestureFeedBack::createUserFeedBackWindow ( cinder::DataSourceRef userF
         }
     );
 
-    // Set the trigger to close the window after 5 seconds using windows DestroyWindow function
+    // Set the trigger to close the window after 1 second using windows DestroyWindow function
     newWindow->getSignalPostDraw ().connect (
         [uniqueId, this]
-        {  
-           // Find the user feed back window and assign it to window handler
-           HWND userFeedbackWindow = FindWindow ( NULL, L"UserFeedbackWindow" ) ;
-           
-           // Sleep for 5 seconds before calling the destroy window function
-           Sleep ( 5000 ) ;
+    {
+        // Find the user feed back window and assign it to window handler
+        HWND userFeedbackWindow = FindWindow ( NULL, L"UserFeedbackWindow" );
 
-           // Destroy the window that was opened for the user feedback
-           DestroyWindow ( userFeedbackWindow ) ;
+        // Sleep for 1 second before calling the destroy window function
+        Sleep ( 1000 ) ;
 
-           this->console () << "Destroyed Window: #" << uniqueId << " With title: UserFeedbackWindow" << endl;
-        }
+        // Destroy the window that was opened for the user feedback
+        DestroyWindow ( userFeedbackWindow ) ;
+
+        this->console () << "Destroyed Window: #" << uniqueId << " With title: UserFeedbackWindow" << endl;
+    }
     );
 }
 
