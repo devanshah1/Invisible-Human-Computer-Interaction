@@ -185,7 +185,7 @@ void LeapGestureFeedBack::circleGestures ( const Gesture& gesture, const Control
     // Detect if the single finger motion was in the clock wise direction 
     if ( circle.pointable ().direction ().angleTo ( circle.normal () ) <= PI / 2 && stateNames [gesture.state ()] == "STATE_END" )
     {
-        clockwiseness = "counterclockwise";
+        clockwiseness = "clockwise";
 
         // Handle the action when clockwise circle action is detected from Leap Motion.
         runGestureAction ( CIRCLE_CLOCKWISE );
@@ -193,7 +193,7 @@ void LeapGestureFeedBack::circleGestures ( const Gesture& gesture, const Control
     }
     else if ( stateNames [gesture.state ()] == "STATE_END" )
     {
-        clockwiseness = "clockwise";
+        clockwiseness = "counterclockwise";
         runGestureAction ( CIRCLE_COUNTERCLOKWISE );
         createUserFeedBackWindow ( loadResource ( RES_COUNTERCLOCKWISE_IMAGE ), 150, 131 );
     }

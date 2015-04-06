@@ -263,7 +263,7 @@ void LeapGestureFeedBack::moveMouse ( const Controller& controller, std::string 
 {
     // Get the current and previous 10th frame from the leap controller
     const Frame currentFrame = controller.frame ();
-    const Frame previousFrame = controller.frame ( 10 );
+    const Frame previousFrame = controller.frame ( 5 );
 
     // Get maximum width and height of the screens
     int maxScreenWidth = GetSystemMetrics ( SM_CXSCREEN );
@@ -351,10 +351,27 @@ void LeapGestureFeedBack::moveMouse ( const Controller& controller, std::string 
         int mouseYDifference = abs ( previousCorospondingMouseY - currentCorospondingMouseY );
 
         // Only move the mouse to the current location if the difference is greater then 10 pixels
-        if ( mouseYDifference > 1 || mouseXDifference > 1 )
+        if ( mouseYDifference > 10 || mouseXDifference > 10 )
         {
-            // Set the new corresponding cursor position for the mouse
-            SetCursorPos ( currentCorospondingMouseX, currentCorospondingMouseY );
+            // Move the mouse the corresponding difference from the previous frame
+            // The input contains the following data:
+            //    type --> INPUT_MOUSE 
+            //        - Showing that this is for mouse event
+            //    mi.dx --> long ( 10 * mouseXDifference ) 
+            //        - Shows the relative data of the x position to the previous mouse position
+            //    mi.dy --> long ( -1 * 10 * mouseYDifference ) 
+            //        - Shows the relative data of the y position to the previous mouse position
+            //    mi.dwFlags --> MOUSEEVENTF_MOVE
+            //        - Shows that a mouse movement occurred
+            // Note: The use of mouseSensitivity in mi.dx and mi.dy is used to determine how fast quickly
+            //       the mouse will move to the new position.
+            INPUT mouseInput [1];
+            memset ( mouseInput, 0, sizeof ( INPUT ) * 1 ) ;
+            mouseInput [0].type = INPUT_MOUSE ;
+            mouseInput [0].mi.dx = long ( mouseSensitivity * mouseXDifference ) ;
+            mouseInput [0].mi.dy = long ( -1 * mouseSensitivity * mouseYDifference ) ;
+            mouseInput [0].mi.dwFlags = MOUSEEVENTF_MOVE ;
+            SendInput ( 1, mouseInput, sizeof ( INPUT ) ) ;
         }
     }
     else if ( mouseAction == MOUSE_LEFT_CLICK )
@@ -367,14 +384,31 @@ void LeapGestureFeedBack::moveMouse ( const Controller& controller, std::string 
         int mouseYDifference = abs ( previousCorospondingMouseY - currentCorospondingMouseY );
 
         // When a drag is detected while mouse is clicked then perform a dragging action.
-        if ( mouseYDifference > 5 || mouseXDifference > 5 )
+        if ( mouseYDifference > 10 || mouseXDifference > 10 )
         {
-            // Set the new corresponding cursor position for the mouse
-            SetCursorPos ( currentCorospondingMouseX, currentCorospondingMouseY );
+            // Move the mouse the corresponding difference from the previous frame
+            // The input contains the following data:
+            //    type --> INPUT_MOUSE 
+            //        - Showing that this is for mouse event
+            //    mi.dx --> long ( 10 * mouseXDifference ) 
+            //        - Shows the relative data of the x position to the previous mouse position
+            //    mi.dy --> long ( -1 * 10 * mouseYDifference ) 
+            //        - Shows the relative data of the y position to the previous mouse position
+            //    mi.dwFlags --> MOUSEEVENTF_MOVE
+            //        - Shows that a mouse movement occurred
+            // Note: The use of mouseSensitivity in mi.dx and mi.dy is used to determine how fast quickly
+            //       the mouse will move to the new position.
+            INPUT mouseInput [1];
+            memset ( mouseInput, 0, sizeof ( INPUT ) * 1 );
+            mouseInput [0].type = INPUT_MOUSE;
+            mouseInput [0].mi.dx = long ( mouseSensitivity * mouseXDifference );
+            mouseInput [0].mi.dy = long ( -1 * mouseSensitivity * mouseYDifference );
+            mouseInput [0].mi.dwFlags = MOUSEEVENTF_MOVE;
+            SendInput ( 1, mouseInput, sizeof ( INPUT ) );
         }
 
         // Release the left click
-        mouse_event ( MOUSEEVENTF_LEFTUP, 0, currentCorospondingMouseX, currentCorospondingMouseY, 0 );
+       // mouse_event ( MOUSEEVENTF_LEFTUP, 0, currentCorospondingMouseX, currentCorospondingMouseY, 0 );
     }
     else if ( mouseAction == MOUSE_RIGHT_CLICK )
     {

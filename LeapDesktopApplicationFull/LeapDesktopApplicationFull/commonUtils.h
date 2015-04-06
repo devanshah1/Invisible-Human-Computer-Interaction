@@ -150,6 +150,9 @@ using namespace Leap;
 // Buffer for environment variable retrieval
 #define BUFSIZE 4096
 
+// Constant for mouse sensitivity
+const int mouseSensitivity = 10 ;
+
 // Constant for states available, fingers available and finger bones available.
 const std::string stateNames []  = {"STATE_INVALID", "STATE_START", "STATE_UPDATE", "STATE_END"};
 const std::string fingerNames [] = {"Thumb", "Index", "Middle", "Ring", "Pinky"};

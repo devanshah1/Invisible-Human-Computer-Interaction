@@ -189,10 +189,10 @@ void LeapGestureFeedBack::draw ()
     gl::clear ( Color ( 255, 255, 255 ) );
 
     // Enable the required Gestures
-    leap.enableGesture ( Gesture::TYPE_CIRCLE );
-    leap.enableGesture ( Gesture::TYPE_KEY_TAP );
-    leap.enableGesture ( Gesture::TYPE_SCREEN_TAP );
-    leap.enableGesture ( Gesture::TYPE_SWIPE );
+    //leap.enableGesture ( Gesture::TYPE_CIRCLE );
+    //leap.enableGesture ( Gesture::TYPE_KEY_TAP );
+    //leap.enableGesture ( Gesture::TYPE_SCREEN_TAP );
+    //leap.enableGesture ( Gesture::TYPE_SWIPE );
 
     // Set the policy flag to make sure that the application is able to listen for background frames
     leap.setPolicyFlags ( Leap::Controller::POLICY_BACKGROUND_FRAMES );
@@ -204,7 +204,7 @@ void LeapGestureFeedBack::draw ()
     determineHandAndPerformAction ( frame, leap );
 
     // Sort through the gestures and perform the necessary actions that are associated to the gestures.
-    determineGestureAndPerformAction ( frame, leap );
+    //determineGestureAndPerformAction ( frame, leap );
 
     // Get the data for the window 
     WindowData *data = getWindow ()->getUserData<WindowData> () ;
