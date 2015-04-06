@@ -83,18 +83,18 @@ void LeapGestureFeedBack::defaultEnvironmentSetup ()
     // Pushing environment variables for testing purposes, The UI will do this in the future
 
     // Set actions for different types of circle gesture.
-    SetEnvironmentVariable ( TEXT ( CIRCLE_COUNTERCLOKWISE ), TEXT ( VOLUME_STEP_DOWN ) );
-    SetEnvironmentVariable ( TEXT ( CIRCLE_CLOCKWISE ), TEXT ( VOLUME_STEP_UP ) );
+    SetEnvironmentVariable ( TEXT ( CIRCLE_COUNTERCLOKWISE ), TEXT ( VOLUME_STEP_DOWN ) ) ;
+    SetEnvironmentVariable ( TEXT ( CIRCLE_CLOCKWISE ), TEXT ( VOLUME_STEP_UP ) ) ;
 
     // Set actions for different types of swipe actions.
-    SetEnvironmentVariable ( TEXT ( SWIPE_LEFT ), TEXT ( APP_WINDOW_NEXT ) );
-    SetEnvironmentVariable ( TEXT ( SWIPE_RIGHT ), TEXT ( APP_WINDOW_PREVIOUS ) );
-    SetEnvironmentVariable ( TEXT ( SWIPE_UP ), TEXT ( HIDE_KEYBOARD ) );
-    SetEnvironmentVariable ( TEXT ( SWIPE_DOWN ), TEXT ( SHOW_KEYBOARD ) );
+    SetEnvironmentVariable ( TEXT ( SWIPE_LEFT ), TEXT ( APP_WINDOW_NEXT ) ) ;
+    SetEnvironmentVariable ( TEXT ( SWIPE_RIGHT ), TEXT ( APP_WINDOW_PREVIOUS ) ) ;
+    SetEnvironmentVariable ( TEXT ( SWIPE_UP ), TEXT ( HIDE_KEYBOARD ) ) ;
+    SetEnvironmentVariable ( TEXT ( SWIPE_DOWN ), TEXT ( SHOW_KEYBOARD ) ) ;
 
     // Set actions for different types of tap actions.
-    SetEnvironmentVariable ( TEXT ( KEY_TAP ), TEXT ( VOLUME_MUTE_UNMUTE ) );
-    SetEnvironmentVariable ( TEXT ( SCREEP_TAP ), TEXT ( SUPPORTED_GESTURES ) );
+    SetEnvironmentVariable ( TEXT ( KEY_TAP ), TEXT ( VOLUME_MUTE_UNMUTE ) ) ;
+    SetEnvironmentVariable ( TEXT ( SCREEP_TAP ), TEXT ( SUPPORTED_GESTURES ) ) ;
 }
 
 /**********************************************************************************
