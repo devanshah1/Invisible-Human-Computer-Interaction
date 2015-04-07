@@ -291,7 +291,7 @@ void LeapGestureFeedBack::determineFingerAndPerformAction ( const Controller& co
         // difference in the x direction for the thumb from current and previous frame.
         if ( thumbXDifference < 3 )
         {
-            //moveMouse ( controller, MOVE_MOUSE );
+            moveMouse ( controller, MOVE_MOUSE );
         }
         // Only perform a left mouse click if both index finger and thumb are extended and also there is less then 3
         // is greater then 25 difference in the x direction for the thumb from current and previous frame. This would
@@ -306,17 +306,6 @@ void LeapGestureFeedBack::determineFingerAndPerformAction ( const Controller& co
             //moveMouse ( controller, MOUSE_RIGHT_CLICK );
         }
     }
-
-    /******************************************** DEBUG INFORMATION START ******************************************
-    for ( FingerList::const_iterator fl = fingersExtended.begin (); fl != fingersExtended.end (); ++fl )
-    {
-        const Finger finger = *fl;
-        std::cout << std::string ( 4, ' ' ) << fingerNames [finger.type ()]
-            << " finger, id: " << finger.id ()
-            << ", length: " << finger.length ()
-            << "mm, width: " << finger.width () << std::endl;
-    }
-    ********************************************* DEBUG INFORMATION STOP *******************************************/
 }
 
 /**********************************************************************************
