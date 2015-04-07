@@ -45,6 +45,19 @@
 *                           represent the change made to the file
 *                           over the months
 *
+*  04/04/2015  Fixing - Mouse detection issues, revert changes form  Devan Shah 100428864
+*                      SendInput to SetCursor
+*
+*  04/05/2015  Change - Change mouse diff from 10 to 7 and previous  Devan Shah 100428864
+*                       frame checking from 10 to 5. 
+* 
+*  04/05/2015  Adding - Debug info and starting adding code for      Devan Shah 100428864
+*                       using thumb and index fingers for mouse
+*                       move and click.
+* 
+*  04/05/2015  Adding - Additional code for thumb and index finger   Devan Shah 100428864
+*                       mouse move and click. 
+*
 *******************************************************************************************/
 #include "commonUtils.h"
 
@@ -170,23 +183,50 @@ Error Return =
 ******************************************************************************/
 void LeapGestureFeedBack::determineFingerAndPerformAction ( const Controller& controller, const Hand& hand )
 {
+    // Vector Declaration
+    Vector thumbFingerCurrent ; // Stores the current stabilized thumb position 
+    Vector indexFingerCurrent ; // Stores the current stabilized index position 
+
+    Vector thumbFingerPrevious ; // Stores the previous stabilized thumb position 
+    Vector indexFingerPrevious ; // Stores the previous stabilized index position 
+
+    // Get the current and previous 5th frame from the leap controller
+    const Frame currentFrame = controller.frame ();
+    const Frame previousFrame = controller.frame ( 2 );
+
     // Get the list of extended fingers that are visible for the hand on the frame
-    const FingerList fingersExtended = hand.fingers ().extended ();
+    const FingerList fingersExtendedCurrent = currentFrame.hand ( hand.id () ).fingers ().extended () ;
+    const FingerList fingersExtendedPrevious = previousFrame.hand ( hand.id () ).fingers ().extended () ;
+
+    //for ( FingerList::const_iterator fl = fingersExtendedCurrent.begin (); fl != fingersExtendedCurrent.end (); ++fl )
+    //{
+    //    const Finger finger = *fl;
+    //    this->console () << std::string ( 4, ' ' ) << fingerNames [finger.type ()] << "finger\n"
+    //        << "Finger id: " << finger.id () << "\n"
+    //        << "Length: " << finger.length () << " mm\n"
+    //        << "Width: " << finger.width () << "\n"
+    //        << "Length: " << finger.length () << "\n"
+    //        << "Length: " << finger.direction () << "\n"
+    //        << "Finger x position: " << finger.stabilizedTipPosition ().x << "\n"
+    //        << "Finger y position: " << finger.stabilizedTipPosition ().y << "\n"
+    //        << "Finger z position: " << finger.stabilizedTipPosition ().z << "\n"
+    //        << std::endl;
+    //}
 
     // Only move the mouse when one single finger is extended.
-    if ( fingersExtended.count () == 1 )
+    if ( fingersExtendedCurrent.count () == 1 )
     {
-        moveMouse ( controller, MOVE_MOUSE );
+        //moveMouse ( controller, MOVE_MOUSE );
     }
     // Only perform a left click if 2 fingers are extended.
-    else if ( fingersExtended.count () == 2 )
+    else if ( fingersExtendedCurrent.count () == 2 )
     {
-        moveMouse ( controller, MOUSE_LEFT_CLICK );
+        //moveMouse ( controller, MOUSE_LEFT_CLICK );
     }
     // Only perform a right click if 3 fingers are extended.
-    else if ( fingersExtended.count () == 3 )
+    else if ( fingersExtendedCurrent.count () == 3 )
     {
-        moveMouse ( controller, MOUSE_RIGHT_CLICK );
+        //moveMouse ( controller, MOUSE_RIGHT_CLICK );
     }
 
     /******************************************** DEBUG INFORMATION START ******************************************
@@ -263,7 +303,7 @@ void LeapGestureFeedBack::moveMouse ( const Controller& controller, std::string 
 {
     // Get the current and previous 10th frame from the leap controller
     const Frame currentFrame = controller.frame ();
-    const Frame previousFrame = controller.frame ( 5 );
+    const Frame previousFrame = controller.frame ( 10 );
 
     // Get maximum width and height of the screens
     int maxScreenWidth = GetSystemMetrics ( SM_CXSCREEN );
@@ -305,11 +345,11 @@ void LeapGestureFeedBack::moveMouse ( const Controller& controller, std::string 
 
     // Increase the sensitivity of the mouse movement for current frame.
     normalizedPointCurrent *= 1.5; //scale
-    normalizedPointCurrent -= Leap::Vector ( .25, .25, .25 ); // re-center
+    normalizedPointCurrent -= Leap::Vector ( .25, .25, .25 ) ; // re-center
 
     // Increase the sensitivity of the mouse movement for previous frame.
-    normalizedPointPrevious *= 1.5; //scale
-    normalizedPointPrevious -= Leap::Vector ( .25, .25, .25 ); // re-center
+    normalizedPointPrevious *= 1.5 ; //scale
+    normalizedPointPrevious -= Leap::Vector ( .25, .25, .25 ) ; // re-center
 
 
     /*
@@ -317,10 +357,13 @@ void LeapGestureFeedBack::moveMouse ( const Controller& controller, std::string 
     * the mouse is not moved while performing a left click or right click. This help to
     * increase the accuracy of the mouse movement and accuracy.
     */
-    int currentCorospondingMouseX = ( int ) ( normalizedPointCurrent.x * maxScreenWidth );
-    int currentCorospondingMouseY = ( int ) ( ( 1 - normalizedPointCurrent.y ) * maxScreenHeight );
-    int previousCorospondingMouseX = ( int ) ( normalizedPointPrevious.x * maxScreenWidth );
-    int previousCorospondingMouseY = ( int ) ( ( 1 - normalizedPointPrevious.y ) * maxScreenHeight );
+    int currentCorospondingMouseX = ( int ) ( normalizedPointCurrent.x * maxScreenWidth ) ;
+    //int currentCorospondingMouseY = ( int ) ( ( 1 - normalizedPointCurrent.y ) * maxScreenHeight ) ;
+    int currentCorospondingMouseY = ( int ) ( maxScreenHeight - ( normalizedPointCurrent.y * maxScreenHeight ) ) ;
+    
+    int previousCorospondingMouseX = ( int ) ( normalizedPointPrevious.x * maxScreenWidth ) ;
+    //int previousCorospondingMouseY = ( int ) ( ( 1 - normalizedPointPrevious.y ) * maxScreenHeight ) ;
+    int previousCorospondingMouseY = ( int ) ( maxScreenHeight - ( normalizedPointPrevious.y * maxScreenHeight ) ) ;
 
     /********************************* TODO START *******************************
     
@@ -351,27 +394,9 @@ void LeapGestureFeedBack::moveMouse ( const Controller& controller, std::string 
         int mouseYDifference = abs ( previousCorospondingMouseY - currentCorospondingMouseY );
 
         // Only move the mouse to the current location if the difference is greater then 10 pixels
-        if ( mouseYDifference > 10 || mouseXDifference > 10 )
+        if ( mouseYDifference > 7 || mouseXDifference > 7 )
         {
-            // Move the mouse the corresponding difference from the previous frame
-            // The input contains the following data:
-            //    type --> INPUT_MOUSE 
-            //        - Showing that this is for mouse event
-            //    mi.dx --> long ( 10 * mouseXDifference ) 
-            //        - Shows the relative data of the x position to the previous mouse position
-            //    mi.dy --> long ( -1 * 10 * mouseYDifference ) 
-            //        - Shows the relative data of the y position to the previous mouse position
-            //    mi.dwFlags --> MOUSEEVENTF_MOVE
-            //        - Shows that a mouse movement occurred
-            // Note: The use of mouseSensitivity in mi.dx and mi.dy is used to determine how fast quickly
-            //       the mouse will move to the new position.
-            INPUT mouseInput [1];
-            memset ( mouseInput, 0, sizeof ( INPUT ) * 1 ) ;
-            mouseInput [0].type = INPUT_MOUSE ;
-            mouseInput [0].mi.dx = long ( mouseSensitivity * mouseXDifference ) ;
-            mouseInput [0].mi.dy = long ( -1 * mouseSensitivity * mouseYDifference ) ;
-            mouseInput [0].mi.dwFlags = MOUSEEVENTF_MOVE ;
-            SendInput ( 1, mouseInput, sizeof ( INPUT ) ) ;
+            SetCursorPos ( currentCorospondingMouseX, currentCorospondingMouseY ) ;
         }
     }
     else if ( mouseAction == MOUSE_LEFT_CLICK )
@@ -386,33 +411,15 @@ void LeapGestureFeedBack::moveMouse ( const Controller& controller, std::string 
         // When a drag is detected while mouse is clicked then perform a dragging action.
         if ( mouseYDifference > 10 || mouseXDifference > 10 )
         {
-            // Move the mouse the corresponding difference from the previous frame
-            // The input contains the following data:
-            //    type --> INPUT_MOUSE 
-            //        - Showing that this is for mouse event
-            //    mi.dx --> long ( 10 * mouseXDifference ) 
-            //        - Shows the relative data of the x position to the previous mouse position
-            //    mi.dy --> long ( -1 * 10 * mouseYDifference ) 
-            //        - Shows the relative data of the y position to the previous mouse position
-            //    mi.dwFlags --> MOUSEEVENTF_MOVE
-            //        - Shows that a mouse movement occurred
-            // Note: The use of mouseSensitivity in mi.dx and mi.dy is used to determine how fast quickly
-            //       the mouse will move to the new position.
-            INPUT mouseInput [1];
-            memset ( mouseInput, 0, sizeof ( INPUT ) * 1 );
-            mouseInput [0].type = INPUT_MOUSE;
-            mouseInput [0].mi.dx = long ( mouseSensitivity * mouseXDifference );
-            mouseInput [0].mi.dy = long ( -1 * mouseSensitivity * mouseYDifference );
-            mouseInput [0].mi.dwFlags = MOUSEEVENTF_MOVE;
-            SendInput ( 1, mouseInput, sizeof ( INPUT ) );
+            SetCursorPos ( currentCorospondingMouseX, currentCorospondingMouseY );
         }
 
         // Release the left click
-       // mouse_event ( MOUSEEVENTF_LEFTUP, 0, currentCorospondingMouseX, currentCorospondingMouseY, 0 );
+        mouse_event ( MOUSEEVENTF_LEFTUP, 0, currentCorospondingMouseX, currentCorospondingMouseY, 0 ) ;
     }
     else if ( mouseAction == MOUSE_RIGHT_CLICK )
     {
         // Perform a right click where the mouse is currently located at.
-        mouse_event ( MOUSEEVENTF_RIGHTDOWN | MOUSEEVENTF_RIGHTUP, currentCorospondingMouseX, currentCorospondingMouseY, 0, 0 );
+        mouse_event ( MOUSEEVENTF_RIGHTDOWN | MOUSEEVENTF_RIGHTUP, currentCorospondingMouseX, currentCorospondingMouseY, 0, 0 ) ;
     }
 }
