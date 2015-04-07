@@ -247,11 +247,11 @@ void LeapGestureFeedBack::determineFingerAndPerformAction ( const Controller& co
             {
                 // Get the current frame stabilized tip position of the thumb and index finger
                 thumbFingerCurrent = rightMostFingerCurrent.stabilizedTipPosition () ;
-                //indexFingerCurrent = leftMostFingerCurrent.stabilizedTipPosition () ;
+                indexFingerCurrent = leftMostFingerCurrent.stabilizedTipPosition () ;
 
                 // Get the previous frame stabilized tip position of the thumb and index finger
                 thumbFingerPrevious = rightMostFingerPrevious.stabilizedTipPosition () ;
-                //indexFingerPrevious = leftMostFingerPrevious.stabilizedTipPosition () ;
+                indexFingerPrevious = leftMostFingerPrevious.stabilizedTipPosition () ;
             }
         }
         // Detect if the current hand is right and perform the action based on right hand detected 
@@ -265,11 +265,11 @@ void LeapGestureFeedBack::determineFingerAndPerformAction ( const Controller& co
             {
                 // Get the current frame stabilized tip position of the thumb and index finger
                 thumbFingerCurrent = leftMostFingerCurrent.stabilizedTipPosition () ;
-                //indexFingerCurrent = rightMostFingerCurrent.stabilizedTipPosition () ;
+                indexFingerCurrent = rightMostFingerCurrent.stabilizedTipPosition () ;
 
                 // Get the previous frame stabilized tip position of the thumb and index finger
                 thumbFingerPrevious = leftMostFingerPrevious.stabilizedTipPosition ();
-                //indexFingerPrevious = rightMostFingerPrevious.stabilizedTipPosition ();
+                indexFingerPrevious = rightMostFingerPrevious.stabilizedTipPosition ();
             }
         }
 
@@ -278,21 +278,28 @@ void LeapGestureFeedBack::determineFingerAndPerformAction ( const Controller& co
         int thumbYDifference = ( int ) abs ( thumbFingerPrevious.y - thumbFingerCurrent.y );
         int thumbZDifference = ( int ) abs ( thumbFingerPrevious.z - thumbFingerCurrent.z );
 
-        //// Get the difference between index movement from current and previous frame
-        //int indexXDifference = ( int ) abs ( indexFingerPrevious.x - indexFingerCurrent.x );
-        //int indexYDifference = ( int ) abs ( indexFingerPrevious.y - indexFingerCurrent.y );
-        //int indexZDifference = ( int ) abs ( indexFingerPrevious.z - indexFingerCurrent.z );
+        // Get the difference between index movement from current and previous frame
+        int indexXDifference = ( int ) abs ( indexFingerPrevious.x - indexFingerCurrent.x );
+        int indexYDifference = ( int ) abs ( indexFingerPrevious.y - indexFingerCurrent.y );
+        int indexZDifference = ( int ) abs ( indexFingerPrevious.z - indexFingerCurrent.z );
+
+        // Get the distance between the thumb vector and the index finger vector. This will in turn
+        // Give the distance difference between the thumb and the index finger.
+        float currentDistance = thumbFingerCurrent.distanceTo ( indexFingerCurrent ) ;
+        float previousDistance = thumbFingerPrevious.distanceTo ( indexFingerPrevious );
 
         // Debug info 
         this->console () << "Hand Orientation: " << handOrientation << "\n"
             		     << "Current Thumb Vector: " << thumbFingerCurrent << "\n"
-        	    	     //<< "Current Index Vector: " << indexFingerCurrent << "\n"
+        	    	     << "Current Index Vector: " << indexFingerCurrent << "\n"
         		         << "Previous Thumb Vector: " << thumbFingerPrevious << "\n"
-        		         //<< "Previous Index Vector: " << indexFingerPrevious << "\n"
+        		         << "Previous Index Vector: " << indexFingerPrevious << "\n"
                          << "Difference Thumb Vector: " << Vector ( thumbXDifference, thumbYDifference, thumbZDifference ) << "\n"
-                         //<< "Difference Index Vector: " << Vector ( indexXDifference, indexYDifference, indexZDifference ) << "\n"
+                         << "Difference Index Vector: " << Vector ( indexXDifference, indexYDifference, indexZDifference ) << "\n"
+                         << "Current Distance from Thumb to index Finger: " << currentDistance << "\n"
+                         << "Previous Distance from Thumb to index Finger: " << previousDistance << "\n"
         		         << endl ;
-
+        
         // Only move the mouse if both index finger and thumb are extended and also there is less then 3
         // difference in the x direction for the thumb from current and previous frame.
         if ( thumbXDifference < 3 )
