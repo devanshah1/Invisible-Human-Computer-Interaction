@@ -1,12 +1,12 @@
-﻿Build started 07/04/2015 12:13:46 AM.
+﻿Build started 07/04/2015 7:27:53 PM.
      1>Project "C:\Users\100428864\Desktop\University Stuff\Year 4\Invisible-Human-Computer-Interaction\LeapDesktopApplicationFull\LeapDesktopApplicationFull\LeapDesktopApplicationFull.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\..\..\freeglut\include /I..\..\..\cinder_0.8.6_vc2013\include /I..\..\..\cinder_0.8.6_vc2013\boost /I..\..\LeapSDK\include /ZI /nologo /W3 /WX- /MP /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D NOMINMAX /D _WIN32_WINNT=0x0502 /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt LeapHandControls.cpp
          LeapHandControls.cpp
-     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leaphandcontrols.cpp(297): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leaphandcontrols.cpp(298): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leaphandcontrols.cpp(427): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leaphandcontrols.cpp(431): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leaphandcontrols.cpp(321): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leaphandcontrols.cpp(322): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leaphandcontrols.cpp(438): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leaphandcontrols.cpp(442): warning C4305: 'argument' : truncation from 'double' to 'float'
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\100428864\Desktop\University Stuff\Year 4\Invisible-Human-Computer-Interaction\LeapDesktopApplicationFull\Debug\LeapDesktopApplicationFull.exe" /INCREMENTAL /NOLOGO /LIBPATH:..\..\..\freeglut\lib /LIBPATH:..\..\..\cinder_0.8.6_vc2013\lib /LIBPATH:..\..\..\cinder_0.8.6_vc2013\lib\msw\x86 /LIBPATH:..\..\LeapSDK\lib\x86 Leapd.lib freeglut.lib "cinder-v120_d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /NODEFAULTLIB:LIBCMT /NODEFAULTLIB:LIBCPMT /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\100428864\Desktop\University Stuff\Year 4\Invisible-Human-Computer-Interaction\LeapDesktopApplicationFull\Debug\LeapDesktopApplicationFull.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE:NO /IMPLIB:"C:\Users\100428864\Desktop\University Stuff\Year 4\Invisible-Human-Computer-Interaction\LeapDesktopApplicationFull\Debug\LeapDesktopApplicationFull.lib" /MACHINE:X86 Debug\LeapDesktopApplicationFull.res
          Debug\ApplicationWindowController.obj
@@ -36,4 +36,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:09.27
+Time Elapsed 00:00:10.96

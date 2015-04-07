@@ -286,37 +286,54 @@ void LeapGestureFeedBack::determineFingerAndPerformAction ( const Controller& co
         // Get the distance between the thumb vector and the index finger vector. This will in turn
         // Give the distance difference between the thumb and the index finger.
         float currentDistance = thumbFingerCurrent.distanceTo ( indexFingerCurrent ) ;
-        float previousDistance = thumbFingerPrevious.distanceTo ( indexFingerPrevious );
+        float previousDistance = thumbFingerPrevious.distanceTo ( indexFingerPrevious ) ;
 
-        // Debug info 
-        this->console () << "Hand Orientation: " << handOrientation << "\n"
-            		     << "Current Thumb Vector: " << thumbFingerCurrent << "\n"
-        	    	     << "Current Index Vector: " << indexFingerCurrent << "\n"
-        		         << "Previous Thumb Vector: " << thumbFingerPrevious << "\n"
-        		         << "Previous Index Vector: " << indexFingerPrevious << "\n"
-                         << "Difference Thumb Vector: " << Vector ( thumbXDifference, thumbYDifference, thumbZDifference ) << "\n"
-                         << "Difference Index Vector: " << Vector ( indexXDifference, indexYDifference, indexZDifference ) << "\n"
-                         << "Current Distance from Thumb to index Finger: " << currentDistance << "\n"
-                         << "Previous Distance from Thumb to index Finger: " << previousDistance << "\n"
-        		         << endl ;
-        
+        // Find the distance difference between the thumb and the index finger to see of the thumb has
+        // moved closer to the index finger. Thumb moving close to the index finger signifies a left click.
+        int thumbToIndexFingerDistance = ( int ) abs ( previousDistance - currentDistance ) ;
+
+        //// Debug info 
+        //this->console () << "Hand Orientation: " << handOrientation << "\n"
+        //    		     << "Current Thumb Vector: " << thumbFingerCurrent << "\n"
+        //	    	     << "Current Index Vector: " << indexFingerCurrent << "\n"
+        //		         << "Previous Thumb Vector: " << thumbFingerPrevious << "\n"
+        //		         << "Previous Index Vector: " << indexFingerPrevious << "\n"
+        //                 << "Difference Thumb Vector: " << Vector ( thumbXDifference, thumbYDifference, thumbZDifference ) << "\n"
+        //                 << "Difference Index Vector: " << Vector ( indexXDifference, indexYDifference, indexZDifference ) << "\n"
+        //                 << "Current Distance from Thumb to index Finger: " << currentDistance << "\n"
+        //                 << "Previous Distance from Thumb to index Finger: " << previousDistance << "\n"
+        //                 <<  "Difference from Thumb to index Finger: " << thumbToIndexFingerDistance << "\n"
+        //		         << endl ;
+
         // Only move the mouse if both index finger and thumb are extended and also there is less then 3
         // difference in the x direction for the thumb from current and previous frame.
-        if ( thumbXDifference < 3 )
+        if ( thumbXDifference < 3 && thumbToIndexFingerDistance < 3 )
         {
             moveMouse ( controller, MOVE_MOUSE );
         }
         // Only perform a left mouse click if both index finger and thumb are extended and also there is less then 3
         // is greater then 25 difference in the x direction for the thumb from current and previous frame. This would
         // signify that the thumb has moved close to the index finger, representing a left click by the user.
-        else if ( thumbXDifference > 25 )
+        else if ( thumbXDifference > 25 && thumbToIndexFingerDistance > 25 )
         {
-            //moveMouse ( controller, MOUSE_LEFT_CLICK );
+            moveMouse ( controller, MOUSE_LEFT_CLICK ) ;
+            // Debug info 
+           this->console () << "Hand Orientation: " << handOrientation << "\n"
+               		        << "Current Thumb Vector: " << thumbFingerCurrent << "\n"
+        	                << "Current Index Vector: " << indexFingerCurrent << "\n"
+        		            << "Previous Thumb Vector: " << thumbFingerPrevious << "\n"
+        		            << "Previous Index Vector: " << indexFingerPrevious << "\n"
+                            << "Difference Thumb Vector: " << Vector ( thumbXDifference, thumbYDifference, thumbZDifference ) << "\n"
+                            << "Difference Index Vector: " << Vector ( indexXDifference, indexYDifference, indexZDifference ) << "\n"
+                            << "Current Distance from Thumb to index Finger: " << currentDistance << "\n"
+                            << "Previous Distance from Thumb to index Finger: " << previousDistance << "\n"
+                            << "Difference from Thumb to index Finger: " << thumbToIndexFingerDistance << "\n"
+        		            << endl ;
         }
         // TODO: Not Supported yet, need to figure out best way to perform a right click which this new algo
         else if ( fingersExtendedCurrent.count () == 3 )
         {
-            //moveMouse ( controller, MOUSE_RIGHT_CLICK );
+            //moveMouse ( controller, MOUSE_RIGHT_CLICK ) ;
         }
     }
 }
