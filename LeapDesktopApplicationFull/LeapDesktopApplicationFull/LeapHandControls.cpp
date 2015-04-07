@@ -66,6 +66,12 @@
 *                       from current and previous frames and 
 *                       determine which mouse action to perform.
 *
+*  06/04/2015  Changing - Increase mouse sensitivity and reduce      Devan Shah 100428864
+*                         amount of mouse movement difference
+*                         between frames. Comment out all uses
+*                         of index finger calculations not needed
+*                         at this point.
+*
 *******************************************************************************************/
 #include "commonUtils.h"
 
@@ -241,11 +247,11 @@ void LeapGestureFeedBack::determineFingerAndPerformAction ( const Controller& co
             {
                 // Get the current frame stabilized tip position of the thumb and index finger
                 thumbFingerCurrent = rightMostFingerCurrent.stabilizedTipPosition () ;
-                indexFingerCurrent = leftMostFingerCurrent.stabilizedTipPosition () ;
+                //indexFingerCurrent = leftMostFingerCurrent.stabilizedTipPosition () ;
 
                 // Get the previous frame stabilized tip position of the thumb and index finger
                 thumbFingerPrevious = rightMostFingerPrevious.stabilizedTipPosition () ;
-                indexFingerPrevious = leftMostFingerPrevious.stabilizedTipPosition () ;
+                //indexFingerPrevious = leftMostFingerPrevious.stabilizedTipPosition () ;
             }
         }
         // Detect if the current hand is right and perform the action based on right hand detected 
@@ -259,11 +265,11 @@ void LeapGestureFeedBack::determineFingerAndPerformAction ( const Controller& co
             {
                 // Get the current frame stabilized tip position of the thumb and index finger
                 thumbFingerCurrent = leftMostFingerCurrent.stabilizedTipPosition () ;
-                indexFingerCurrent = rightMostFingerCurrent.stabilizedTipPosition () ;
+                //indexFingerCurrent = rightMostFingerCurrent.stabilizedTipPosition () ;
 
                 // Get the previous frame stabilized tip position of the thumb and index finger
                 thumbFingerPrevious = leftMostFingerPrevious.stabilizedTipPosition ();
-                indexFingerPrevious = rightMostFingerPrevious.stabilizedTipPosition ();
+                //indexFingerPrevious = rightMostFingerPrevious.stabilizedTipPosition ();
             }
         }
 
@@ -272,19 +278,19 @@ void LeapGestureFeedBack::determineFingerAndPerformAction ( const Controller& co
         int thumbYDifference = ( int ) abs ( thumbFingerPrevious.y - thumbFingerCurrent.y );
         int thumbZDifference = ( int ) abs ( thumbFingerPrevious.z - thumbFingerCurrent.z );
 
-        // Get the difference between index movement from current and previous frame
-        int indexXDifference = ( int ) abs ( indexFingerPrevious.x - indexFingerCurrent.x );
-        int indexYDifference = ( int ) abs ( indexFingerPrevious.y - indexFingerCurrent.y );
-        int indexZDifference = ( int ) abs ( indexFingerPrevious.z - indexFingerCurrent.z );
+        //// Get the difference between index movement from current and previous frame
+        //int indexXDifference = ( int ) abs ( indexFingerPrevious.x - indexFingerCurrent.x );
+        //int indexYDifference = ( int ) abs ( indexFingerPrevious.y - indexFingerCurrent.y );
+        //int indexZDifference = ( int ) abs ( indexFingerPrevious.z - indexFingerCurrent.z );
 
         // Debug info 
         this->console () << "Hand Orientation: " << handOrientation << "\n"
             		     << "Current Thumb Vector: " << thumbFingerCurrent << "\n"
-        	    	     << "Current Index Vector: " << indexFingerCurrent << "\n"
+        	    	     //<< "Current Index Vector: " << indexFingerCurrent << "\n"
         		         << "Previous Thumb Vector: " << thumbFingerPrevious << "\n"
-        		         << "Previous Index Vector: " << indexFingerPrevious << "\n"
+        		         //<< "Previous Index Vector: " << indexFingerPrevious << "\n"
                          << "Difference Thumb Vector: " << Vector ( thumbXDifference, thumbYDifference, thumbZDifference ) << "\n"
-                         << "Difference Index Vector: " << Vector ( indexXDifference, indexYDifference, indexZDifference ) << "\n"
+                         //<< "Difference Index Vector: " << Vector ( indexXDifference, indexYDifference, indexZDifference ) << "\n"
         		         << endl ;
 
         // Only move the mouse if both index finger and thumb are extended and also there is less then 3
@@ -369,12 +375,12 @@ Future Work
 void LeapGestureFeedBack::moveMouse ( const Controller& controller, std::string mouseAction )
 {
     // Get the current and previous 10th frame from the leap controller
-    const Frame currentFrame = controller.frame ();
-    const Frame previousFrame = controller.frame ( 10 );
+    const Frame currentFrame = controller.frame () ;
+    const Frame previousFrame = controller.frame ( 7 ) ;
 
     // Get maximum width and height of the screens
-    int maxScreenWidth = GetSystemMetrics ( SM_CXSCREEN );
-    int maxScreenHeight = GetSystemMetrics ( SM_CYSCREEN );
+    int maxScreenWidth = GetSystemMetrics ( SM_CXSCREEN ) ;
+    int maxScreenHeight = GetSystemMetrics ( SM_CYSCREEN ) ;
 
     /*
     * Get the current interactionBox object from the current frame object
@@ -411,11 +417,11 @@ void LeapGestureFeedBack::moveMouse ( const Controller& controller, std::string 
     Vector normalizedPointPrevious = leapInteractionBoxPrevious.normalizePoint ( leapPointPrevious, false );
 
     // Increase the sensitivity of the mouse movement for current frame.
-    normalizedPointCurrent *= 1.5; //scale
+    normalizedPointCurrent *= 3.9 ; // scale
     normalizedPointCurrent -= Leap::Vector ( .25, .25, .25 ) ; // re-center
 
     // Increase the sensitivity of the mouse movement for previous frame.
-    normalizedPointPrevious *= 1.5 ; //scale
+    normalizedPointPrevious *= 3.9 ; // scale
     normalizedPointPrevious -= Leap::Vector ( .25, .25, .25 ) ; // re-center
 
 
@@ -425,11 +431,8 @@ void LeapGestureFeedBack::moveMouse ( const Controller& controller, std::string 
     * increase the accuracy of the mouse movement and accuracy.
     */
     int currentCorospondingMouseX = ( int ) ( normalizedPointCurrent.x * maxScreenWidth ) ;
-    //int currentCorospondingMouseY = ( int ) ( ( 1 - normalizedPointCurrent.y ) * maxScreenHeight ) ;
     int currentCorospondingMouseY = ( int ) ( maxScreenHeight - ( normalizedPointCurrent.y * maxScreenHeight ) ) ;
-    
     int previousCorospondingMouseX = ( int ) ( normalizedPointPrevious.x * maxScreenWidth ) ;
-    //int previousCorospondingMouseY = ( int ) ( ( 1 - normalizedPointPrevious.y ) * maxScreenHeight ) ;
     int previousCorospondingMouseY = ( int ) ( maxScreenHeight - ( normalizedPointPrevious.y * maxScreenHeight ) ) ;
 
     /********************************* TODO START *******************************
@@ -460,8 +463,8 @@ void LeapGestureFeedBack::moveMouse ( const Controller& controller, std::string 
         int mouseXDifference = abs ( previousCorospondingMouseX - currentCorospondingMouseX );
         int mouseYDifference = abs ( previousCorospondingMouseY - currentCorospondingMouseY );
 
-        // Only move the mouse to the current location if the difference is greater then 10 pixels
-        if ( mouseYDifference > 7 || mouseXDifference > 7 )
+        // Only move the mouse to the current location if the difference is greater then 5 pixels
+        if ( mouseYDifference > 5 || mouseXDifference > 5 )
         {
             SetCursorPos ( currentCorospondingMouseX, currentCorospondingMouseY ) ;
         }
@@ -469,16 +472,16 @@ void LeapGestureFeedBack::moveMouse ( const Controller& controller, std::string 
     else if ( mouseAction == MOUSE_LEFT_CLICK )
     {
         // Perform a left click where the mouse is currently located at.
-        mouse_event ( MOUSEEVENTF_LEFTDOWN, 0, currentCorospondingMouseX, currentCorospondingMouseY, 0 );
+        mouse_event ( MOUSEEVENTF_LEFTDOWN, 0, currentCorospondingMouseX, currentCorospondingMouseY, 0 ) ;
 
         // Calculate the difference between previous mouse location and current mouse location.
         int mouseXDifference = abs ( previousCorospondingMouseX - currentCorospondingMouseX );
         int mouseYDifference = abs ( previousCorospondingMouseY - currentCorospondingMouseY );
 
         // When a drag is detected while mouse is clicked then perform a dragging action.
-        if ( mouseYDifference > 10 || mouseXDifference > 10 )
+        if ( mouseYDifference > 5 || mouseXDifference > 5 )
         {
-            SetCursorPos ( currentCorospondingMouseX, currentCorospondingMouseY );
+            SetCursorPos ( currentCorospondingMouseX, currentCorospondingMouseY ) ;
         }
 
         // Release the left click
