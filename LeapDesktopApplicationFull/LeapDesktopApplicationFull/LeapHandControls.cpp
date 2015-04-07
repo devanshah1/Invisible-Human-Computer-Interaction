@@ -62,6 +62,10 @@
 *                           code for thumb and index finger for
 *                           mouse and click changes.
 *
+*  06/04/2015  Adding - Check for thumb and index finger shift       Devan Shah 100428864
+*                       from current and previous frames and 
+*                       determine which mouse action to perform.
+*
 *******************************************************************************************/
 #include "commonUtils.h"
 
@@ -187,8 +191,8 @@ void LeapGestureFeedBack::determineFingerAndPerformAction ( const Controller& co
     Vector indexFingerPrevious ; // Stores the previous stabilized index position 
 
     // Get the current and previous 5th frame from the leap controller
-    const Frame currentFrame = controller.frame ();
-    const Frame previousFrame = controller.frame ( 1 );
+    const Frame currentFrame = controller.frame () ;
+    const Frame previousFrame = controller.frame ( 30 ) ;
 
     // Get the list of extended fingers that are visible for the hand on the frame
     const FingerList fingersExtendedCurrent = currentFrame.hand ( hand.id () ).fingers ().extended () ;
@@ -263,29 +267,44 @@ void LeapGestureFeedBack::determineFingerAndPerformAction ( const Controller& co
             }
         }
 
+        // Get the difference between thumb movement from current and previous frame
+        int thumbXDifference = ( int ) abs ( thumbFingerPrevious.x - thumbFingerCurrent.x ) ;
+        int thumbYDifference = ( int ) abs ( thumbFingerPrevious.y - thumbFingerCurrent.y );
+        int thumbZDifference = ( int ) abs ( thumbFingerPrevious.z - thumbFingerCurrent.z );
+
+        // Get the difference between index movement from current and previous frame
+        int indexXDifference = ( int ) abs ( indexFingerPrevious.x - indexFingerCurrent.x );
+        int indexYDifference = ( int ) abs ( indexFingerPrevious.y - indexFingerCurrent.y );
+        int indexZDifference = ( int ) abs ( indexFingerPrevious.z - indexFingerCurrent.z );
+
         // Debug info 
         this->console () << "Hand Orientation: " << handOrientation << "\n"
             		     << "Current Thumb Vector: " << thumbFingerCurrent << "\n"
         	    	     << "Current Index Vector: " << indexFingerCurrent << "\n"
         		         << "Previous Thumb Vector: " << thumbFingerPrevious << "\n"
         		         << "Previous Index Vector: " << indexFingerPrevious << "\n"
+                         << "Difference Thumb Vector: " << Vector ( thumbXDifference, thumbYDifference, thumbZDifference ) << "\n"
+                         << "Difference Index Vector: " << Vector ( indexXDifference, indexYDifference, indexZDifference ) << "\n"
         		         << endl ;
-    }
 
-    // Only move the mouse when one single finger is extended.
-    if ( fingersExtendedCurrent.count () == 1 )
-    {
-        //moveMouse ( controller, MOVE_MOUSE );
-    }
-    // Only perform a left click if 2 fingers are extended.
-    else if ( fingersExtendedCurrent.count () == 2 )
-    {
-        //moveMouse ( controller, MOUSE_LEFT_CLICK );
-    }
-    // Only perform a right click if 3 fingers are extended.
-    else if ( fingersExtendedCurrent.count () == 3 )
-    {
-        //moveMouse ( controller, MOUSE_RIGHT_CLICK );
+        // Only move the mouse if both index finger and thumb are extended and also there is less then 3
+        // difference in the x direction for the thumb from current and previous frame.
+        if ( thumbXDifference < 3 )
+        {
+            //moveMouse ( controller, MOVE_MOUSE );
+        }
+        // Only perform a left mouse click if both index finger and thumb are extended and also there is less then 3
+        // is greater then 25 difference in the x direction for the thumb from current and previous frame. This would
+        // signify that the thumb has moved close to the index finger, representing a left click by the user.
+        else if ( thumbXDifference > 25 )
+        {
+            //moveMouse ( controller, MOUSE_LEFT_CLICK );
+        }
+        // TODO: Not Supported yet, need to figure out best way to perform a right click which this new algo
+        else if ( fingersExtendedCurrent.count () == 3 )
+        {
+            //moveMouse ( controller, MOUSE_RIGHT_CLICK );
+        }
     }
 
     /******************************************** DEBUG INFORMATION START ******************************************
