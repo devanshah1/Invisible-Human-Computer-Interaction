@@ -48,15 +48,19 @@
 *  04/04/2015  Fixing - Mouse detection issues, revert changes form  Devan Shah 100428864
 *                      SendInput to SetCursor
 *
-*  04/05/2015  Change - Change mouse diff from 10 to 7 and previous  Devan Shah 100428864
+*  04/04/2015  Change - Change mouse diff from 10 to 7 and previous  Devan Shah 100428864
 *                       frame checking from 10 to 5. 
 * 
-*  04/05/2015  Adding - Debug info and starting adding code for      Devan Shah 100428864
+*  05/04/2015  Adding - Debug info and starting adding code for      Devan Shah 100428864
 *                       using thumb and index fingers for mouse
 *                       move and click.
 * 
-*  04/05/2015  Adding - Additional code for thumb and index finger   Devan Shah 100428864
+*  05/04/2015  Adding - Additional code for thumb and index finger   Devan Shah 100428864
 *                       mouse move and click. 
+*
+*  06/04/2015  Commenting - Adding commenting for all the extra      Devan Shah 100428864
+*                           code for thumb and index finger for
+*                           mouse and click changes.
 *
 *******************************************************************************************/
 #include "commonUtils.h"
@@ -113,18 +117,10 @@ void LeapGestureFeedBack::determineHandAndPerformAction ( const Frame& frame, co
     for ( HandList::const_iterator singleHand = hands.begin (); singleHand != hands.end (); ++singleHand )
     {
         // Get the hand
-        const Hand hand = *singleHand;
-
-        /******************************************** DEBUG INFORMATION START ******************************************
-        
-        std::string handOrientation = hand.isLeft () ? "Left hand" : "Right hand";
-        std::cout << std::string ( 2, ' ' ) << handOrientation << ", id: " << hand.id ()
-            << ", palm position: " << hand.palmPosition () << std::endl;
-        
-        ********************************************* DEBUG INFORMATION STOP *******************************************/
+        const Hand hand = *singleHand ;
 
         // Based on the hand that was detected figure out which fingers are active and perform the necessary actions
-        determineFingerAndPerformAction ( controller, hand );
+        determineFingerAndPerformAction ( controller, hand ) ;
     }
 }
 
@@ -192,13 +188,13 @@ void LeapGestureFeedBack::determineFingerAndPerformAction ( const Controller& co
 
     // Get the current and previous 5th frame from the leap controller
     const Frame currentFrame = controller.frame ();
-    const Frame previousFrame = controller.frame ( 2 );
+    const Frame previousFrame = controller.frame ( 1 );
 
     // Get the list of extended fingers that are visible for the hand on the frame
     const FingerList fingersExtendedCurrent = currentFrame.hand ( hand.id () ).fingers ().extended () ;
     const FingerList fingersExtendedPrevious = previousFrame.hand ( hand.id () ).fingers ().extended () ;
 
-        // Determine which hand is detected by leap
+    // Determine which hand is detected by leap
     string handOrientation = hand.isLeft () ? "LeftHand" : "RightHand" ;
 
     // Get the right and left most fingers from the current frame
@@ -209,13 +205,12 @@ void LeapGestureFeedBack::determineFingerAndPerformAction ( const Controller& co
     const Finger rightMostFingerPrevious = fingersExtendedPrevious.rightmost () ;
     const Finger leftMostFingerPrevious = fingersExtendedPrevious.leftmost () ;
 
-    this->console () << "Hand Orientation: " << handOrientation << "\n"
-                     << "Current RightMost Finger Type: " << fingerNames [rightMostFingerCurrent.type ()] << "\n"
-                     << "Current LeftMost Finger Type: " << fingerNames [leftMostFingerCurrent.type ()] << "\n"
-                     << "Previous RightMost Finger Type: " << fingerNames [rightMostFingerPrevious.type ()] << "\n"
-                     << "Previous LeftMost Finger Type: " << fingerNames [leftMostFingerPrevious.type ()] << "\n"
-                     << endl;
-
+    // Only perform a mouse action based on the fact that the index finger and the thumb are present in both current and previous
+    // frames. 
+    //    1. Check is to make sure that there are 2 extended fingers in both current and previous frames
+    //    2. Check to make sure that both current and previous frames have a thumb and index finger
+    // Note: At this point the assumption is that there was one hand detected and all theses checks are performed on the single
+    //       hand.
     if ( fingersExtendedCurrent.count () == 2 && fingersExtendedPrevious.count () == 2 &&
          ( rightMostFingerCurrent.type () == Finger::TYPE_THUMB || rightMostFingerCurrent.type () == Finger::TYPE_INDEX ) &&
          ( leftMostFingerCurrent.type () == Finger::TYPE_THUMB || leftMostFingerCurrent.type () == Finger::TYPE_INDEX ) &&
@@ -223,62 +218,59 @@ void LeapGestureFeedBack::determineFingerAndPerformAction ( const Controller& co
          ( leftMostFingerPrevious.type () == Finger::TYPE_THUMB || leftMostFingerPrevious.type () == Finger::TYPE_INDEX )
        )
     {
+        // Debug info 
+        this->console () << "Hand Orientation: " << handOrientation << "\n"
+                         << "Current RightMost Finger Type: " << fingerNames [rightMostFingerCurrent.type ()] << "\n"
+                         << "Current LeftMost Finger Type: " << fingerNames [leftMostFingerCurrent.type ()] << "\n"
+                         << "Previous RightMost Finger Type: " << fingerNames [rightMostFingerPrevious.type ()] << "\n"
+                         << "Previous LeftMost Finger Type: " << fingerNames [leftMostFingerPrevious.type ()] << "\n"
+                         << endl;
+
+        // Detect if the current hand is left and perform the action based on left hand detected 
         if ( handOrientation == "LeftHand" )
         {
+            // Once again check to make sure that for a left hand we have thumb at the most right 
+            // and index finger at the most left. This will only be the case for left hand.
             if ( rightMostFingerCurrent.type () == Finger::TYPE_THUMB &&
                  leftMostFingerCurrent.type () == Finger::TYPE_INDEX
                )
             {
+                // Get the current frame stabilized tip position of the thumb and index finger
                 thumbFingerCurrent = rightMostFingerCurrent.stabilizedTipPosition () ;
                 indexFingerCurrent = leftMostFingerCurrent.stabilizedTipPosition () ;
 
+                // Get the previous frame stabilized tip position of the thumb and index finger
                 thumbFingerPrevious = rightMostFingerPrevious.stabilizedTipPosition () ;
-                indexFingerPrevious = leftMostFingerPrevious.stabilizedTipPosition ();
-
-                this->console () << "Hand Orientation: " << handOrientation << "\n"
-                                 << "Current Thumb Vector: " << thumbFingerCurrent.x << "\n"
-                                 << "Current Index Vector: " << indexFingerCurrent.x << "\n"
-                                 << "Previous Thumb Vector: " << thumbFingerPrevious.x << "\n"
-                                 << "Previous Index Vector: " << indexFingerPrevious.x << "\n"
-                                 << endl;
+                indexFingerPrevious = leftMostFingerPrevious.stabilizedTipPosition () ;
             }
         }
+        // Detect if the current hand is right and perform the action based on right hand detected 
         else if ( handOrientation == "RightHand" )
         {
+            // Once again check to make sure that for a right hand we have index finger at the most 
+            // right and thumb finger at the most left. This will only be the case for right hand.
             if ( leftMostFingerCurrent.type () == Finger::TYPE_THUMB &&
                  rightMostFingerCurrent.type () == Finger::TYPE_INDEX
                )
             {
+                // Get the current frame stabilized tip position of the thumb and index finger
                 thumbFingerCurrent = leftMostFingerCurrent.stabilizedTipPosition () ;
                 indexFingerCurrent = rightMostFingerCurrent.stabilizedTipPosition () ;
 
+                // Get the previous frame stabilized tip position of the thumb and index finger
                 thumbFingerPrevious = leftMostFingerPrevious.stabilizedTipPosition ();
                 indexFingerPrevious = rightMostFingerPrevious.stabilizedTipPosition ();
             }
         }
+
+        // Debug info 
+        this->console () << "Hand Orientation: " << handOrientation << "\n"
+            		     << "Current Thumb Vector: " << thumbFingerCurrent << "\n"
+        	    	     << "Current Index Vector: " << indexFingerCurrent << "\n"
+        		         << "Previous Thumb Vector: " << thumbFingerPrevious << "\n"
+        		         << "Previous Index Vector: " << indexFingerPrevious << "\n"
+        		         << endl ;
     }
-
-    this->console () << "Hand Orientation: " << handOrientation << "\n"
-        		     << "Current Thumb Vector: " << thumbFingerCurrent << "\n"
-        		     << "Current Index Vector: " << indexFingerCurrent << "\n"
-        		     << "Previous Thumb Vector: " << thumbFingerPrevious << "\n"
-        		     << "Previous Index Vector: " << indexFingerPrevious << "\n"
-        		     << endl;
-
-    //for ( FingerList::const_iterator fl = fingersExtendedCurrent.begin (); fl != fingersExtendedCurrent.end (); ++fl )
-    //{
-    //    const Finger finger = *fl;
-    //    this->console () << std::string ( 4, ' ' ) << fingerNames [finger.type ()] << "finger\n"
-    //        << "Finger id: " << finger.id () << "\n"
-    //        << "Length: " << finger.length () << " mm\n"
-    //        << "Width: " << finger.width () << "\n"
-    //        << "Length: " << finger.length () << "\n"
-    //        << "Length: " << finger.direction () << "\n"
-    //        << "Finger x position: " << finger.stabilizedTipPosition ().x << "\n"
-    //        << "Finger y position: " << finger.stabilizedTipPosition ().y << "\n"
-    //        << "Finger z position: " << finger.stabilizedTipPosition ().z << "\n"
-    //        << std::endl;
-    //}
 
     // Only move the mouse when one single finger is extended.
     if ( fingersExtendedCurrent.count () == 1 )
