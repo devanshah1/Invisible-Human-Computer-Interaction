@@ -72,6 +72,12 @@
 *                         of index finger calculations not needed
 *                         at this point.
 *
+*  07/04/2015  Adding - New code to detect thumb to index finger     Devan Shah 100428864
+*                       distance change.
+*
+*  07/04/2015  Adding - New code to improve checking for left click  Devan Shah 100428864
+*                       better.
+*
 *******************************************************************************************/
 #include "commonUtils.h"
 
@@ -314,9 +320,12 @@ void LeapGestureFeedBack::determineFingerAndPerformAction ( const Controller& co
         // Only perform a left mouse click if both index finger and thumb are extended and also there is less then 3
         // is greater then 25 difference in the x direction for the thumb from current and previous frame. This would
         // signify that the thumb has moved close to the index finger, representing a left click by the user.
-        else if ( thumbXDifference > 25 && thumbToIndexFingerDistance > 25 )
+        else if ( thumbXDifference > 25 && thumbToIndexFingerDistance > 25 && !isMoseLeftClickEnabled )
         {
             moveMouse ( controller, MOUSE_LEFT_CLICK ) ;
+            
+            isMoseLeftClickEnabled = true ;
+
             // Debug info 
            this->console () << "Hand Orientation: " << handOrientation << "\n"
                		        << "Current Thumb Vector: " << thumbFingerCurrent << "\n"
@@ -328,6 +337,25 @@ void LeapGestureFeedBack::determineFingerAndPerformAction ( const Controller& co
                             << "Current Distance from Thumb to index Finger: " << currentDistance << "\n"
                             << "Previous Distance from Thumb to index Finger: " << previousDistance << "\n"
                             << "Difference from Thumb to index Finger: " << thumbToIndexFingerDistance << "\n"
+        		            << endl ;
+        }
+        else if ( thumbXDifference > 25 && thumbToIndexFingerDistance > 25 && isMoseLeftClickEnabled )
+        {
+            
+            isMoseLeftClickEnabled = false;
+
+            // Debug info 
+           this->console () << "Hand Orientation: " << handOrientation << "\n"
+               		        << "Current Thumb Vector: " << thumbFingerCurrent << "\n"
+        	                << "Current Index Vector: " << indexFingerCurrent << "\n"
+        		            << "Previous Thumb Vector: " << thumbFingerPrevious << "\n"
+        		            << "Previous Index Vector: " << indexFingerPrevious << "\n"
+                            << "Difference Thumb Vector: " << Vector ( thumbXDifference, thumbYDifference, thumbZDifference ) << "\n"
+                            << "Difference Index Vector: " << Vector ( indexXDifference, indexYDifference, indexZDifference ) << "\n"
+                            << "Current Distance from Thumb to index Finger: " << currentDistance << "\n"
+                            << "Previous Distance from Thumb to index Finger: " << previousDistance << "\n"
+                            << "Difference from Thumb to index Finger: " << thumbToIndexFingerDistance << "\n"
+                            << "Mouse Left Clicked: " << isMoseLeftClickEnabled << "\n"
         		            << endl ;
         }
         // TODO: Not Supported yet, need to figure out best way to perform a right click which this new algo
@@ -441,11 +469,11 @@ void LeapGestureFeedBack::moveMouse ( const Controller& controller, std::string 
     Vector normalizedPointPrevious = leapInteractionBoxPrevious.normalizePoint ( leapPointPrevious, false );
 
     // Increase the sensitivity of the mouse movement for current frame.
-    normalizedPointCurrent *= 3.9 ; // scale
+    normalizedPointCurrent *= 4.1 ; // scale
     normalizedPointCurrent -= Leap::Vector ( .25, .25, .25 ) ; // re-center
 
     // Increase the sensitivity of the mouse movement for previous frame.
-    normalizedPointPrevious *= 3.9 ; // scale
+    normalizedPointPrevious *= 4.1 ; // scale
     normalizedPointPrevious -= Leap::Vector ( .25, .25, .25 ) ; // re-center
 
 

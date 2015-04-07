@@ -82,14 +82,17 @@
 *                         to a cinder DataSourceRef to load the 
 *                         image resources correctly.
 *
-*  04/01/2015  Fixing - Minor indentation issues in the public        Devan Shah 100428864
+*  01/04/2015  Fixing - Minor indentation issues in the public        Devan Shah 100428864
 *                       LeapGestureFeedBack class.
 *
 *  04/04/2015  Adding - New function to the LeapGestureFeedBack       Devan Shah 100428864
 *                       class to display supported gestures.
 *
-*  04/05/2015  Adding - New global variable for better swipe          Devan Shah 100428864
+*  05/04/2015  Adding - New global variable for better swipe          Devan Shah 100428864
 *                       detection.
+*
+*  07/04/2015  Adding - New global variable for better move           Devan Shah 100428864
+*                       clicking.
 *
 *******************************************************************************************/
 
@@ -307,6 +310,9 @@ class LeapGestureFeedBack : public ci::app::AppNative
 
        // Previous Executed SwipeGesture
        int prevSwipeGestureExecutedId = 0 ;
+        
+       // Previous Executed SwipeGesture
+       bool isMoseLeftClickEnabled = false ;
 };
 
 /**********************************************************************************
