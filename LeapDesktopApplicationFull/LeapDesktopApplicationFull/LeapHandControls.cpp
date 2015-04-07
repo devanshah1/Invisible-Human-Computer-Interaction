@@ -198,6 +198,73 @@ void LeapGestureFeedBack::determineFingerAndPerformAction ( const Controller& co
     const FingerList fingersExtendedCurrent = currentFrame.hand ( hand.id () ).fingers ().extended () ;
     const FingerList fingersExtendedPrevious = previousFrame.hand ( hand.id () ).fingers ().extended () ;
 
+        // Determine which hand is detected by leap
+    string handOrientation = hand.isLeft () ? "LeftHand" : "RightHand" ;
+
+    // Get the right and left most fingers from the current frame
+    const Finger rightMostFingerCurrent = fingersExtendedCurrent.rightmost () ;
+    const Finger leftMostFingerCurrent = fingersExtendedCurrent.leftmost () ;
+
+    // Get the right and left most fingers from the previous frame
+    const Finger rightMostFingerPrevious = fingersExtendedPrevious.rightmost () ;
+    const Finger leftMostFingerPrevious = fingersExtendedPrevious.leftmost () ;
+
+    this->console () << "Hand Orientation: " << handOrientation << "\n"
+                     << "Current RightMost Finger Type: " << fingerNames [rightMostFingerCurrent.type ()] << "\n"
+                     << "Current LeftMost Finger Type: " << fingerNames [leftMostFingerCurrent.type ()] << "\n"
+                     << "Previous RightMost Finger Type: " << fingerNames [rightMostFingerPrevious.type ()] << "\n"
+                     << "Previous LeftMost Finger Type: " << fingerNames [leftMostFingerPrevious.type ()] << "\n"
+                     << endl;
+
+    if ( fingersExtendedCurrent.count () == 2 && fingersExtendedPrevious.count () == 2 &&
+         ( rightMostFingerCurrent.type () == Finger::TYPE_THUMB || rightMostFingerCurrent.type () == Finger::TYPE_INDEX ) &&
+         ( leftMostFingerCurrent.type () == Finger::TYPE_THUMB || leftMostFingerCurrent.type () == Finger::TYPE_INDEX ) &&
+         ( rightMostFingerPrevious.type () == Finger::TYPE_THUMB || rightMostFingerPrevious.type () == Finger::TYPE_INDEX ) &&
+         ( leftMostFingerPrevious.type () == Finger::TYPE_THUMB || leftMostFingerPrevious.type () == Finger::TYPE_INDEX )
+       )
+    {
+        if ( handOrientation == "LeftHand" )
+        {
+            if ( rightMostFingerCurrent.type () == Finger::TYPE_THUMB &&
+                 leftMostFingerCurrent.type () == Finger::TYPE_INDEX
+               )
+            {
+                thumbFingerCurrent = rightMostFingerCurrent.stabilizedTipPosition () ;
+                indexFingerCurrent = leftMostFingerCurrent.stabilizedTipPosition () ;
+
+                thumbFingerPrevious = rightMostFingerPrevious.stabilizedTipPosition () ;
+                indexFingerPrevious = leftMostFingerPrevious.stabilizedTipPosition ();
+
+                this->console () << "Hand Orientation: " << handOrientation << "\n"
+                                 << "Current Thumb Vector: " << thumbFingerCurrent.x << "\n"
+                                 << "Current Index Vector: " << indexFingerCurrent.x << "\n"
+                                 << "Previous Thumb Vector: " << thumbFingerPrevious.x << "\n"
+                                 << "Previous Index Vector: " << indexFingerPrevious.x << "\n"
+                                 << endl;
+            }
+        }
+        else if ( handOrientation == "RightHand" )
+        {
+            if ( leftMostFingerCurrent.type () == Finger::TYPE_THUMB &&
+                 rightMostFingerCurrent.type () == Finger::TYPE_INDEX
+               )
+            {
+                thumbFingerCurrent = leftMostFingerCurrent.stabilizedTipPosition () ;
+                indexFingerCurrent = rightMostFingerCurrent.stabilizedTipPosition () ;
+
+                thumbFingerPrevious = leftMostFingerPrevious.stabilizedTipPosition ();
+                indexFingerPrevious = rightMostFingerPrevious.stabilizedTipPosition ();
+            }
+        }
+    }
+
+    this->console () << "Hand Orientation: " << handOrientation << "\n"
+        		     << "Current Thumb Vector: " << thumbFingerCurrent << "\n"
+        		     << "Current Index Vector: " << indexFingerCurrent << "\n"
+        		     << "Previous Thumb Vector: " << thumbFingerPrevious << "\n"
+        		     << "Previous Index Vector: " << indexFingerPrevious << "\n"
+        		     << endl;
+
     //for ( FingerList::const_iterator fl = fingersExtendedCurrent.begin (); fl != fingersExtendedCurrent.end (); ++fl )
     //{
     //    const Finger finger = *fl;
