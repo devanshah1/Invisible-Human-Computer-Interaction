@@ -235,12 +235,12 @@ void LeapGestureFeedBack::determineFingerAndPerformAction ( const Controller& co
        )
     {
         // Debug info 
-        this->console () << "Hand Orientation: " << handOrientation << "\n"
-                         << "Current RightMost Finger Type: " << fingerNames [rightMostFingerCurrent.type ()] << "\n"
-                         << "Current LeftMost Finger Type: " << fingerNames [leftMostFingerCurrent.type ()] << "\n"
-                         << "Previous RightMost Finger Type: " << fingerNames [rightMostFingerPrevious.type ()] << "\n"
-                         << "Previous LeftMost Finger Type: " << fingerNames [leftMostFingerPrevious.type ()] << "\n"
-                         << endl;
+        //this->console () << "Hand Orientation: " << handOrientation << "\n"
+        //                 << "Current RightMost Finger Type: " << fingerNames [rightMostFingerCurrent.type ()] << "\n"
+        //                 << "Current LeftMost Finger Type: " << fingerNames [leftMostFingerCurrent.type ()] << "\n"
+        //                 << "Previous RightMost Finger Type: " << fingerNames [rightMostFingerPrevious.type ()] << "\n"
+        //                 << "Previous LeftMost Finger Type: " << fingerNames [leftMostFingerPrevious.type ()] << "\n"
+        //                 << endl;
 
         // Detect if the current hand is left and perform the action based on left hand detected 
         if ( handOrientation == "LeftHand" )
@@ -320,11 +320,18 @@ void LeapGestureFeedBack::determineFingerAndPerformAction ( const Controller& co
         // Only perform a left mouse click if both index finger and thumb are extended and also there is less then 3
         // is greater then 25 difference in the x direction for the thumb from current and previous frame. This would
         // signify that the thumb has moved close to the index finger, representing a left click by the user.
-        else if ( thumbXDifference > 25 && thumbToIndexFingerDistance > 25 && !isMoseLeftClickEnabled )
+        else if ( thumbXDifference > 25 && thumbToIndexFingerDistance > 25 && isMoseLeftClickEnabled == false && thumbYDifference < 10 )
         {
             moveMouse ( controller, MOUSE_LEFT_CLICK ) ;
             
             isMoseLeftClickEnabled = true ;
+
+        this->console () << "Hand ID: " << hand.id () << "\n"
+                         << "Current RightMost Finger Type: " << rightMostFingerCurrent.id () << "\n"
+                         << "Current LeftMost Finger Type: " << leftMostFingerCurrent.id () << "\n"
+                         << "Previous RightMost Finger Type: " << rightMostFingerPrevious.id () << "\n"
+                         << "Previous LeftMost Finger Type: " << leftMostFingerPrevious.id () << "\n"
+                         << endl;
 
             // Debug info 
            this->console () << "Hand Orientation: " << handOrientation << "\n"
@@ -337,9 +344,10 @@ void LeapGestureFeedBack::determineFingerAndPerformAction ( const Controller& co
                             << "Current Distance from Thumb to index Finger: " << currentDistance << "\n"
                             << "Previous Distance from Thumb to index Finger: " << previousDistance << "\n"
                             << "Difference from Thumb to index Finger: " << thumbToIndexFingerDistance << "\n"
+                            << "Mouse Left Clicked: " << isMoseLeftClickEnabled << "\n"
         		            << endl ;
         }
-        else if ( thumbXDifference > 25 && thumbToIndexFingerDistance > 25 && isMoseLeftClickEnabled )
+        else if ( thumbXDifference > 25 && thumbToIndexFingerDistance > 25 && isMoseLeftClickEnabled == true )
         {
             
             isMoseLeftClickEnabled = false;
@@ -469,11 +477,11 @@ void LeapGestureFeedBack::moveMouse ( const Controller& controller, std::string 
     Vector normalizedPointPrevious = leapInteractionBoxPrevious.normalizePoint ( leapPointPrevious, false );
 
     // Increase the sensitivity of the mouse movement for current frame.
-    normalizedPointCurrent *= 4.1 ; // scale
+    normalizedPointCurrent *= 3.5 ; // scale
     normalizedPointCurrent -= Leap::Vector ( .25, .25, .25 ) ; // re-center
 
     // Increase the sensitivity of the mouse movement for previous frame.
-    normalizedPointPrevious *= 4.1 ; // scale
+    normalizedPointPrevious *= 3.5 ; // scale
     normalizedPointPrevious -= Leap::Vector ( .25, .25, .25 ) ; // re-center
 
 
@@ -483,9 +491,9 @@ void LeapGestureFeedBack::moveMouse ( const Controller& controller, std::string 
     * increase the accuracy of the mouse movement and accuracy.
     */
     int currentCorospondingMouseX = ( int ) ( normalizedPointCurrent.x * maxScreenWidth ) ;
-    int currentCorospondingMouseY = ( int ) ( maxScreenHeight - ( normalizedPointCurrent.y * maxScreenHeight ) ) ;
+    int currentCorospondingMouseY = ( int ) ( ( 1 - normalizedPointCurrent.y ) * maxScreenHeight ) ;
     int previousCorospondingMouseX = ( int ) ( normalizedPointPrevious.x * maxScreenWidth ) ;
-    int previousCorospondingMouseY = ( int ) ( maxScreenHeight - ( normalizedPointPrevious.y * maxScreenHeight ) ) ;
+    int previousCorospondingMouseY = ( int ) ( ( 1 - normalizedPointPrevious.y ) * maxScreenHeight ) ;
 
     /********************************* TODO START *******************************
     
@@ -512,8 +520,8 @@ void LeapGestureFeedBack::moveMouse ( const Controller& controller, std::string 
     if ( mouseAction == MOVE_MOUSE )
     {
         // Calculate the difference between previous mouse location and current mouse location.
-        int mouseXDifference = abs ( previousCorospondingMouseX - currentCorospondingMouseX );
-        int mouseYDifference = abs ( previousCorospondingMouseY - currentCorospondingMouseY );
+        int mouseXDifference = abs ( previousCorospondingMouseX - currentCorospondingMouseX ) ;
+        int mouseYDifference = abs ( previousCorospondingMouseY - currentCorospondingMouseY ) ;
 
         // Only move the mouse to the current location if the difference is greater then 5 pixels
         if ( mouseYDifference > 5 || mouseXDifference > 5 )
@@ -523,21 +531,31 @@ void LeapGestureFeedBack::moveMouse ( const Controller& controller, std::string 
     }
     else if ( mouseAction == MOUSE_LEFT_CLICK )
     {
+
         // Perform a left click where the mouse is currently located at.
-        mouse_event ( MOUSEEVENTF_LEFTDOWN, 0, currentCorospondingMouseX, currentCorospondingMouseY, 0 ) ;
+        mouse_event ( MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, 0, 0, 0 );
 
-        // Calculate the difference between previous mouse location and current mouse location.
-        int mouseXDifference = abs ( previousCorospondingMouseX - currentCorospondingMouseX );
-        int mouseYDifference = abs ( previousCorospondingMouseY - currentCorospondingMouseY );
+        this->console () << "Called MOUSE_LEFT_CLICK: " << "\n"
+            << endl;
 
-        // When a drag is detected while mouse is clicked then perform a dragging action.
-        if ( mouseYDifference > 5 || mouseXDifference > 5 )
-        {
-            SetCursorPos ( currentCorospondingMouseX, currentCorospondingMouseY ) ;
-        }
+        //// Calculate the difference between previous mouse location and current mouse location.
+        //int mouseXDifference = abs ( previousCorospondingMouseX - currentCorospondingMouseX );
+        //int mouseYDifference = abs ( previousCorospondingMouseY - currentCorospondingMouseY );
+
+        //// When a drag is detected while mouse is clicked then perform a dragging action.
+        //if ( mouseYDifference > 5 || mouseXDifference > 5 )
+        //{
+        //    //SetCursorPos ( currentCorospondingMouseX, currentCorospondingMouseY ) ;
+        //    
+        //    // Perform a left click where the mouse is currently located at.
+        //    mouse_event ( MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, 0, 0, 0 );
+
+        //    this->console () << "Called MOUSE_LEFT_CLICK: " << "\n"
+        //                     << endl;
+        //}
 
         // Release the left click
-        mouse_event ( MOUSEEVENTF_LEFTUP, 0, currentCorospondingMouseX, currentCorospondingMouseY, 0 ) ;
+        //mouse_event ( MOUSEEVENTF_LEFTUP, 0, currentCorospondingMouseX, currentCorospondingMouseY, 0 ) ;
     }
     else if ( mouseAction == MOUSE_RIGHT_CLICK )
     {
