@@ -55,6 +55,9 @@
 *  07/04/2015  Updating - Changing LeapGestureFeedBack class and     Devan Shah 100428864
 *                         file name to LeapDesktopAppFull
 *
+*  07/04/2015  Adding - Advance logic on how circle is detected      Devan Shah 100428864
+*                       for the circle gesture. 
+* 
 *******************************************************************************************/
 #include "commonUtils.h"
 
@@ -184,29 +187,48 @@ void LeapDesktopAppFull::circleGestures ( const Gesture& gesture, const Controll
     // Variable Declaration
     CircleGesture circle = gesture;
     std::string clockwiseness;
+    int numberOfFingers = 0 ;
 
     // Detect if the single finger motion was in the clock wise direction 
-    if ( circle.pointable ().direction ().angleTo ( circle.normal () ) <= PI / 2 && stateNames [gesture.state ()] == "STATE_END" )
+    if ( circle.pointable ().direction ().angleTo ( circle.normal () ) <= PI / 2 )
     {
         clockwiseness = "clockwise";
-
-        // Handle the action when clockwise circle action is detected from Leap Motion.
-        runGestureAction ( CIRCLE_CLOCKWISE );
-        createUserFeedBackWindow ( loadResource ( RES_CLOCKWISE_IMAGE ), 150, 131 );
     }
-    else if ( stateNames [gesture.state ()] == "STATE_END" )
+    else
     {
         clockwiseness = "counterclockwise";
-        runGestureAction ( CIRCLE_COUNTERCLOKWISE );
-        createUserFeedBackWindow ( loadResource ( RES_COUNTERCLOCKWISE_IMAGE ), 150, 131 );
     }
 
     // Calculate angle swept since last frame
     float sweptAngle = 0;
+
+    // Only Check in the case that circle was detected first
     if ( circle.state () != Gesture::STATE_START )
     {
+        // Get the previous circle gesture from previous leap frame
         CircleGesture previousUpdate = CircleGesture ( controller.frame ( 1 ).gesture ( circle.id () ) );
-        sweptAngle = ( circle.progress () - previousUpdate.progress () ) * 2 * PI;
+        sweptAngle = ( circle.progress () - previousUpdate.progress () ) * 2 * PI ;
+
+        // Get the number of fingers that were detected in the circle detection gesture
+        numberOfFingers = gesture.hands () [0].fingers ().count () ;
+
+        // Only perform the actions in the case that circle progress/traversal has completed with comparison with previous
+        // Leap frame.
+        if ( floor ( circlingSpeed * circle.progress () ) != floor ( circlingSpeed * previousUpdate.progress () ) )
+        {
+            // Handle the action when clockwise circle action is detected from Leap Motion.
+            if ( clockwiseness == "clockwise" && numberOfFingers == 1 )
+            {
+                runGestureAction ( CIRCLE_CLOCKWISE );
+                createUserFeedBackWindow ( loadResource ( RES_CLOCKWISE_IMAGE ), 150, 131 );
+            }
+            // Handle the action when counterclockwise circle action is detected from Leap Motion.
+            else if ( clockwiseness == "counterclockwise" && numberOfFingers == 1 )
+            {
+                runGestureAction ( CIRCLE_COUNTERCLOKWISE );
+                createUserFeedBackWindow ( loadResource ( RES_COUNTERCLOCKWISE_IMAGE ), 150, 131 );
+            }
+        }
     }
 
     // Debug info

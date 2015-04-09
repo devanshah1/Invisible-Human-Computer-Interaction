@@ -499,7 +499,7 @@ void LeapDesktopAppFull::moveMouse ( const Controller& controller, std::string m
         int mouseXDifference = abs ( previousCorospondingMouseX - currentCorospondingMouseX ) ;
         int mouseYDifference = abs ( previousCorospondingMouseY - currentCorospondingMouseY ) ;
 
-        // Only move the mouse to the current location if the difference is greater then 5 pixels
+        // Only move the mouse to the current location if the difference is greater then 1 pixels
         if ( mouseYDifference > 1 || mouseXDifference > 1 )
         {
             SetCursorPos ( currentCorospondingMouseX, currentCorospondingMouseY ) ;
@@ -519,7 +519,7 @@ void LeapDesktopAppFull::moveMouse ( const Controller& controller, std::string m
         int mouseYDifference = abs ( previousCorospondingMouseY - currentCorospondingMouseY );
 
         // When a drag is detected while mouse is clicked then perform a dragging action.
-        if ( mouseYDifference > 5 || mouseXDifference > 5 )
+        if ( mouseYDifference > 1 || mouseXDifference > 1 )
         {
             SetCursorPos ( currentCorospondingMouseX, currentCorospondingMouseY ) ;
         }
@@ -530,6 +530,6 @@ void LeapDesktopAppFull::moveMouse ( const Controller& controller, std::string m
     else if ( mouseAction == MOUSE_RIGHT_CLICK )
     {
         // Perform a right click where the mouse is currently located at.
-        mouse_event ( MOUSEEVENTF_RIGHTDOWN | MOUSEEVENTF_RIGHTUP, currentCorospondingMouseX, currentCorospondingMouseY, 0, 0 ) ;
+        mouse_event ( MOUSEEVENTF_RIGHTDOWN | MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0 ) ;
     }
 }
