@@ -50,7 +50,7 @@
 *
 *  04/04/2015  Updating - Minor changes to formatting and comments   Devan Shah 100428864 
 *
-*  07/04/2015  Updating - Changing LeapGestureFeedBack class and     Devan Shah 100428864 
+*  07/04/2015  Updating - Changing LeapGestureFeedBack class and     Devan Shah 100428864
 *                         file name to LeapDesktopAppFull
 *
 *******************************************************************************************/
