@@ -6,9 +6,9 @@
 *
 *  List of Functions/Classes:
 *
-*     LeapGestureFeedBack::determineHandAndPerformAction ( const Frame& frame, const Controller& controller )
-*     LeapGestureFeedBack::determineFingerAndPerformAction ( const Controller& controller, const Hand& hand )
-*     LeapGestureFeedBack::moveMouse ( const Controller& controller, std::string mouseAction )
+*     LeapDesktopAppFull::determineHandAndPerformAction ( const Frame& frame, const Controller& controller )
+*     LeapDesktopAppFull::determineFingerAndPerformAction ( const Controller& controller, const Hand& hand )
+*     LeapDesktopAppFull::moveMouse ( const Controller& controller, std::string mouseAction )
 *
 *  Dependencies: See function dependencies
 *
@@ -78,6 +78,9 @@
 *  07/04/2015  Adding - New code to improve checking for left click  Devan Shah 100428864
 *                       better.
 *
+*  07/04/2015  Updating - Changing LeapGestureFeedBack class and     Devan Shah 100428864
+*                         file name to LeapDesktopAppFull
+*
 *******************************************************************************************/
 #include "commonUtils.h"
 
@@ -85,7 +88,7 @@ using namespace Leap;
 
 /**********************************************************************************
 
-Function Name = LeapGestureFeedBack::determineHandAndPerformAction
+Function Name = LeapDesktopAppFull::determineHandAndPerformAction
 
 Descriptive Name = Detects hands that are found in the leap motion frames.
 
@@ -124,7 +127,7 @@ Error Return =
     N/A
 
 ******************************************************************************/
-void LeapGestureFeedBack::determineHandAndPerformAction ( const Frame& frame, const Controller& controller )
+void LeapDesktopAppFull::determineHandAndPerformAction ( const Frame& frame, const Controller& controller )
 {
     // Get Hands
     const HandList hands = frame.hands ();
@@ -142,7 +145,7 @@ void LeapGestureFeedBack::determineHandAndPerformAction ( const Frame& frame, co
 
 /**********************************************************************************
 
-Function Name = LeapGestureFeedBack::determineFingerAndPerformAction
+Function Name = LeapDesktopAppFull::determineFingerAndPerformAction
 
 Descriptive Name = Determine the orientation of the fingers and performs the actions
                    based of this.
@@ -193,7 +196,7 @@ Error Return =
     N/A
 
 ******************************************************************************/
-void LeapGestureFeedBack::determineFingerAndPerformAction ( const Controller& controller, const Hand& hand )
+void LeapDesktopAppFull::determineFingerAndPerformAction ( const Controller& controller, const Hand& hand )
 {
     // Vector Declaration
     Vector thumbFingerCurrent ; // Stores the current stabilized thumb position 
@@ -368,7 +371,7 @@ void LeapGestureFeedBack::determineFingerAndPerformAction ( const Controller& co
 
 /**********************************************************************************
 
-Function Name = LeapGestureFeedBack::moveMouse
+Function Name = LeapDesktopAppFull::moveMouse
 
 Descriptive Name = Moves the pointer from one position to another based on the leap
                    input points and calculated 2D rendering of the point on the 
@@ -424,7 +427,7 @@ Future Work
     perform multiple clicks and move to fast.
 
 ******************************************************************************/
-void LeapGestureFeedBack::moveMouse ( const Controller& controller, std::string mouseAction )
+void LeapDesktopAppFull::moveMouse ( const Controller& controller, std::string mouseAction )
 {
     // Get the current and previous 10th frame from the leap controller
     const Frame currentFrame = controller.frame () ;

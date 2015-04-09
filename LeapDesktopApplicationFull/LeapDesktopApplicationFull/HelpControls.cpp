@@ -6,7 +6,7 @@
 *
 *  List of Functions:
 *
-*     LeapGestureFeedBack::supportedGestures ( std::string windowOption )
+*     LeapDesktopAppFull::supportedGestures ( std::string windowOption )
 *
 *  Dependencies: See function dependencies
 *
@@ -28,6 +28,9 @@
 *  04/04/2014  Initial drop - File contains application help    Devan Shah 100428864
 *                             functions.
 *                           
+*  07/04/2015  Updating - Changing LeapGestureFeedBack class and     Devan Shah 100428864
+*                         file name to LeapDesktopAppFull
+*
 *******************************************************************************************/
 #include "commonUtils.h"
 
@@ -35,7 +38,7 @@ using namespace std;
 
 /**********************************************************************************
 
-Function Name = LeapGestureFeedBack::supportedGestures
+Function Name = LeapDesktopAppFull::supportedGestures
 
 Descriptive Name = Used to open up the supported gesture window
 
@@ -49,7 +52,7 @@ Output =
     Future TODO is to make sure errors are handled and appropriate response is returned.
 
 ******************************************************************************/
-void LeapGestureFeedBack::supportedGestures ()
+void LeapDesktopAppFull::supportedGestures ()
 {
     // Open up a window that displays the supported gestures
     createUserFeedBackWindow ( loadResource ( RES_SUPPORTEDGESTURES_IMAGE ), 729, 335 ) ;

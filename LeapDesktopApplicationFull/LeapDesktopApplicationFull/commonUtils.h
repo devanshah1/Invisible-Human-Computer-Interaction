@@ -8,7 +8,7 @@
 *
 *  List of Functions/Classes:
 *
-*     LeapGestureFeedBack - Class used to construct the feed back window
+*     LeapDesktopAppFull - Class used to construct the feed back window
 *
 *     WindowData - Class is used to construct the custom windows for the gestures
 *
@@ -83,9 +83,9 @@
 *                         image resources correctly.
 *
 *  01/04/2015  Fixing - Minor indentation issues in the public        Devan Shah 100428864
-*                       LeapGestureFeedBack class.
+*                       LeapDesktopAppFull class.
 *
-*  04/04/2015  Adding - New function to the LeapGestureFeedBack       Devan Shah 100428864
+*  04/04/2015  Adding - New function to the LeapDesktopAppFull       Devan Shah 100428864
 *                       class to display supported gestures.
 *
 *  05/04/2015  Adding - New global variable for better swipe          Devan Shah 100428864
@@ -93,6 +93,9 @@
 *
 *  07/04/2015  Adding - New global variable for better move           Devan Shah 100428864
 *                       clicking.
+*
+*  07/04/2015  Updating - Changing LeapGestureFeedBack class and     Devan Shah 100428864
+*                         file name to LeapDesktopAppFull
 *
 *******************************************************************************************/
 
@@ -200,7 +203,7 @@ const std::string boneNames []   = {"Metacarpal", "Proximal", "Middle", "Distal"
 
 /**********************************************************************************
 
-Class Name = LeapGestureFeedBack
+Class Name = LeapDesktopAppFull
 
 Descriptive Name = This class is used to draw the necessary objects while also 
                    acting as a leap motion listener.
@@ -250,7 +253,7 @@ Restrictions =
     Must have the cinder lib's available in the linker and c/c++ configurations. 
 
 ******************************************************************************/
-class LeapGestureFeedBack : public ci::app::AppNative
+class LeapDesktopAppFull : public ci::app::AppNative
 {
     public:
 

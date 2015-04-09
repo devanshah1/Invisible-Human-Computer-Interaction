@@ -6,11 +6,11 @@
 *
 *  List of Functions:
 *
-*     LeapGestureFeedBack::defaultEnvironmentSetup ()
-*     LeapGestureFeedBack::getEnvironmentVariables ()
-*     LeapGestureFeedBack::runGestureAction ( std::string gestureAction )
-*     LeapGestureFeedBack::executeAction ( LPTSTR executionAction )
-*     LeapGestureFeedBack::freeEnvironmentBuffers ()
+*     LeapDesktopAppFull::defaultEnvironmentSetup ()
+*     LeapDesktopAppFull::getEnvironmentVariables ()
+*     LeapDesktopAppFull::runGestureAction ( std::string gestureAction )
+*     LeapDesktopAppFull::executeAction ( LPTSTR executionAction )
+*     LeapDesktopAppFull::freeEnvironmentBuffers ()
 *     
 *  Dependencies: See function dependencies
 *
@@ -50,12 +50,15 @@
 *  04/05/2015 Commenting - Adding addition comments and fixing the   Devan Shah 100428864
 *                          function descriptions
 *
+*  07/04/2015  Updating - Changing LeapGestureFeedBack class and     Devan Shah 100428864
+*                         file name to LeapDesktopAppFull
+*
 *******************************************************************************************/
 #include "commonUtils.h"
 
 /**********************************************************************************
 
-Function Name = LeapGestureFeedBack::defaultEnvironmentSetup
+Function Name = LeapDesktopAppFull::defaultEnvironmentSetup
 
 Descriptive Name = Used to Set up the environment variables
 
@@ -78,7 +81,7 @@ Return =
     N/A
 
 ******************************************************************************/
-void LeapGestureFeedBack::defaultEnvironmentSetup ()
+void LeapDesktopAppFull::defaultEnvironmentSetup ()
 {
     // Pushing environment variables for testing purposes, The UI will do this in the future
 
@@ -99,7 +102,7 @@ void LeapGestureFeedBack::defaultEnvironmentSetup ()
 
 /**********************************************************************************
 
-Function Name = LeapGestureFeedBack::getEnvironmentVariables
+Function Name = LeapDesktopAppFull::getEnvironmentVariables
 
 Descriptive Name = Fetch all the require environment variables
 
@@ -118,7 +121,7 @@ Output =
    Future TODO is to make sure errors are handled and appropriate response is returned.
 
 ******************************************************************************/
-void LeapGestureFeedBack::getEnvironmentVariables ()
+void LeapDesktopAppFull::getEnvironmentVariables ()
 {
     // variable Declaration
     DWORD  dwRet = NULL ;
@@ -176,7 +179,7 @@ void LeapGestureFeedBack::getEnvironmentVariables ()
 
 /**********************************************************************************
 
-Function Name = void LeapGestureFeedBack::runGestureAction
+Function Name = void LeapDesktopAppFull::runGestureAction
 
 Descriptive Name = Execute an action based on the gesture 
 
@@ -196,7 +199,7 @@ Output =
    Future TODO is to make sure errors are handled and appropriate response is returned.
 
 ******************************************************************************/
-void LeapGestureFeedBack::runGestureAction ( std::string gestureAction )
+void LeapDesktopAppFull::runGestureAction ( std::string gestureAction )
 {
     // Execute the action for a gesture based on the environment variable that was set
     if ( gestureAction == CIRCLE_CLOCKWISE )
@@ -235,7 +238,7 @@ void LeapGestureFeedBack::runGestureAction ( std::string gestureAction )
 
 /**********************************************************************************
 
-Function Name = LeapGestureFeedBack::executeAction
+Function Name = LeapDesktopAppFull::executeAction
 
 Descriptive Name = Executes the action for gesture that was detected
 
@@ -255,7 +258,7 @@ Output =
    Future TODO is to make sure errors are handled and appropriate response is returned.
 
 ******************************************************************************/
-void LeapGestureFeedBack::executeAction ( LPTSTR executionAction )
+void LeapDesktopAppFull::executeAction ( LPTSTR executionAction )
 {
     // Perform the actions based on the execution Action that is passed in to the function
     if ( ( lstrcmpi ( TEXT ( VOLUME_STEP_UP ), executionAction ) ) == 0 && executionAction != NULL )
@@ -302,7 +305,7 @@ void LeapGestureFeedBack::executeAction ( LPTSTR executionAction )
 
 /**********************************************************************************
 
-Function Name = LeapGestureFeedBack::freeEnvironmentBuffers
+Function Name = LeapDesktopAppFull::freeEnvironmentBuffers
 
 Descriptive Name = Used to free the environment variable storage buffers
 
@@ -312,7 +315,7 @@ Function =
     variables that were used to get the environment variable for the gesture actions.
 
 ******************************************************************************/
-void LeapGestureFeedBack::freeEnvironmentBuffers ()
+void LeapDesktopAppFull::freeEnvironmentBuffers ()
 {
     // Free the memory buffer for each of the variables where memory was allocated
     free ( CIRCLE_CLOCKWISE_SET );

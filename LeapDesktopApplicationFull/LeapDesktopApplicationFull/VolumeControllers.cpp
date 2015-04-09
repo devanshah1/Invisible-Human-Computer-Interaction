@@ -6,7 +6,7 @@
 *
 *  List of Functions/Classes:
 *
-*     LeapGestureFeedBack::volumeManipulation ( string controlOption )
+*     LeapDesktopAppFull::volumeManipulation ( string controlOption )
 *
 *  Dependencies: See function dependencies
 *
@@ -50,6 +50,9 @@
 *
 *  04/04/2015  Updating - Minor changes to formatting and comments   Devan Shah 100428864 
 *
+*  07/04/2015  Updating - Changing LeapGestureFeedBack class and     Devan Shah 100428864 
+*                         file name to LeapDesktopAppFull
+*
 *******************************************************************************************/
 #include "commonUtils.h"
 
@@ -57,7 +60,7 @@ using namespace std;
 
 /**********************************************************************************
 
-Function Name = LeapGestureFeedBack::volumeManipulation
+Function Name = LeapDesktopAppFull::volumeManipulation
 
 Descriptive Name = Increase/decrease/mute/unmute the volume
 
@@ -98,7 +101,7 @@ Error Return =
     N/A
 
 ******************************************************************************/
-void LeapGestureFeedBack::volumeManipulation ( string controlOption )
+void LeapDesktopAppFull::volumeManipulation ( string controlOption )
 {
     // Variable Declaration
     HRESULT              volumeManipulationResults = NULL ;  // Stores detailed information for the volume communication interface

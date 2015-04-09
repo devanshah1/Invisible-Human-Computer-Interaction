@@ -6,11 +6,11 @@
 *
 *  List of Functions:
 *
-*     LeapGestureFeedBack::determineGestureAndPerformAction ( const Frame& frame, const Controller& controller )
-*     LeapGestureFeedBack::circleGestures ( const Gesture& gesture, const Controller& controller )
-*     LeapGestureFeedBack::swipeGesture ( const Gesture& gesture, const Controller& controller )
-*     LeapGestureFeedBack::keyTapGesture ( const Gesture& gesture, const Controller& controller )
-*     LeapGestureFeedBack::screenTapGesture ( const Gesture& gesture, const Controller& controller )
+*     LeapDesktopAppFull::determineGestureAndPerformAction ( const Frame& frame, const Controller& controller )
+*     LeapDesktopAppFull::circleGestures ( const Gesture& gesture, const Controller& controller )
+*     LeapDesktopAppFull::swipeGesture ( const Gesture& gesture, const Controller& controller )
+*     LeapDesktopAppFull::keyTapGesture ( const Gesture& gesture, const Controller& controller )
+*     LeapDesktopAppFull::screenTapGesture ( const Gesture& gesture, const Controller& controller )
 *     
 *  Dependencies: See function dependencies
 *
@@ -52,6 +52,9 @@
 *                       - Flaw of detecting even a small move of in
 *                         the direction of left,right,up or down.
 *
+*  07/04/2015  Updating - Changing LeapGestureFeedBack class and     Devan Shah 100428864
+*                         file name to LeapDesktopAppFull
+*
 *******************************************************************************************/
 #include "commonUtils.h"
 
@@ -59,7 +62,7 @@ using namespace Leap;
 
 /**********************************************************************************
 
-Function Name = LeapGestureFeedBack::determineGestureAndPerformAction
+Function Name = LeapDesktopAppFull::determineGestureAndPerformAction
 
 Descriptive Name = Used to detect the gesture and perform the action
 
@@ -96,7 +99,7 @@ Error Return =
     N/A
 
 ******************************************************************************/
-void LeapGestureFeedBack::determineGestureAndPerformAction ( const Frame& frame, const Controller& controller )
+void LeapDesktopAppFull::determineGestureAndPerformAction ( const Frame& frame, const Controller& controller )
 {
     // Get gestures
     const GestureList gestures = frame.gestures ();
@@ -138,7 +141,7 @@ void LeapGestureFeedBack::determineGestureAndPerformAction ( const Frame& frame,
 
 /**********************************************************************************
 
-Function Name = LeapGestureFeedBack::circleGestures
+Function Name = LeapDesktopAppFull::circleGestures
 
 Descriptive Name = Handles performing the action for the circle gesture
 
@@ -176,7 +179,7 @@ Error Return =
     N/A
 
 ******************************************************************************/
-void LeapGestureFeedBack::circleGestures ( const Gesture& gesture, const Controller& controller )
+void LeapDesktopAppFull::circleGestures ( const Gesture& gesture, const Controller& controller )
 {
     // Variable Declaration
     CircleGesture circle = gesture;
@@ -218,7 +221,7 @@ void LeapGestureFeedBack::circleGestures ( const Gesture& gesture, const Control
 
 /**********************************************************************************
 
-Function Name = LeapGestureFeedBack::swipeGesture
+Function Name = LeapDesktopAppFull::swipeGesture
 
 Descriptive Name = This function is used to perform the actions for the swipe gesture,
                    supports multiple direction of the swipe. There is a detection setup
@@ -257,7 +260,7 @@ Error Return =
     N/A
 
 ******************************************************************************/
-void LeapGestureFeedBack::swipeGesture ( const Gesture& gesture, const Controller& controller )
+void LeapDesktopAppFull::swipeGesture ( const Gesture& gesture, const Controller& controller )
 {
     // Switch the gesture input to swipe gesture object
     SwipeGesture swipe = gesture;
@@ -389,7 +392,7 @@ void LeapGestureFeedBack::swipeGesture ( const Gesture& gesture, const Controlle
 
 /**********************************************************************************
 
-Function Name = LeapGestureFeedBack::keyTapGesture
+Function Name = LeapDesktopAppFull::keyTapGesture
 
 Descriptive Name = Used to perform the key tap action
 
@@ -425,7 +428,7 @@ Error Return =
     N/A
 
 ******************************************************************************/
-void LeapGestureFeedBack::keyTapGesture ( const Gesture& gesture, const Controller& controller )
+void LeapDesktopAppFull::keyTapGesture ( const Gesture& gesture, const Controller& controller )
 {
     // Variable Declaration
     KeyTapGesture tap = gesture ;
@@ -443,7 +446,7 @@ void LeapGestureFeedBack::keyTapGesture ( const Gesture& gesture, const Controll
 
 /**********************************************************************************
 
-Function Name = LeapGestureFeedBack::screenTapGesture
+Function Name = LeapDesktopAppFull::screenTapGesture
 
 Descriptive Name = performs action when screen Tap gesture is detected
 
@@ -480,7 +483,7 @@ Error Return =
     N/A
 
 ******************************************************************************/
-void LeapGestureFeedBack::screenTapGesture ( const Gesture& gesture, const Controller& controller )
+void LeapDesktopAppFull::screenTapGesture ( const Gesture& gesture, const Controller& controller )
 {
     // Variable Declaration
     ScreenTapGesture screentap = gesture;

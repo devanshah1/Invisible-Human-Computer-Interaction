@@ -7,8 +7,8 @@
 *
 *  List of Functions:
 *
-*     LeapGestureFeedBack::applicationWindowManipulation ( std::string windowOption )
-*     LeapGestureFeedBack::keyboardManipulation ( std::string keyboardOption )
+*     LeapDesktopAppFull::applicationWindowManipulation ( std::string windowOption )
+*     LeapDesktopAppFull::keyboardManipulation ( std::string keyboardOption )
 *
 *  Dependencies: See function dependencies
 *
@@ -41,6 +41,9 @@
 *
 *  25/02/2015  Commenting - Adding commenting for all the functions  Devan Shah 100428864
 *                           
+*  07/04/2015  Updating - Changing LeapGestureFeedBack class and     Devan Shah 100428864
+*                         file name to LeapDesktopAppFull
+*
 *******************************************************************************************/
 #include "commonUtils.h"
 
@@ -48,7 +51,7 @@ using namespace std;
 
 /**********************************************************************************
 
-Function Name = LeapGestureFeedBack::applicationWindowManipulation
+Function Name = LeapDesktopAppFull::applicationWindowManipulation
 
 Descriptive Name = Switch between windows. Next and previous from main window.
 
@@ -91,7 +94,7 @@ Error Return =
     N/A
 
 ******************************************************************************/
-void LeapGestureFeedBack::applicationWindowManipulation ( std::string windowOption )
+void LeapDesktopAppFull::applicationWindowManipulation ( std::string windowOption )
 {
     // Get the current foreground window and set the new window to NULL
     HWND currentActiveWindow = GetForegroundWindow ();
@@ -129,7 +132,7 @@ void LeapGestureFeedBack::applicationWindowManipulation ( std::string windowOpti
 
 /**********************************************************************************
 
-Function Name = LeapGestureFeedBack::keyboardManipulation
+Function Name = LeapDesktopAppFull::keyboardManipulation
 
 Descriptive Name = Switch between opening/showing the On Screen Keyboard or hiding
                    the On Screen Keyboard.
@@ -168,7 +171,7 @@ Error Return =
     N/A
 
 ******************************************************************************/
-void LeapGestureFeedBack::keyboardManipulation ( std::string keyboardOption )
+void LeapDesktopAppFull::keyboardManipulation ( std::string keyboardOption )
 {
     // Find the window that contains the windows On Screen Keyboard
     HWND onScreenKeyboard = FindWindow ( TEXT ( "OSKMainClass" ), NULL );

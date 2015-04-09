@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="LeapGestureFeedBack">
+  <Class Name="LeapDesktopAppFull">
     <Position X="0.5" Y="0.5" Width="3.5" />
     <TypeIdentifier>
       <HashCode>EABABAIAAIAQASkFAiIACggEAACQAIABEAhQAASACIE=</HashCode>
