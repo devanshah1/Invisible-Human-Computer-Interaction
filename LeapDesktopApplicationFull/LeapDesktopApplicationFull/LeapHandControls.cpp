@@ -81,6 +81,9 @@
 *  07/04/2015  Updating - Changing LeapGestureFeedBack class and     Devan Shah 100428864
 *                         file name to LeapDesktopAppFull
 *
+*  09/04/2015  Updating - Changing some constant values as global    Devan Shah 100428864
+*                         so they can be altered.
+*
 *******************************************************************************************/
 #include "commonUtils.h"
 
@@ -325,20 +328,20 @@ void LeapDesktopAppFull::determineFingerAndPerformAction ( const Controller& con
 
         // Only move the mouse if both index finger and thumb are extended and also there is less then 3
         // difference in the x direction for the thumb from current and previous frame.
-        if ( thumbXDifference <= 25 )
+        if ( thumbXDifference <= maxDistanceBetweenThumbAndIndex )
         {
             moveMouse ( controller, MOVE_MOUSE );
         }
         // Only perform a left mouse click if both index finger and thumb are extended and also there is less then 3
         // is greater then 25 difference in the x direction for the thumb from current and previous frame. This would
         // signify that the thumb has moved close to the index finger, representing a left click by the user.
-        else if ( thumbXDifference > 25 && thumbToIndexFingerDistance > 25 && isMoseLeftClickEnabled == false )
+        else if ( thumbXDifference > maxDistanceBetweenThumbAndIndex && thumbToIndexFingerDistance > maxDistanceBetweenThumbAndIndex && isMoseLeftClickEnabled == false )
         {
             moveMouse ( controller, MOUSE_LEFT_CLICK ) ;
             
             isMoseLeftClickEnabled = true ;
         }
-        else if ( thumbXDifference > 25 && thumbToIndexFingerDistance > 25 && isMoseLeftClickEnabled == true )
+        else if ( thumbXDifference > maxDistanceBetweenThumbAndIndex && thumbToIndexFingerDistance > maxDistanceBetweenThumbAndIndex && isMoseLeftClickEnabled == true )
         {
             isMoseLeftClickEnabled = false ;
         }
