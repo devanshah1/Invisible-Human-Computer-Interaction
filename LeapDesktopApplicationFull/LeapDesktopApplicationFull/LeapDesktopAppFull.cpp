@@ -150,7 +150,7 @@ void LeapDesktopAppFull::setup ()
     readConfig ();
 
     // for the default window we need to provide an instance of WindowData
-    //createMainApplicationWindow () ;
+    createMainApplicationWindow () ;
 }
 
 /**********************************************************************************
