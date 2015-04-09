@@ -203,8 +203,6 @@ void LeapDesktopAppFull::draw ()
     // Get the most recent frame and report some basic information
     const Leap::Frame frame = leap.frame ();
 
-    this->console () << "Frame ID: " << frame.id () << "\n" << endl;
-
     // Sort through the hands and perform the necessary actions that are associated to the hand actions.
     determineHandAndPerformAction ( frame, leap );
 

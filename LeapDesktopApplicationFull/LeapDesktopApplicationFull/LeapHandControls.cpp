@@ -301,22 +301,31 @@ void LeapDesktopAppFull::determineFingerAndPerformAction ( const Controller& con
         // moved closer to the index finger. Thumb moving close to the index finger signifies a left click.
         int thumbToIndexFingerDistance = ( int ) abs ( previousDistance - currentDistance ) ;
 
-        //// Debug info 
-        //this->console () << "Hand Orientation: " << handOrientation << "\n"
-        //    		     << "Current Thumb Vector: " << thumbFingerCurrent << "\n"
-        //	    	     << "Current Index Vector: " << indexFingerCurrent << "\n"
-        //		         << "Previous Thumb Vector: " << thumbFingerPrevious << "\n"
-        //		         << "Previous Index Vector: " << indexFingerPrevious << "\n"
-        //                 << "Difference Thumb Vector: " << Vector ( thumbXDifference, thumbYDifference, thumbZDifference ) << "\n"
-        //                 << "Difference Index Vector: " << Vector ( indexXDifference, indexYDifference, indexZDifference ) << "\n"
-        //                 << "Current Distance from Thumb to index Finger: " << currentDistance << "\n"
-        //                 << "Previous Distance from Thumb to index Finger: " << previousDistance << "\n"
-        //                 <<  "Difference from Thumb to index Finger: " << thumbToIndexFingerDistance << "\n"
-        //		         << endl ;
+        // Debug info 
+        this->console () << "Hand ID: " << hand.id () << "\n"
+                         << "Current RightMost Finger Type: " << rightMostFingerCurrent.id () << "\n"
+                         << "Current LeftMost Finger Type: " << leftMostFingerCurrent.id () << "\n"
+                         << "Previous RightMost Finger Type: " << rightMostFingerPrevious.id () << "\n"
+                         << "Previous LeftMost Finger Type: " << leftMostFingerPrevious.id () << "\n"
+                         << endl;
+
+        // Debug info 
+        this->console () << "Hand Orientation: " << handOrientation << "\n"
+                         << "Current Thumb Vector: " << thumbFingerCurrent << "\n"
+        	             << "Current Index Vector: " << indexFingerCurrent << "\n"
+        		         << "Previous Thumb Vector: " << thumbFingerPrevious << "\n"
+        		         << "Previous Index Vector: " << indexFingerPrevious << "\n"
+                         << "Difference Thumb Vector: " << Vector ( thumbXDifference, thumbYDifference, thumbZDifference ) << "\n"
+                         << "Difference Index Vector: " << Vector ( indexXDifference, indexYDifference, indexZDifference ) << "\n"
+                         << "Current Distance from Thumb to index Finger: " << currentDistance << "\n"
+                         << "Previous Distance from Thumb to index Finger: " << previousDistance << "\n"
+                         << "Difference from Thumb to index Finger: " << thumbToIndexFingerDistance << "\n"
+                         << "Mouse Left Clicked: " << isMoseLeftClickEnabled << "\n"
+        		         << endl ;
 
         // Only move the mouse if both index finger and thumb are extended and also there is less then 3
         // difference in the x direction for the thumb from current and previous frame.
-        if ( thumbXDifference < 3 )
+        if ( thumbXDifference <= 25 )
         {
             moveMouse ( controller, MOVE_MOUSE );
         }
@@ -328,46 +337,10 @@ void LeapDesktopAppFull::determineFingerAndPerformAction ( const Controller& con
             moveMouse ( controller, MOUSE_LEFT_CLICK ) ;
             
             isMoseLeftClickEnabled = true ;
-
-            this->console () << "Hand ID: " << hand.id () << "\n"
-                             << "Current RightMost Finger Type: " << rightMostFingerCurrent.id () << "\n"
-                             << "Current LeftMost Finger Type: " << leftMostFingerCurrent.id () << "\n"
-                             << "Previous RightMost Finger Type: " << rightMostFingerPrevious.id () << "\n"
-                             << "Previous LeftMost Finger Type: " << leftMostFingerPrevious.id () << "\n"
-                             << endl;
-
-            // Debug info 
-           this->console () << "Hand Orientation: " << handOrientation << "\n"
-               		        << "Current Thumb Vector: " << thumbFingerCurrent << "\n"
-        	                << "Current Index Vector: " << indexFingerCurrent << "\n"
-        		            << "Previous Thumb Vector: " << thumbFingerPrevious << "\n"
-        		            << "Previous Index Vector: " << indexFingerPrevious << "\n"
-                            << "Difference Thumb Vector: " << Vector ( thumbXDifference, thumbYDifference, thumbZDifference ) << "\n"
-                            << "Difference Index Vector: " << Vector ( indexXDifference, indexYDifference, indexZDifference ) << "\n"
-                            << "Current Distance from Thumb to index Finger: " << currentDistance << "\n"
-                            << "Previous Distance from Thumb to index Finger: " << previousDistance << "\n"
-                            << "Difference from Thumb to index Finger: " << thumbToIndexFingerDistance << "\n"
-                            << "Mouse Left Clicked: " << isMoseLeftClickEnabled << "\n"
-        		            << endl ;
         }
         else if ( thumbXDifference > 25 && thumbToIndexFingerDistance > 25 && isMoseLeftClickEnabled == true )
         {
-            
             isMoseLeftClickEnabled = false ;
-
-            // Debug info 
-           this->console () << "Hand Orientation: " << handOrientation << "\n"
-               		        << "Current Thumb Vector: " << thumbFingerCurrent << "\n"
-        	                << "Current Index Vector: " << indexFingerCurrent << "\n"
-        		            << "Previous Thumb Vector: " << thumbFingerPrevious << "\n"
-        		            << "Previous Index Vector: " << indexFingerPrevious << "\n"
-                            << "Difference Thumb Vector: " << Vector ( thumbXDifference, thumbYDifference, thumbZDifference ) << "\n"
-                            << "Difference Index Vector: " << Vector ( indexXDifference, indexYDifference, indexZDifference ) << "\n"
-                            << "Current Distance from Thumb to index Finger: " << currentDistance << "\n"
-                            << "Previous Distance from Thumb to index Finger: " << previousDistance << "\n"
-                            << "Difference from Thumb to index Finger: " << thumbToIndexFingerDistance << "\n"
-                            << "Mouse Left Clicked: " << isMoseLeftClickEnabled << "\n"
-        		            << endl ;
         }
         // TODO: Not Supported yet, need to figure out best way to perform a right click which this new algo
         else if ( fingersExtendedCurrent.count () == 3 )
