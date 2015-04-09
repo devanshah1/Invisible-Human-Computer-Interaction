@@ -1,0 +1,3 @@
+MouseSensitivity=100
+CirclingSpeed=200
+maxDistanceBetweenThumbAndIndex=250000

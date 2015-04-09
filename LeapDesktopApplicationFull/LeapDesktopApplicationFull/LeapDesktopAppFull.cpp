@@ -32,24 +32,30 @@
 *    DATE      DESCRIPTION                                           Name
 *  dd/mmm/yyyy
 *  ========================================================================================
-*  29/10/2014  Initial drop - File contains functions for main      Devan Shah 100428864
+*  29/10/2014  Initial drop - File contains functions for main       Devan Shah 100428864
 *                             user feedback creation and also 
 *                             starting of the Leap motion 
 *                             listeners.
 *
-*  25/11/2014  Adding Functions - Added functions to create custom  Devan Shah 100428864
+*  25/11/2014  Adding Functions - Added functions to create custom   Devan Shah 100428864
 *                                 windows for the user feedback.
 *
-*  02/12/2014  Commenting - Adding commenting for all the functions Devan Shah 100428864
+*  02/12/2014  Commenting - Adding commenting for all the functions  Devan Shah 100428864
 *                           and updating the change log to
 *                           represent the change made to the file
 *                           over the months
 *
-*  04/04/2015  Adding - Added functionality to close the user       Devan Shah 100428864
+*  04/04/2015  Adding - Added functionality to close the user        Devan Shah 100428864
 *                       feedback window after 5 seconds.
 *
 *  07/04/2015  Updating - Changing LeapGestureFeedBack class and     Devan Shah 100428864
 *                         file name to LeapDesktopAppFull
+*
+*  09/04/2015  Updating - Changing some constant values as global    Devan Shah 100428864
+*                         so they can be altered.
+*
+*  09/04/2015  Updating - New function to read configuration file    Devan Shah 100428864
+*                         and setup some variables.
 *
 *******************************************************************************************/
 #include "commonUtils.h"
@@ -141,6 +147,7 @@ void LeapDesktopAppFull::setup ()
 { 
     defaultEnvironmentSetup () ;
     getEnvironmentVariables () ;
+    readConfig ();
 
     // for the default window we need to provide an instance of WindowData
     createMainApplicationWindow () ;
@@ -362,6 +369,93 @@ void LeapDesktopAppFull::createMainApplicationWindow ()
             this->console () << "You closed window #" << uniqueId << std::endl; // Action performed when the window is closed
         }
     );
+}
+
+/**********************************************************************************
+
+Function Name = LeapDesktopAppFull::readConfig
+
+Descriptive Name = Read Configuration file and setup some settings
+
+Function =
+
+    This function is used to set up constant values for mouse sensitivity, 
+    circling speed and maxDistanceBetweenThumbAndIndex.
+
+Dependencies =
+
+    Uses TiXmlHandle, therefore need to have this included in the project for building.
+
+Output =
+   
+   Currently there are no outputs from this functions as it only performs the action. 
+   Future TODO is to make sure errors are handled and appropriate response is returned.
+
+******************************************************************************/
+void LeapDesktopAppFull::readConfig ()
+{
+    // Variable Declaration
+    string settingsLine ;
+    string tempStringValue ;
+    ifstream configFile ( "config.txt" ) ;
+
+    // Only start reading and parsing the file once it is open able
+    if ( configFile.is_open () )
+    {
+        // Loop through the file and extract the specific configuration and set the necessary variables.
+        while ( getline ( configFile, settingsLine ) )
+        {
+            // Setup the mouse sensitivity variable
+            if ( settingsLine.find ( "MouseSensitivity" ) != std::string::npos )
+            {
+                // Set up an unsigned variable which will be used to get the value where the last
+                // occurrence of "=" was found in the string.
+                unsigned found = settingsLine.find_last_of ( "=" ) ;
+
+                // Go one plus the location of the "=" and get all the information after that
+                tempStringValue = settingsLine.substr ( found + 1 ) ;
+
+                // Convert the string into integer and set the mouse sensitivity
+                mouseSensitivity = atoi ( tempStringValue.c_str() ) ;
+            }
+            // Setup the circling speed variable
+            else if ( settingsLine.find ( "CirclingSpeed" ) != std::string::npos )
+            {
+                // Set up an unsigned variable which will be used to get the value where the last
+                // occurrence of "=" was found in the string.
+                unsigned found = settingsLine.find_last_of ( "=" );
+
+                // Go one plus the location of the "=" and get all the information after that
+                tempStringValue = settingsLine.substr ( found + 1 );
+
+                // Convert the string into integer and set the circling speed
+                circlingSpeed = atoi ( tempStringValue.c_str () ) ;
+            }
+            // Setup the max distance between thumb and index finger variable
+            else if ( settingsLine.find ( "maxDistanceBetweenThumbAndIndex" ) != std::string::npos )
+            {
+                // Set up an unsigned variable which will be used to get the value where the last
+                // occurrence of "=" was found in the string.
+                unsigned found = settingsLine.find_last_of ( "=" );
+
+                // Go one plus the location of the "=" and get all the information after that
+                tempStringValue = settingsLine.substr ( found + 1 );
+
+                // Convert the string into integer and set the max distance between thumb and index finger variable
+                maxDistanceBetweenThumbAndIndex = atoi ( tempStringValue.c_str () ) ;
+            }
+
+            this->console () << "Mouse Sensitivity Set to: " << mouseSensitivity << '\n'
+                             << "Circling Speed Set to: " << circlingSpeed << '\n'
+                             << "Max Distance Between Thumb and Index Finger Set to: " << maxDistanceBetweenThumbAndIndex << '\n'
+                             << endl ;
+        }
+        configFile.close () ;
+    }
+    else
+    {
+        this->console () << "Unable to open: config.txt" << endl;
+    }
 }
 
 // Start the rendering of the application

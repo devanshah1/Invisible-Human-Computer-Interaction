@@ -1,35 +1,93 @@
-﻿Build started 09/04/2015 12:18:33 AM.
+﻿Build started 09/04/2015 3:53:44 PM.
      1>Project "C:\Users\100428864\Desktop\University Stuff\Year 4\Invisible-Human-Computer-Interaction\LeapDesktopApplicationFull\LeapDesktopApplicationFull\LeapDesktopApplicationFull.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\..\..\freeglut\include /I..\..\..\cinder_0.8.6_vc2013\include /I..\..\..\cinder_0.8.6_vc2013\boost /I..\..\LeapSDK\include /ZI /nologo /W3 /WX- /MP /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D NOMINMAX /D _WIN32_WINNT=0x0502 /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt LeapDesktopAppFull.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\..\..\freeglut\include /I..\..\..\cinder_0.8.6_vc2013\include /I..\..\..\cinder_0.8.6_vc2013\boost /I..\..\LeapSDK\include /ZI /nologo /W3 /WX- /MP /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D NOMINMAX /D _WIN32_WINNT=0x0502 /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ApplicationWindowController.cpp HelpControls.cpp LeapDesktopAppFull.cpp LeapGestureControls.cpp LeapHandControls.cpp VolumeControllers.cpp common.cpp
+     1>cl : Command line warning D9030: '/Gm' is incompatible with multiprocessing; ignoring /MP switch
          LeapDesktopAppFull.cpp
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\100428864\Desktop\University Stuff\Year 4\Invisible-Human-Computer-Interaction\LeapDesktopApplicationFull\Debug\LeapDesktopApplicationFull.exe" /INCREMENTAL /NOLOGO /LIBPATH:..\..\..\freeglut\lib /LIBPATH:..\..\..\cinder_0.8.6_vc2013\lib /LIBPATH:..\..\..\cinder_0.8.6_vc2013\lib\msw\x86 /LIBPATH:..\..\LeapSDK\lib\x86 Leapd.lib freeglut.lib "cinder-v120_d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /NODEFAULTLIB:LIBCMT /NODEFAULTLIB:LIBCPMT /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\100428864\Desktop\University Stuff\Year 4\Invisible-Human-Computer-Interaction\LeapDesktopApplicationFull\Debug\LeapDesktopApplicationFull.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE:NO /IMPLIB:"C:\Users\100428864\Desktop\University Stuff\Year 4\Invisible-Human-Computer-Interaction\LeapDesktopApplicationFull\Debug\LeapDesktopApplicationFull.lib" /MACHINE:X86 Debug\LeapDesktopApplicationFull.res
-         Debug\ApplicationWindowController.obj
-         Debug\common.obj
-         Debug\HelpControls.obj
-         Debug\LeapGestureControls.obj
-         Debug\LeapDesktopAppFull.obj
-         Debug\LeapHandControls.obj
-         Debug\VolumeControllers.obj
-         LeapDesktopApplicationFull.vcxproj -> C:\Users\100428864\Desktop\University Stuff\Year 4\Invisible-Human-Computer-Interaction\LeapDesktopApplicationFull\Debug\LeapDesktopApplicationFull.exe
-       PostBuildEvent:
-         xcopy /yr "..\..\LeapSDK\lib\x86\Leapd.dll" "C:\Users\100428864\Desktop\University Stuff\Year 4\Invisible-Human-Computer-Interaction\LeapDesktopApplicationFull\Debug\"
-         xcopy /yr "..\..\LeapSDK\lib\x86\msvcp120d.dll" "C:\Users\100428864\Desktop\University Stuff\Year 4\Invisible-Human-Computer-Interaction\LeapDesktopApplicationFull\Debug\"
-         xcopy /yr "..\..\LeapSDK\lib\x86\msvcr120d.dll" "C:\Users\100428864\Desktop\University Stuff\Year 4\Invisible-Human-Computer-Interaction\LeapDesktopApplicationFull\Debug\"
-         xcopy /yr "..\..\..\freeglut\bin\freeglut.dll" "C:\Users\100428864\Desktop\University Stuff\Year 4\Invisible-Human-Computer-Interaction\LeapDesktopApplicationFull\Debug\"
-         
-         :VCEnd
-         ..\..\LeapSDK\lib\x86\Leapd.dll
-         1 File(s) copied
-         ..\..\LeapSDK\lib\x86\msvcp120d.dll
-         1 File(s) copied
-         ..\..\LeapSDK\lib\x86\msvcr120d.dll
-         1 File(s) copied
-         ..\..\..\freeglut\bin\freeglut.dll
-         1 File(s) copied
-     1>Done Building Project "C:\Users\100428864\Desktop\University Stuff\Year 4\Invisible-Human-Computer-Interaction\LeapDesktopApplicationFull\LeapDesktopApplicationFull\LeapDesktopApplicationFull.vcxproj" (Build target(s)).
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\commonutils.h(137): error C2871: 'MSXML2' : a namespace with this name does not exist
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(396): error C2653: 'MSXML' : is not a class or namespace name
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(396): error C2065: 'IXMLDOMDocument2Ptr' : undeclared identifier
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(396): error C2146: syntax error : missing ';' before identifier 'xmlDoc'
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(396): error C2065: 'xmlDoc' : undeclared identifier
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(397): error C2065: 'xmlDoc' : undeclared identifier
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(397): error C2228: left of '.CreateInstance' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(397): error C2653: 'MSXML' : is not a class or namespace name
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(400): error C2065: 'xmlDoc' : undeclared identifier
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(400): error C2227: left of '->load' must point to class/struct/union/generic type
+                 type is 'unknown-type'
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(400): error C3861: '_T': identifier not found
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(408): error C2065: 'xmlDoc' : undeclared identifier
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(408): error C2227: left of '->setProperty' must point to class/struct/union/generic type
+                 type is 'unknown-type'
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(409): error C2653: 'MSXML' : is not a class or namespace name
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(409): error C2065: 'IXMLDOMNodeListPtr' : undeclared identifier
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(409): error C2146: syntax error : missing ';' before identifier 'wheels'
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(409): error C2065: 'wheels' : undeclared identifier
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(409): error C2065: 'xmlDoc' : undeclared identifier
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(409): error C2227: left of '->selectNodes' must point to class/struct/union/generic type
+                 type is 'unknown-type'
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(410): error C2065: 'wheels' : undeclared identifier
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(410): error C2227: left of '->Getlength' must point to class/struct/union/generic type
+                 type is 'unknown-type'
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(412): error C2653: 'MSXML' : is not a class or namespace name
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(412): error C2065: 'IXMLDOMNodePtr' : undeclared identifier
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(412): error C2146: syntax error : missing ';' before identifier 'node'
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(412): error C2065: 'node' : undeclared identifier
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(413): error C2065: 'node' : undeclared identifier
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(413): error C2065: 'xmlDoc' : undeclared identifier
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(413): error C2227: left of '->createNode' must point to class/struct/union/generic type
+                 type is 'unknown-type'
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(413): error C2653: 'MSXML' : is not a class or namespace name
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(413): error C3861: '_T': identifier not found
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(414): error C2065: 'node' : undeclared identifier
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(414): error C2227: left of '->text' must point to class/struct/union/generic type
+                 type is 'unknown-type'
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(414): error C3861: '_T': identifier not found
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(415): error C2065: 'xmlDoc' : undeclared identifier
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(415): error C2227: left of '->documentElement' must point to class/struct/union/generic type
+                 type is 'unknown-type'
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(415): error C2227: left of '->appendChild' must point to class/struct/union/generic type
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(415): error C2065: 'node' : undeclared identifier
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(416): error C2065: 'xmlDoc' : undeclared identifier
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(416): error C2227: left of '->save' must point to class/struct/union/generic type
+                 type is 'unknown-type'
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(416): error C3861: '_T': identifier not found
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(421): error C2061: syntax error : identifier '_com_error'
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(421): error C2310: catch handlers must specify one type
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(423): error C2065: 'e' : undeclared identifier
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(423): error C2228: left of '.ErrorMessage' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leapdesktopappfull.cpp(425): error C2317: 'try' block starting on line '395' has no catch handlers
+         Generating Code...
+         Compiling...
+         ApplicationWindowController.cpp
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\commonutils.h(137): error C2871: 'MSXML2' : a namespace with this name does not exist
+         Generating Code...
+         Compiling...
+         HelpControls.cpp
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\commonutils.h(137): error C2871: 'MSXML2' : a namespace with this name does not exist
+         Generating Code...
+         Compiling...
+         LeapGestureControls.cpp
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\commonutils.h(137): error C2871: 'MSXML2' : a namespace with this name does not exist
+         Generating Code...
+         Compiling...
+         LeapHandControls.cpp
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\commonutils.h(137): error C2871: 'MSXML2' : a namespace with this name does not exist
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leaphandcontrols.cpp(318): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leaphandcontrols.cpp(319): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+         Generating Code...
+         Compiling...
+         VolumeControllers.cpp
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\commonutils.h(137): error C2871: 'MSXML2' : a namespace with this name does not exist
+         Generating Code...
+         Compiling...
+         common.cpp
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\commonutils.h(137): error C2871: 'MSXML2' : a namespace with this name does not exist
+         Generating Code...
+     1>Done Building Project "C:\Users\100428864\Desktop\University Stuff\Year 4\Invisible-Human-Computer-Interaction\LeapDesktopApplicationFull\LeapDesktopApplicationFull\LeapDesktopApplicationFull.vcxproj" (Build target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:10.27
+Time Elapsed 00:00:37.55

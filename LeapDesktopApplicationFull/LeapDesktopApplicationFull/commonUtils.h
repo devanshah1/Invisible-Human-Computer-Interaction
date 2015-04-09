@@ -97,6 +97,9 @@
 *  07/04/2015  Updating - Changing LeapGestureFeedBack class and     Devan Shah 100428864
 *                         file name to LeapDesktopAppFull
 *
+*  09/04/2015  Updating - Changing some constant values as global    Devan Shah 100428864
+*                         so they can be altered.
+*
 *******************************************************************************************/
 
 // Include the necessary files to be used in the entire project
@@ -155,12 +158,6 @@ using namespace Leap;
 
 // Buffer for environment variable retrieval
 #define BUFSIZE 4096
-
-// Constant for mouse sensitivity
-const int mouseSensitivity = 10 ;
-
-// Constant for Circle progress detection
-const int circlingSpeed = 2;
 
 // Constant for states available, fingers available and finger bones available.
 const std::string stateNames []  = {"STATE_INVALID", "STATE_START", "STATE_UPDATE", "STATE_END"};
@@ -241,6 +238,7 @@ Functions:
     determineHandAndPerformAction ( const Frame& frame, const Controller& controller );
     determineFingerAndPerformAction ( const Controller& controller, const Hand& hand );
     supportedGestures ();
+    readConfig () ;
 
     // Setup Function Deceleration
     defaultEnvironmentSetup ();
@@ -288,6 +286,7 @@ class LeapDesktopAppFull : public ci::app::AppNative
        void determineHandAndPerformAction ( const Frame& frame, const Controller& controller ) ;
        void determineFingerAndPerformAction ( const Controller& controller, const Hand& hand ) ;
        void supportedGestures () ;
+       void readConfig () ;
 
        // Setup Function Deceleration 
        void defaultEnvironmentSetup () ;
@@ -319,6 +318,16 @@ class LeapDesktopAppFull : public ci::app::AppNative
         
        // Previous Executed SwipeGesture
        bool isMoseLeftClickEnabled = false ;
+
+       // Thumb to Index finger distance maximum 
+       int maxDistanceBetweenThumbAndIndex = 25 ;
+
+       // Constant for mouse sensitivity
+       int mouseSensitivity = 10 ;
+
+       // Constant for Circle progress detection
+       int circlingSpeed = 2 ;
+
 };
 
 /**********************************************************************************
