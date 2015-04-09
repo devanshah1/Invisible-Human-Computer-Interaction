@@ -288,7 +288,7 @@ void LeapDesktopAppFull::swipeGesture ( const Gesture& gesture, const Controller
     SwipeGesture swipe = gesture;
 
     // Get the number of fingers that where 
-    int numFingers = gesture.hands () [0].fingers ().count () ;
+    int numFingers = gesture.hands () [0].fingers ().extended ().count () ;
     
     // Debug info
     std::cout << std::string ( 2, ' ' )
