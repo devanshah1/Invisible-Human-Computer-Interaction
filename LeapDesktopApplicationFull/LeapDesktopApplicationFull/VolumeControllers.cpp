@@ -169,10 +169,16 @@ void LeapDesktopAppFull::volumeManipulation ( string controlOption )
     {
         // Increase the volume on the stream by one, this also will update any connected system notifications
         volumeManipulationResults = endpointVolume->VolumeStepUp ( NULL );
+        volumeManipulationResults = endpointVolume->VolumeStepUp ( NULL );
+        volumeManipulationResults = endpointVolume->VolumeStepUp ( NULL );
+        volumeManipulationResults = endpointVolume->VolumeStepUp ( NULL );
     }
     else if ( controlOption == VOLUME_STEP_DOWN )
     {
         // Decrease the volume on the stream by one, this also will update any connected system notifications
+        volumeManipulationResults = endpointVolume->VolumeStepDown ( NULL );
+        volumeManipulationResults = endpointVolume->VolumeStepDown ( NULL );
+        volumeManipulationResults = endpointVolume->VolumeStepDown ( NULL );
         volumeManipulationResults = endpointVolume->VolumeStepDown ( NULL );
     }
 
