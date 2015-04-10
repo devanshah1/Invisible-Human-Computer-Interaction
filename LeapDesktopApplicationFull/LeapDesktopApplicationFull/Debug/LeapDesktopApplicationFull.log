@@ -1,12 +1,19 @@
-﻿Build started 09/04/2015 9:06:01 PM.
+﻿Build started 09/04/2015 10:07:47 PM.
      1>Project "C:\Users\100428864\Desktop\University Stuff\Year 4\Invisible-Human-Computer-Interaction\LeapDesktopApplicationFull\LeapDesktopApplicationFull\LeapDesktopApplicationFull.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\..\..\freeglut\include /I..\..\..\cinder_0.8.6_vc2013\include /I..\..\..\cinder_0.8.6_vc2013\boost /I..\..\LeapSDK\include /ZI /nologo /W3 /WX- /MP /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D NOMINMAX /D _WIN32_WINNT=0x0502 /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt LeapHandControls.cpp VolumeControllers.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\..\..\freeglut\include /I..\..\..\cinder_0.8.6_vc2013\include /I..\..\..\cinder_0.8.6_vc2013\boost /I..\..\LeapSDK\include /ZI /nologo /W3 /WX- /MP /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D NOMINMAX /D _WIN32_WINNT=0x0502 /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ApplicationWindowController.cpp HelpControls.cpp LeapDesktopAppFull.cpp LeapGestureControls.cpp LeapHandControls.cpp VolumeControllers.cpp common.cpp
      1>cl : Command line warning D9030: '/Gm' is incompatible with multiprocessing; ignoring /MP switch
+         ApplicationWindowController.cpp
+         Generating Code...
+         Compiling...
+         common.cpp
          VolumeControllers.cpp
          LeapHandControls.cpp
      1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leaphandcontrols.cpp(324): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\leapdesktopapplicationfull\leapdesktopapplicationfull\leaphandcontrols.cpp(325): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+         LeapGestureControls.cpp
+         LeapDesktopAppFull.cpp
+         HelpControls.cpp
          Generating Code...
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\100428864\Desktop\University Stuff\Year 4\Invisible-Human-Computer-Interaction\LeapDesktopApplicationFull\Debug\LeapDesktopApplicationFull.exe" /INCREMENTAL /NOLOGO /LIBPATH:..\..\..\freeglut\lib /LIBPATH:..\..\..\cinder_0.8.6_vc2013\lib /LIBPATH:..\..\..\cinder_0.8.6_vc2013\lib\msw\x86 /LIBPATH:..\..\LeapSDK\lib\x86 Leapd.lib freeglut.lib "cinder-v120_d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /NODEFAULTLIB:LIBCMT /NODEFAULTLIB:LIBCPMT /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\100428864\Desktop\University Stuff\Year 4\Invisible-Human-Computer-Interaction\LeapDesktopApplicationFull\Debug\LeapDesktopApplicationFull.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE:NO /IMPLIB:"C:\Users\100428864\Desktop\University Stuff\Year 4\Invisible-Human-Computer-Interaction\LeapDesktopApplicationFull\Debug\LeapDesktopApplicationFull.lib" /MACHINE:X86 Debug\LeapDesktopApplicationFull.res
@@ -37,4 +44,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:21.26
+Time Elapsed 00:00:58.66

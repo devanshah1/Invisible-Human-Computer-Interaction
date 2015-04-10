@@ -103,6 +103,8 @@
 *  09/04/2015   Added - Support to enable and disable all aspects    Devan Shah 100428864
 *                       gestures and mouse.
 *
+*  09/04/2015   Added - Change how system commands are executed      Devan Shah 100428864
+*
 *******************************************************************************************/
 
 // Include the necessary files to be used in the entire project
@@ -197,7 +199,7 @@ const std::string boneNames []   = {"Metacarpal", "Proximal", "Middle", "Distal"
 #define VOLUME_STEP_DOWN_ACTION    volumeManipulation( VOLUME_STEP_DOWN );
 #define VOLUME_MUTE_UNMUTE_ACTION  volumeManipulation( VOLUME_MUTE_UNMUTE );
 #define LOCK_WORK_STATION_ACTION   LockWorkStation();          
-#define OPEN_CALCULATOR_ACTION     system("calc");
+#define OPEN_CALCULATOR_ACTION     ShellExecute ( 0, L"open", L"calc.exe", L" ", 0, SW_SHOW );
 #define SHOW_KEYBOARD_ACTION       keyboardManipulation ( SHOW_KEYBOARD );
 #define HIDE_KEYBOARD_ACTION       keyboardManipulation ( HIDE_KEYBOARD );
 #define APP_WINDOW_NEXT_ACTION     applicationWindowManipulation ( APP_WINDOW_NEXT );

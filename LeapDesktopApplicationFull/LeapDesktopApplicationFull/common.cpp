@@ -90,14 +90,14 @@ void LeapDesktopAppFull::defaultEnvironmentSetup ()
     SetEnvironmentVariable ( TEXT ( CIRCLE_CLOCKWISE ), TEXT ( VOLUME_STEP_UP ) ) ;
 
     // Set actions for different types of swipe actions.
-    SetEnvironmentVariable ( TEXT ( SWIPE_LEFT ), TEXT ( APP_WINDOW_NEXT ) ) ;
-    SetEnvironmentVariable ( TEXT ( SWIPE_RIGHT ), TEXT ( APP_WINDOW_PREVIOUS ) ) ;
+    SetEnvironmentVariable ( TEXT ( SWIPE_LEFT ), TEXT ( SUPPORTED_GESTURES ) );
+    SetEnvironmentVariable ( TEXT ( SWIPE_RIGHT ), TEXT ( LOCK_WORK_STATION ) );
     SetEnvironmentVariable ( TEXT ( SWIPE_UP ), TEXT ( HIDE_KEYBOARD ) ) ;
     SetEnvironmentVariable ( TEXT ( SWIPE_DOWN ), TEXT ( SHOW_KEYBOARD ) ) ;
 
     // Set actions for different types of tap actions.
     SetEnvironmentVariable ( TEXT ( KEY_TAP ), TEXT ( VOLUME_MUTE_UNMUTE ) ) ;
-    SetEnvironmentVariable ( TEXT ( SCREEP_TAP ), TEXT ( SUPPORTED_GESTURES ) ) ;
+    SetEnvironmentVariable ( TEXT ( SCREEP_TAP ), TEXT ( OPEN_CALCULATOR ) ) ;
 }
 
 /**********************************************************************************

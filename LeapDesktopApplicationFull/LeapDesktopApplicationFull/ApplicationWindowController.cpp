@@ -44,6 +44,8 @@
 *  07/04/2015  Updating - Changing LeapGestureFeedBack class and     Devan Shah 100428864
 *                         file name to LeapDesktopAppFull
 *
+*  09/04/2015   Added - Change how system commands are executed      Devan Shah 100428864
+*
 *******************************************************************************************/
 #include "commonUtils.h"
 
@@ -189,7 +191,7 @@ void LeapDesktopAppFull::keyboardManipulation ( std::string keyboardOption )
         {
             // In the case that the On Screen Keyboard is not open run the 
             // system command to start up the On Screen Keyboard.
-            system ( "osk" );
+            ShellExecute ( 0, L"open", L"osk.exe", L" ", 0, SW_SHOW );
         }
     }
     else if ( keyboardOption.compare ( HIDE_KEYBOARD ) )
