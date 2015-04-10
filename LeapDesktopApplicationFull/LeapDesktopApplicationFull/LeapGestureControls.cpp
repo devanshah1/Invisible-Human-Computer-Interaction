@@ -58,6 +58,9 @@
 *  07/04/2015  Adding - Advance logic on how circle is detected      Devan Shah 100428864
 *                       for the circle gesture. 
 * 
+*  09/04/2015   Added - Support to enable and disable all aspects    Devan Shah 100428864
+*                       gestures and mouse.
+*
 *******************************************************************************************/
 #include "commonUtils.h"
 
@@ -216,26 +219,25 @@ void LeapDesktopAppFull::circleGestures ( const Gesture& gesture, const Controll
         // Get the number of fingers that were detected in the circle detection gesture
         numberOfFingers = gesture.hands () [0].fingers ().extended ().count () ;
 
-        this->console () << "     Number of Fingers: " << numberOfFingers
-                         << "     Current Circle Progress: " << circle.progress ()
-                         << "     Previous Circle Progress: " << circle.progress ()
+        this->console () << "Direction: " << clockwiseness
+                         << "State: " << circle.state ()
+                         << "Number of Fingers: " << numberOfFingers
+                         << "Current Circle Progress: " << circle.progress ()
+                         << "Previous Circle Progress: " << previousUpdate.progress ()
                          << endl;
 
         // Only perform the actions in the case that circle progress/traversal has completed with comparison with previous
         // Leap frame.
         if ( floor ( circlingSpeed * circle.progress () ) != floor ( circlingSpeed * previousUpdate.progress () ) )
         {
-            this->console () << "     Made it in to the : " << numberOfFingers
-                             << endl;
-
             // Handle the action when clockwise circle action is detected from Leap Motion.
-            if ( clockwiseness == "clockwise" && numberOfFingers == 1 )
+            if ( clockwiseness == "clockwise" && numberOfFingers == 1 && circleClockWiseEnabled == true )
             {
                 runGestureAction ( CIRCLE_CLOCKWISE );
                 createUserFeedBackWindow ( loadResource ( RES_CLOCKWISE_IMAGE ), 150, 131 );
             }
             // Handle the action when counterclockwise circle action is detected from Leap Motion.
-            else if ( clockwiseness == "counterclockwise" && numberOfFingers == 1 )
+            else if ( clockwiseness == "counterclockwise" && numberOfFingers == 1 && circleCounterClockWiseEnabled == true )
             {
                 runGestureAction ( CIRCLE_COUNTERCLOKWISE );
                 createUserFeedBackWindow ( loadResource ( RES_COUNTERCLOCKWISE_IMAGE ), 150, 131 );
@@ -354,7 +356,7 @@ void LeapDesktopAppFull::swipeGesture ( const Gesture& gesture, const Controller
             *      - Right swipe is performed in a horizontal manner therefore only the x coordinate
             *        would increase in a positive direction. (greater then 0)
             */
-            if ( swipe.direction ().x > 0 )
+            if ( swipe.direction ().x > 0 && swipeRightEnabled == true )
             {
                 runGestureAction ( SWIPE_RIGHT ) ;
                 createUserFeedBackWindow ( loadResource ( RES_SWIPERIGHT_IMAGE ), 150, 131 ) ;
@@ -369,7 +371,7 @@ void LeapDesktopAppFull::swipeGesture ( const Gesture& gesture, const Controller
             *      - Left swipe is performed in a horizontal manner therefore only the x coordinate
             *        would decrease in a negative direction. (less then 0)
             */
-            else
+            else if ( swipeLeftEnabled == true )
             {
                 runGestureAction ( SWIPE_LEFT ) ;
                 createUserFeedBackWindow ( loadResource ( RES_SWIPELEFT_IMAGE ), 150, 131 ) ;
@@ -400,7 +402,7 @@ void LeapDesktopAppFull::swipeGesture ( const Gesture& gesture, const Controller
             *      - Down swipe is performed in a vertical manner therefore only the y coordinate
             *        would increase in the negative direction. (less then 0)
             */
-            if ( swipe.direction ().y < 0 )
+            if ( swipe.direction ().y < 0 && swipeDownEnabled == true )
             {
                 runGestureAction ( SWIPE_DOWN );
                 createUserFeedBackWindow ( loadResource ( RES_SWIPEDOWN_IMAGE ), 150, 131 );
@@ -415,7 +417,7 @@ void LeapDesktopAppFull::swipeGesture ( const Gesture& gesture, const Controller
             *      - Up swipe is performed in a vertical manner therefore only the y coordinate
             *        would increase in the positive direction. (greater then 0)
             */
-            else
+            else if ( swipeUpEnabled == true )
             {
                 runGestureAction ( SWIPE_UP ) ;
                 createUserFeedBackWindow ( loadResource ( RES_SWIPEUP_IMAGE ), 150, 131 ) ;
@@ -474,8 +476,11 @@ void LeapDesktopAppFull::keyTapGesture ( const Gesture& gesture, const Controlle
         << ", position: " << tap.position ()
         << ", direction: " << tap.direction ();
 
-    // Perform key tap action
-    runGestureAction ( KEY_TAP );
+    if ( keyTapEnabled == true )
+    {
+        // Perform key tap action
+        runGestureAction ( KEY_TAP );
+    }
 }
 
 /**********************************************************************************
@@ -529,6 +534,9 @@ void LeapDesktopAppFull::screenTapGesture ( const Gesture& gesture, const Contro
         << ", position: " << screentap.position ()
         << ", direction: " << screentap.direction ();
 
-    // Perform the action for screen tap
-    runGestureAction ( SCREEP_TAP );
+    if ( screenTapEnabled == true )
+    {
+        // Perform the action for screen tap
+        runGestureAction ( SCREEP_TAP );
+    }
 }

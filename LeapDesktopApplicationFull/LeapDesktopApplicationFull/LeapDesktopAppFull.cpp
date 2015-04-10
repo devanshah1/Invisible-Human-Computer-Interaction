@@ -57,6 +57,9 @@
 *  09/04/2015  Updating - New function to read configuration file    Devan Shah 100428864
 *                         and setup some variables.
 *
+*  09/04/2015   Added - Support to enable and disable all aspects    Devan Shah 100428864
+*                       gestures and mouse.
+*
 *******************************************************************************************/
 #include "commonUtils.h"
 
@@ -444,10 +447,150 @@ void LeapDesktopAppFull::readConfig ()
                 // Convert the string into integer and set the max distance between thumb and index finger variable
                 maxDistanceBetweenThumbAndIndex = atoi ( tempStringValue.c_str () ) ;
             }
+            // Setup the max distance between thumb and index finger variable
+            else if ( settingsLine.find ( "circleClockWise" ) != std::string::npos )
+            {
+                // Set up an unsigned variable which will be used to get the value where the last
+                // occurrence of "=" was found in the string.
+                unsigned found = settingsLine.find_last_of ( "=" );
+
+                // Go one plus the location of the "=" and get all the information after that
+                tempStringValue = settingsLine.substr ( found + 1 );
+
+                // Convert the string into bool and set the circleClockWiseEnabled variable
+                istringstream ( tempStringValue ) >> std::boolalpha >> circleClockWiseEnabled;
+            }
+            // Setup the max distance between thumb and index finger variable
+            else if ( settingsLine.find ( "circleCounterClockwise" ) != std::string::npos )
+            {
+                // Set up an unsigned variable which will be used to get the value where the last
+                // occurrence of "=" was found in the string.
+                unsigned found = settingsLine.find_last_of ( "=" );
+
+                // Go one plus the location of the "=" and get all the information after that
+                tempStringValue = settingsLine.substr ( found + 1 );
+
+                // Convert the string into bool and set the circleCounterClockWiseEnabled variable
+                istringstream ( tempStringValue ) >> std::boolalpha >> circleCounterClockWiseEnabled;
+            }
+            // Setup the max distance between thumb and index finger variable
+            else if ( settingsLine.find ( "swipeUp" ) != std::string::npos )
+            {
+                // Set up an unsigned variable which will be used to get the value where the last
+                // occurrence of "=" was found in the string.
+                unsigned found = settingsLine.find_last_of ( "=" );
+
+                // Go one plus the location of the "=" and get all the information after that
+                tempStringValue = settingsLine.substr ( found + 1 );
+
+                // Convert the string into bool and set the swipeUpEnabled variable
+                istringstream ( tempStringValue ) >> std::boolalpha >> swipeUpEnabled;
+            }
+            // Setup the max distance between thumb and index finger variable
+            else if ( settingsLine.find ( "swipeDown" ) != std::string::npos )
+            {
+                // Set up an unsigned variable which will be used to get the value where the last
+                // occurrence of "=" was found in the string.
+                unsigned found = settingsLine.find_last_of ( "=" );
+
+                // Go one plus the location of the "=" and get all the information after that
+                tempStringValue = settingsLine.substr ( found + 1 );
+
+                // Convert the string into bool and set the swipeDownEnabled variable
+                istringstream ( tempStringValue ) >> std::boolalpha >> swipeDownEnabled;
+            }
+            // Setup the max distance between thumb and index finger variable
+            else if ( settingsLine.find ( "swipeLeft" ) != std::string::npos )
+            {
+                // Set up an unsigned variable which will be used to get the value where the last
+                // occurrence of "=" was found in the string.
+                unsigned found = settingsLine.find_last_of ( "=" );
+
+                // Go one plus the location of the "=" and get all the information after that
+                tempStringValue = settingsLine.substr ( found + 1 );
+
+                // Convert the string into bool and set the swipeLeftEnabled variable
+                istringstream ( tempStringValue ) >> std::boolalpha >> swipeLeftEnabled;
+            }
+            // Setup the max distance between thumb and index finger variable
+            else if ( settingsLine.find ( "swipeRight" ) != std::string::npos )
+            {
+                // Set up an unsigned variable which will be used to get the value where the last
+                // occurrence of "=" was found in the string.
+                unsigned found = settingsLine.find_last_of ( "=" );
+
+                // Go one plus the location of the "=" and get all the information after that
+                tempStringValue = settingsLine.substr ( found + 1 );
+
+                // Convert the string into bool and set the swipeRightEnabled variable
+                istringstream ( tempStringValue ) >> std::boolalpha >> swipeRightEnabled;
+            }
+            // Setup the max distance between thumb and index finger variable
+            else if ( settingsLine.find ( "keyTap" ) != std::string::npos )
+            {
+                // Set up an unsigned variable which will be used to get the value where the last
+                // occurrence of "=" was found in the string.
+                unsigned found = settingsLine.find_last_of ( "=" );
+
+                // Go one plus the location of the "=" and get all the information after that
+                tempStringValue = settingsLine.substr ( found + 1 );
+
+                // Convert the string into bool and set the keyTapEnabled variable
+                istringstream ( tempStringValue ) >> std::boolalpha >> keyTapEnabled;
+            }
+            // Setup the max distance between thumb and index finger variable
+            else if ( settingsLine.find ( "screenTap" ) != std::string::npos )
+            {
+                // Set up an unsigned variable which will be used to get the value where the last
+                // occurrence of "=" was found in the string.
+                unsigned found = settingsLine.find_last_of ( "=" );
+
+                // Go one plus the location of the "=" and get all the information after that
+                tempStringValue = settingsLine.substr ( found + 1 );
+
+                // Convert the string into bool and set the screenTapEnabled variable
+                istringstream ( tempStringValue ) >> std::boolalpha >> screenTapEnabled;
+            }
+            // Setup the max distance between thumb and index finger variable
+            else if ( settingsLine.find ( "mouseMove" ) != std::string::npos )
+            {
+                // Set up an unsigned variable which will be used to get the value where the last
+                // occurrence of "=" was found in the string.
+                unsigned found = settingsLine.find_last_of ( "=" );
+
+                // Go one plus the location of the "=" and get all the information after that
+                tempStringValue = settingsLine.substr ( found + 1 );
+
+                // Convert the string into bool and set the mouseMoveEnabled variable
+                istringstream ( tempStringValue ) >> std::boolalpha >> mouseMoveEnabled;
+            }
+            // Setup the max distance between thumb and index finger variable
+            else if ( settingsLine.find ( "mouseClick" ) != std::string::npos )
+            {
+                // Set up an unsigned variable which will be used to get the value where the last
+                // occurrence of "=" was found in the string.
+                unsigned found = settingsLine.find_last_of ( "=" );
+
+                // Go one plus the location of the "=" and get all the information after that
+                tempStringValue = settingsLine.substr ( found + 1 );
+
+                // Convert the string into bool and set the mouseClickEnabled variable
+                istringstream ( tempStringValue ) >> std::boolalpha >> mouseClickEnabled;
+            }
 
             this->console () << "Mouse Sensitivity Set to: " << mouseSensitivity << '\n'
                              << "Circling Speed Set to: " << circlingSpeed << '\n'
                              << "Max Distance Between Thumb and Index Finger Set to: " << maxDistanceBetweenThumbAndIndex << '\n'
+                             << "circleClockWise Enabled: " << circleClockWiseEnabled << "\n"
+                             << "circleCounterClockwise Enabled: " << circleCounterClockWiseEnabled << "\n"
+                             << "swipeUp Enabled: " << swipeUpEnabled << "\n"
+                             << "swipeDown Enabled: " << swipeDownEnabled << "\n"
+                             << "swipeLeft Enabled: " << swipeLeftEnabled << "\n"
+                             << "swipeRight Enabled: " << swipeRightEnabled << "\n"
+                             << "keyTap Enabled: " << keyTapEnabled << "\n"
+                             << "screenTap Enabled: " << screenTapEnabled << "\n"
+                             << "mouseMove Enabled: " << mouseMoveEnabled << "\n"
+                             << "mouseClick Enabled: " << mouseClickEnabled << "\n"
                              << endl ;
         }
         configFile.close () ;

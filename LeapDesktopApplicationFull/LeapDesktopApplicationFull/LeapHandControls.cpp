@@ -84,6 +84,9 @@
 *  09/04/2015  Updating - Changing some constant values as global    Devan Shah 100428864
 *                         so they can be altered.
 *
+*  09/04/2015   Added - Support to enable and disable all aspects    Devan Shah 100428864
+*                       gestures and mouse.
+*
 *******************************************************************************************/
 #include "commonUtils.h"
 
@@ -328,14 +331,14 @@ void LeapDesktopAppFull::determineFingerAndPerformAction ( const Controller& con
 
         // Only move the mouse if both index finger and thumb are extended and also there is less then 3
         // difference in the x direction for the thumb from current and previous frame.
-        if ( thumbXDifference <= maxDistanceBetweenThumbAndIndex )
+        if ( thumbXDifference <= maxDistanceBetweenThumbAndIndex && mouseMoveEnabled == true )
         {
             moveMouse ( controller, MOVE_MOUSE );
         }
         // Only perform a left mouse click if both index finger and thumb are extended and also there is less then 3
         // is greater then 25 difference in the x direction for the thumb from current and previous frame. This would
         // signify that the thumb has moved close to the index finger, representing a left click by the user.
-        else if ( thumbXDifference > maxDistanceBetweenThumbAndIndex && thumbToIndexFingerDistance > maxDistanceBetweenThumbAndIndex && isMoseLeftClickEnabled == false )
+        else if ( thumbXDifference > maxDistanceBetweenThumbAndIndex && thumbToIndexFingerDistance > maxDistanceBetweenThumbAndIndex && isMoseLeftClickEnabled == false && mouseClickEnabled == true )
         {
             moveMouse ( controller, MOUSE_LEFT_CLICK ) ;
             
@@ -345,8 +348,8 @@ void LeapDesktopAppFull::determineFingerAndPerformAction ( const Controller& con
         {
             isMoseLeftClickEnabled = false ;
         }
-        // TODO: Not Supported yet, need to figure out best way to perform a right click which this new algo
-        else if ( fingersExtendedCurrent.count () == 3 )
+        // TODO: Not Supported yet, need to figure out best way to perform a right click which this new algorithm
+        else if ( mouseClickEnabled == true && fingersExtendedCurrent.count () == 3 )
         {
             //moveMouse ( controller, MOUSE_RIGHT_CLICK ) ;
         }

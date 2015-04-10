@@ -100,6 +100,9 @@
 *  09/04/2015  Updating - Changing some constant values as global    Devan Shah 100428864
 *                         so they can be altered.
 *
+*  09/04/2015   Added - Support to enable and disable all aspects    Devan Shah 100428864
+*                       gestures and mouse.
+*
 *******************************************************************************************/
 
 // Include the necessary files to be used in the entire project
@@ -327,6 +330,18 @@ class LeapDesktopAppFull : public ci::app::AppNative
 
        // Constant for Circle progress detection
        int circlingSpeed = 2 ;
+
+       // Gesture/Mouse Disable/Enable Variables
+       bool circleClockWiseEnabled        = true ;
+       bool circleCounterClockWiseEnabled = true ;
+       bool swipeUpEnabled                = true ;
+       bool swipeDownEnabled              = true ;
+       bool swipeLeftEnabled              = true ;
+       bool swipeRightEnabled             = true ;
+       bool keyTapEnabled                 = true ;
+       bool screenTapEnabled              = true ;
+       bool mouseMoveEnabled              = true ;
+       bool mouseClickEnabled             = true ;
 
 };
 

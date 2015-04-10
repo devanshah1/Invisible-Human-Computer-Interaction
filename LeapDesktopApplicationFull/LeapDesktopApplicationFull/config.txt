@@ -1,3 +1,13 @@
 MouseSensitivity=10
-CirclingSpeed=2
+CirclingSpeed=1
 maxDistanceBetweenThumbAndIndex=25
+circleClockWise=true
+circleCounterClockwise=true
+swipeUp=true
+swipeDown=true
+swipeLeft=true
+swipeRight=false
+keyTap=true
+screenTap=false
+mouseMove=false
+mouseClick=true
