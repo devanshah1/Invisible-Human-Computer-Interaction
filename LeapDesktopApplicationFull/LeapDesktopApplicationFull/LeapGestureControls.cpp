@@ -202,6 +202,10 @@ void LeapDesktopAppFull::circleGestures ( const Gesture& gesture, const Controll
     // Calculate angle swept since last frame
     float sweptAngle = 0;
 
+    this->console () << "Direction: " << clockwiseness 
+                     << "State: " << circle.state ()
+                     << endl ;
+
     // Only Check in the case that circle was detected first
     if ( circle.state () != Gesture::STATE_START )
     {
@@ -210,12 +214,20 @@ void LeapDesktopAppFull::circleGestures ( const Gesture& gesture, const Controll
         sweptAngle = ( circle.progress () - previousUpdate.progress () ) * 2 * PI ;
 
         // Get the number of fingers that were detected in the circle detection gesture
-        numberOfFingers = gesture.hands () [0].fingers ().count () ;
+        numberOfFingers = gesture.hands () [0].fingers ().extended ().count () ;
+
+        this->console () << "     Number of Fingers: " << numberOfFingers
+                         << "     Current Circle Progress: " << circle.progress ()
+                         << "     Previous Circle Progress: " << circle.progress ()
+                         << endl;
 
         // Only perform the actions in the case that circle progress/traversal has completed with comparison with previous
         // Leap frame.
         if ( floor ( circlingSpeed * circle.progress () ) != floor ( circlingSpeed * previousUpdate.progress () ) )
         {
+            this->console () << "     Made it in to the : " << numberOfFingers
+                             << endl;
+
             // Handle the action when clockwise circle action is detected from Leap Motion.
             if ( clockwiseness == "clockwise" && numberOfFingers == 1 )
             {
