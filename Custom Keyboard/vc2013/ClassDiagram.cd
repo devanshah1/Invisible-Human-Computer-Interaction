@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="LeapKeyboardApp">
+    <Position X="1.25" Y="0.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AYQAAEAAgIAAAQgQIIMQBAEQAAAQAAIgBAAEAAAAEAA=</HashCode>
+      <FileName>C:\Users\100428864\Desktop\cinder_0.8.6_vc2013\cinder_0.8.6_vc2013\samples\_timeline\VisualDictionary\src\LeapKeyboard.cpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WordNode">
+    <Position X="6.5" Y="0.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAYAEAJQAAAAACABEIIAAAAAABAAiAAAAAAAAABIAgA=</HashCode>
+      <FileName>C:\Users\100428864\Desktop\cinder_0.8.6_vc2013\cinder_0.8.6_vc2013\samples\_timeline\VisualDictionary\include\LeapKeyboardLetters.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

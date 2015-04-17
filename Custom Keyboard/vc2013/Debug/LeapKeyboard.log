@@ -1,0 +1,14 @@
+﻿Build started 17/04/2015 6:38:42 PM.
+     1>Project "C:\Users\100428864\Desktop\University Stuff\Year 4\Invisible-Human-Computer-Interaction\Custom Keyboard\vc2013\LeapKeyboard.vcxproj" on node 2 (Rebuild target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\include /I..\..\..\..\include /I..\..\..\..\boost /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D NOMINMAX /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\src\LeapKeyboard.cpp ..\src\LeapKeyboardLetters.cpp
+         LeapKeyboardLetters.cpp
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\custom keyboard\include\leapkeyboardletters.h(3): fatal error C1083: Cannot open include file: 'cinder/Cinder.h': No such file or directory
+         LeapKeyboard.cpp
+     1>c:\users\100428864\desktop\university stuff\year 4\invisible-human-computer-interaction\custom keyboard\src\leapkeyboard.cpp(14): fatal error C1083: Cannot open include file: 'cinder/app/AppBasic.h': No such file or directory
+         Generating Code...
+     1>Done Building Project "C:\Users\100428864\Desktop\University Stuff\Year 4\Invisible-Human-Computer-Interaction\Custom Keyboard\vc2013\LeapKeyboard.vcxproj" (Rebuild target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:06.31
