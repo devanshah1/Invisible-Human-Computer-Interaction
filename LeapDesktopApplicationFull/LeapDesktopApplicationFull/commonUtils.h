@@ -141,14 +141,14 @@
 
 // Define global namespace used through out the project to use specific variable/functions
 // without specifying the full namespace for each call/variable declaration.
-using namespace ci;
-using namespace ci::app;
-using namespace std;
-using namespace gl;
-using namespace Leap;
+using namespace ci ;
+using namespace ci::app ;
+using namespace std ;
+using namespace gl ;
+using namespace Leap ;
 
 // Make use of the name-space Leap to avoid having to use Leap::
-using namespace Leap;
+using namespace Leap ;
 
 /*
 * Define the programming directives for making sure that the linker knows the lib's
